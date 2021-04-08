@@ -1,0 +1,10 @@
+﻿<modules>
+  <module 
+    path="D:\Projects\HoloApplication\Modules\Calculator\Calculator\bin\Release\Calculator.exe" 
+    arguments=""
+  />
+  <module 
+    path="D:\Projects\HoloApplication\Modules\CalculatorResult\CalculatorResult\bin\Release\CalculatorResult.exe" 
+    arguments="" 
+  />
+</modules>
