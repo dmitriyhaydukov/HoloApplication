@@ -1,10 +1,23 @@
 ﻿<modules>
+  
+  <module
+    path="D:\Projects\HoloApplication\Modules\ImageReader\ImageReader\bin\Release\ImageReader.exe"
+    arguments=""
+  />
+  
+  <module
+    path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
+    arguments=""
+  />
+  
+  <!--
   <module 
-    path="D:\Projects\HoloApplication\Modules\Calculator\Calculator\bin\Release\Calculator.exe" 
+    path="D:\Projects\HoloApplication\Modules\Calculator\Calculator\bin\Release\Calculator.exe"
     arguments=""
   />
   <module 
     path="D:\Projects\HoloApplication\Modules\CalculatorResult\CalculatorResult\bin\Release\CalculatorResult.exe" 
     arguments="" 
   />
+  -->
 </modules>
