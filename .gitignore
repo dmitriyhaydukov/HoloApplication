@@ -1,0 +1,10 @@
+*.suo
+*.user
+db.lock
+storage.ide
+storage.ide-shm
+storage.ide-wal
+*.pdb
+*/**/bin/Debug
+*/**/obj/Debug
+*/**/obj/Release
