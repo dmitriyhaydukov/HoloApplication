@@ -50,6 +50,11 @@
     <Compile Include="MemoryManagement\MemoryBaseProcessor.cs" />
     <Compile Include="MemoryManagement\MemoryWriter.cs" />
     <Compile Include="MemoryManagement\MemoryReader.cs" />
+    <Compile Include="MemoryManagement\TypeSizes.cs" />
+    <Compile Include="Modules\ModuleItem.cs" />
+    <Compile Include="Modules\ModulesList.cs" />
+    <Compile Include="Modules\ModulesReader.cs" />
+    <Compile Include="ProcessManagement\ProcessManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\Imaging\WriteableBitmapSerialization.cs" />
   </ItemGroup>

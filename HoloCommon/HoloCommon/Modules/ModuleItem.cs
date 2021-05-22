@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace HoloShell.Modules
+namespace HoloCommon.Modules
 {
     public class ModuleItem
     {
@@ -9,5 +9,8 @@ namespace HoloShell.Modules
 
         [XmlAttribute("arguments")]
         public string Arguments { get; set; }
+
+        [XmlAttribute("waitForExit")]
+        public bool WaitForExit { get; set; }
     }
 }

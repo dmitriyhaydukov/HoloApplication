@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageViewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="636.949" Width="1008.456">
+        Title="MainWindow" Height="1227.391" Width="1111.581">
     <Grid Margin="0,0,25,25">
-        <Image Name="MainImage" HorizontalAlignment="Left" Height="523" Margin="33,33,0,0" VerticalAlignment="Top" Width="900"/>
+        <StackPanel Orientation="Vertical">
+            <Image Name="MainImage" HorizontalAlignment="Left" Height="523" Margin="33,33,0,0" VerticalAlignment="Top" Width="900"/>
+            <Image Name="AuxImage" HorizontalAlignment="Left" Height="523" Margin="33,33,0,0"  Width="900"/>
+        </StackPanel>
     </Grid>
 </Window>

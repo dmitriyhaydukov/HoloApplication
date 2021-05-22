@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.MemoryMappedFiles;
 
-using HoloShell.Modules;
-using HoloShell.ProcessManagement;
+using HoloCommon.Modules;
+using HoloCommon.ProcessManagement;
 using HoloCommon.MemoryManagement;
 
 namespace HoloShell
@@ -28,10 +28,13 @@ namespace HoloShell
                     
                     string path = moduleItem.Path;
                     string arguments = moduleItem.Arguments;
+                    bool waitForExit = moduleItem.WaitForExit;
 
-                    ProcessManager.RunProcessAndWaitForExit(path, arguments);
+                    ProcessManager.RunProcess(path, arguments, waitForExit);
                 }
             }
+
+            Console.ReadLine();
         }
     }
 }

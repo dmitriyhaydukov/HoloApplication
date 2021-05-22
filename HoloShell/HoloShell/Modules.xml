@@ -2,12 +2,28 @@
   
   <module
     path="D:\Projects\HoloApplication\Modules\ImageReader\ImageReader\bin\Release\ImageReader.exe"
-    arguments=""
+    arguments="
+      D:\Images\Interferograms\Patterns\Period-80-Pixels.BMP 
+      D:\Images\IMG_0482_raw.JPG
+      D:\Images\Interferograms\20190216\4\Load\Original\b.bmp1.bmp
+      D:\Images\Interferograms\20190216\BackgroundPhoto\Original\w9.bmp
+      
+    "
+    waitForExit="true"
   />
+  
+  <!--
+  <module
+    path="D:\Projects\HoloApplication\Modules\ImageProcessor\ImageProcessor\bin\Release\ImageProcessor.exe"
+    arguments=""
+    waitForExit="true"
+  /> 
+  -->
   
   <module
     path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
     arguments=""
+    waitForExit="true"
   />
   
   <!--

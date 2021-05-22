@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 
-namespace HoloShell.ProcessManagement
+namespace HoloCommon.ProcessManagement
 {
     public class ProcessManager
     {
-        public static void RunProcessAndWaitForExit(string path, string arguments)
+        public static void RunProcess(string path, string arguments, bool waitForExit)
         {
             Process process = new Process();
             process.StartInfo.FileName = path;
@@ -12,7 +12,11 @@ namespace HoloShell.ProcessManagement
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = false;
             process.Start();
-            process.WaitForExit();
+
+            if (waitForExit)
+            {
+                process.WaitForExit();
+            }
         }
     }
 }

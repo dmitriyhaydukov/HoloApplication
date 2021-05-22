@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
+using HoloCommon.MemoryManagement;
 
 using HoloCommon.Interfaces;
 
@@ -13,40 +14,33 @@ namespace HoloCommon.Serialization.Imaging
 
             int width = obj.PixelWidth;
             int height = obj.PixelHeight;
-
-            int intSize = sizeof(int);
-
-            byte[] resBytes = new byte[intSize * 2 + imageBytes.Length];
+                        
+            byte[] resBytes = new byte[TypeSizes.SIZE_INT * 2 + imageBytes.Length];
             byte[] widthBytes = BitConverter.GetBytes(width);
             byte[] heightBytes = BitConverter.GetBytes(height);
 
             Array.Copy(widthBytes, 0, resBytes, 0, widthBytes.Length);
-            Array.Copy(heightBytes, 0, resBytes, intSize, heightBytes.Length);
-            Array.Copy(imageBytes, 0, resBytes, 2 * intSize, imageBytes.Length);          
+            Array.Copy(heightBytes, 0, resBytes, TypeSizes.SIZE_INT, heightBytes.Length);
+            Array.Copy(imageBytes, 0, resBytes, 2 * TypeSizes.SIZE_INT, imageBytes.Length);    
 
             return resBytes;
         }
 
         public WriteableBitmap Deserialize(byte[] bytes)
         {
-            int intSize = sizeof(int);
+            byte[] widthBytes = new byte[TypeSizes.SIZE_INT];
+            byte[] heightBytes = new byte[TypeSizes.SIZE_INT];
 
-            byte[] widthBytes = new byte[intSize];
-            byte[] heightBytes = new byte[intSize];
-
-            Array.Copy(bytes, 0, widthBytes, 0, intSize);
-            Array.Copy(bytes, intSize, heightBytes, 0, intSize);
+            Array.Copy(bytes, 0, widthBytes, 0, TypeSizes.SIZE_INT);
+            Array.Copy(bytes, TypeSizes.SIZE_INT, heightBytes, 0, TypeSizes.SIZE_INT);
 
             int width = BitConverter.ToInt32(widthBytes, 0);
             int height = BitConverter.ToInt32(heightBytes, 0);
 
             WriteableBitmap obj = BitmapFactory.New(width, height);
             int imageSize = width * height * (obj.Format.BitsPerPixel / 8);
-            
-            byte[] imageBytes = new byte[imageSize];
-            Array.Copy(bytes, 2 * intSize, imageBytes, 0, imageSize);
-
-            obj.FromByteArray(imageBytes);
+                        
+            obj.FromByteArray(bytes, 2 * TypeSizes.SIZE_INT, imageSize);
 
             return obj;
         }

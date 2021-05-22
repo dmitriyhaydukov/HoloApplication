@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using System.IO;
 
-namespace HoloShell.Modules
+namespace HoloCommon.Modules
 {
     public class ModulesReader
     {

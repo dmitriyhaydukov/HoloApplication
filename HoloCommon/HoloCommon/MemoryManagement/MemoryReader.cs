@@ -1,6 +1,8 @@
 ﻿using HoloCommon.Interfaces;
 using System.IO;
 using System.IO.MemoryMappedFiles;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HoloCommon.MemoryManagement
 {
@@ -35,7 +37,36 @@ namespace HoloCommon.MemoryManagement
 
             return ExecuteRead<T>(readAction, offset);          
         }
-        
+
+        public static IEnumerable<T> ReadCollection<T>(IBinarySerialization<T> serialization, long offset = 0)
+        {
+            List<T> collection = new List<T>();
+            int count = ReadInt32(offset);
+
+            T obj = default(T);
+            int length = 0;
+            byte[] bytes = null;
+
+            ReadAction<T> readAction = (binaryReader) =>
+            {
+                obj = default(T);
+                length = binaryReader.ReadInt32();
+                bytes = binaryReader.ReadBytes(length);
+                obj = serialization.Deserialize(bytes);
+                return obj;
+            };
+
+            long currentOffset = offset + TypeSizes.SIZE_INT;
+            for (int k = 0; k < count; k++)
+            {
+                ExecuteRead<T>(readAction, currentOffset);
+                collection.Add(obj);
+                currentOffset = currentOffset + TypeSizes.SIZE_INT + length;
+            }
+
+            return collection;
+        }
+
         public static bool ReadBoolean(long offset = 0)
         {
             ReadAction<bool> readAction = (binaryReader) =>

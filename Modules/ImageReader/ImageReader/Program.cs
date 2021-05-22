@@ -1,4 +1,6 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System;
+using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 
 using HoloCommon.Serialization.Imaging;
 using HoloCommon.MemoryManagement;
@@ -11,9 +13,21 @@ namespace ImageReader
     {
         static void Main(string[] args)
         {
-            string filePath = @"D:\Images\canon_eos_m50_02.jpg";
-            WriteableBitmap writeableBitmap = WriteableBitmapCreator.CreateWriteableBitmapFromFile(filePath);
-            MemoryWriter.Write(writeableBitmap, new WriteableBitmapSerialization());
+            if (args.Length == 0)
+            {
+                Console.WriteLine("File apth for iamge is not specified");
+            }
+
+            List<WriteableBitmap> images = new List<WriteableBitmap>();
+            for (int k = 0; k < args.Length; k++)
+            {
+                string filePath = args[k];
+                WriteableBitmap writeableBitmap = WriteableBitmapCreator.CreateWriteableBitmapFromFile(filePath);
+                images.Add(writeableBitmap);
+            }
+
+            //Write images to memory
+            MemoryWriter.WriteCollection<WriteableBitmap>(images, new WriteableBitmapSerialization());
         }
     }
 }

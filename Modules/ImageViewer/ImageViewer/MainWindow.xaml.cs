@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,9 +27,11 @@ namespace ImageViewer
         public MainWindow()
         {
             InitializeComponent();
+                        
+            IEnumerable<WriteableBitmap> images = MemoryReader.ReadCollection(new WriteableBitmapSerialization());
 
-            WriteableBitmap writeableBitmap = MemoryReader.Read<WriteableBitmap>(new WriteableBitmapSerialization());
-            this.MainImage.Source = writeableBitmap;
+            this.MainImage.Source = images.First();
+            this.AuxImage.Source = images.Last();
         }
     }
 }
