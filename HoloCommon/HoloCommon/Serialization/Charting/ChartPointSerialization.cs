@@ -40,10 +40,8 @@ namespace HoloCommon.Serialization.Charting
             double x = BitConverter.ToInt32(xBytes, 0);
             double y = BitConverter.ToInt32(yBytes, 0);
 
-            ChartPoint chartPoint = new ChartPoint();
-            chartPoint.X = x;
-            chartPoint.Y = y;
-
+            ChartPoint chartPoint = new ChartPoint(x, y);
+            
             return chartPoint;
         }
     }
