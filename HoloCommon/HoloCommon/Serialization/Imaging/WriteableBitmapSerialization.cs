@@ -21,7 +21,7 @@ namespace HoloCommon.Serialization.Imaging
 
             Array.Copy(widthBytes, 0, resBytes, 0, widthBytes.Length);
             Array.Copy(heightBytes, 0, resBytes, TypeSizes.SIZE_INT, heightBytes.Length);
-            Array.Copy(imageBytes, 0, resBytes, 2 * TypeSizes.SIZE_INT, imageBytes.Length);    
+            Array.Copy(imageBytes, 0, resBytes, 2 * TypeSizes.SIZE_INT, imageBytes.Length);
 
             return resBytes;
         }
