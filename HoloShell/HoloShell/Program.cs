@@ -9,11 +9,20 @@ using HoloCommon.Modules;
 using HoloCommon.ProcessManagement;
 using HoloCommon.MemoryManagement;
 
+using HoloCommon.Models.Charting;
+using HoloCommon.Serialization.Charting;
+
 namespace HoloShell
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            Run();
+            //Test();
+        }
+
+        static void Run()
         {
             Console.WriteLine("***Holo shell***");
 
@@ -22,10 +31,10 @@ namespace HoloShell
 
             using (MemoryMappedFile mmf = MemoryBaseProcessor.CreateMMF())
             {
-                for(int k = 0; k < modulesList.ModuleItems.Count; k++)
+                for (int k = 0; k < modulesList.ModuleItems.Count; k++)
                 {
                     ModuleItem moduleItem = modulesList.ModuleItems[k];
-                    
+
                     string path = moduleItem.Path;
                     string arguments = moduleItem.Arguments;
                     bool waitForExit = moduleItem.WaitForExit;
@@ -36,5 +45,33 @@ namespace HoloShell
 
             Console.ReadLine();
         }
+
+        static void Test()
+        {
+            using (MemoryMappedFile mmf = MemoryBaseProcessor.CreateMMF())
+            {
+                Chart chart = new Chart();
+                ChartSeries chartSeries = new ChartSeries()
+                {
+                    Points = new List<ChartPoint>()
+                    {
+                        new ChartPoint(1, 1),
+                        new ChartPoint(2, 2),
+                        new ChartPoint(3, 3)
+                    }
+                };
+
+                chart.SeriesCollection = new List<ChartSeries>()
+                {
+                    chartSeries
+                };
+
+                ChartSerialization cs = new ChartSerialization();
+                MemoryWriter.Write<Chart>(chart, cs);
+
+                chart = MemoryReader.Read<Chart>(cs);
+            }
+        }
+
     }
 }

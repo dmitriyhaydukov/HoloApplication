@@ -38,7 +38,7 @@ namespace AppTest
             ChartSerialization cs = new ChartSerialization();
             MemoryWriter.Write<Chart>(chart, cs);
 
-            Chart desChart = MemoryReader.Read<Chart>(cs);
+            chart = MemoryReader.Read<Chart>(cs);
         }
     }
 }
