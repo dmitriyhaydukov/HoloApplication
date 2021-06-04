@@ -37,8 +37,8 @@ namespace HoloCommon.Serialization.Charting
             Array.Copy(bytes, 0, xBytes, 0, TypeSizes.SIZE_DOUBLE);
             Array.Copy(bytes, TypeSizes.SIZE_DOUBLE, yBytes, 0, TypeSizes.SIZE_DOUBLE);
 
-            double x = BitConverter.ToInt32(xBytes, 0);
-            double y = BitConverter.ToInt32(yBytes, 0);
+            double x = BitConverter.ToDouble(xBytes, 0);
+            double y = BitConverter.ToDouble(yBytes, 0);
 
             ChartPoint chartPoint = new ChartPoint(x, y);
             
