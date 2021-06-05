@@ -14,10 +14,10 @@ namespace AppTest
     {
         static void Main(string[] args)
         {
-
+            WriteChart();
         }
 
-        static void TestCharting()
+        static void WriteChart()
         {
             Chart chart = new Chart();
             ChartSeries chartSeries = new ChartSeries()
@@ -39,9 +39,7 @@ namespace AppTest
             };
 
             ChartSerialization cs = new ChartSerialization();
-            MemoryWriter.Write<Chart>(chart, cs);
-
-            //chart = MemoryReader.Read<Chart>(cs);
+            MemoryWriter.Write<Chart>(chart, cs);           
         }
     }
 }

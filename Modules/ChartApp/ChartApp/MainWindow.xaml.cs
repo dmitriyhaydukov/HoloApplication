@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO.MemoryMappedFiles;
 
 using LiveCharts;
 using LiveCharts.Wpf;
@@ -42,6 +43,14 @@ namespace ChartApp
         private void InitChart()
         {
             ReadSeriesCollection();
+            
+            /*
+            using (MemoryMappedFile mmf = MemoryBaseProcessor.CreateMMF())
+            {
+                WriteChart();
+                ReadSeriesCollection();
+            }
+            */
         }
 
         private void ReadSeriesCollection()
@@ -64,6 +73,31 @@ namespace ChartApp
             Labels = first.Points.Select(x => x.X.ToString()).ToArray();
             SeriesCollection = lvSeriesCollection;
             YFormatter = value => value.ToString();
+        }
+
+        private void WriteChart()
+        {
+            Chart chart = new Chart();
+            ChartSeries chartSeries = new ChartSeries()
+            {
+                Points = new List<HoloCommon.Models.Charting.ChartPoint>()
+                {
+                    new HoloCommon.Models.Charting.ChartPoint(1, 1),
+                    new HoloCommon.Models.Charting.ChartPoint(2, 6),
+                    new HoloCommon.Models.Charting.ChartPoint(3, 3),
+                    new HoloCommon.Models.Charting.ChartPoint(4, 7),
+                    new HoloCommon.Models.Charting.ChartPoint(5, 2),
+                    new HoloCommon.Models.Charting.ChartPoint(6, 5)
+                }
+            };
+
+            chart.SeriesCollection = new List<ChartSeries>()
+            {
+                chartSeries
+            };
+
+            ChartSerialization cs = new ChartSerialization();
+            MemoryWriter.Write<Chart>(chart, cs);    
         }
     }
 }
