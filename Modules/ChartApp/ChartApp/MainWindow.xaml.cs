@@ -66,12 +66,13 @@ namespace ChartApp
                 {
                     Values = new ChartValues<double>(chartSeries.Points.Select(x => x.Y)),
                     Stroke = Brushes.Black,
-                    Fill = Brushes.Transparent
+                    Fill = Brushes.Transparent,
+                    LineSmoothness = 0
                 };
                 lvSeriesCollection.Add(lineSeries);
             }
 
-            Labels = first.Points.Select(x => x.X.ToString()).ToArray();
+            //Labels = first.Points.Select(x => x.X.ToString()).ToArray();
             SeriesCollection = lvSeriesCollection;
             YFormatter = value => value.ToString();
         }
