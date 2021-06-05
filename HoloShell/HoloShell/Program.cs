@@ -48,6 +48,11 @@ namespace HoloShell
 
         static void Test()
         {
+            TestCharting();
+        }
+
+        static void TestCharting()
+        {
             using (MemoryMappedFile mmf = MemoryBaseProcessor.CreateMMF())
             {
                 Chart chart = new Chart();
@@ -56,8 +61,11 @@ namespace HoloShell
                     Points = new List<ChartPoint>()
                     {
                         new ChartPoint(1, 1),
-                        new ChartPoint(2, 2),
-                        new ChartPoint(3, 3)
+                        new ChartPoint(2, 6),
+                        new ChartPoint(3, 3),
+                        new ChartPoint(4, 7),
+                        new ChartPoint(5, 2),
+                        new ChartPoint(6, 5)
                     }
                 };
 
@@ -72,6 +80,5 @@ namespace HoloShell
                 chart = MemoryReader.Read<Chart>(cs);
             }
         }
-
     }
 }

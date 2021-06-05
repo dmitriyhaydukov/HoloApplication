@@ -24,9 +24,12 @@ namespace AppTest
             {
                 Points = new List<ChartPoint>()
                 {
-                    new ChartPoint(1, 1),
+                    new ChartPoint(1, 8),
                     new ChartPoint(2, 2),
-                    new ChartPoint(3, 3)
+                    new ChartPoint(3, 3),
+                    new ChartPoint(4, 1),
+                    new ChartPoint(5, 2),
+                    new ChartPoint(6, 7)
                 }
             };
 
@@ -38,7 +41,7 @@ namespace AppTest
             ChartSerialization cs = new ChartSerialization();
             MemoryWriter.Write<Chart>(chart, cs);
 
-            chart = MemoryReader.Read<Chart>(cs);
+            //chart = MemoryReader.Read<Chart>(cs);
         }
     }
 }

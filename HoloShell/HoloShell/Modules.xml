@@ -1,5 +1,14 @@
 ﻿<modules>
-  
+  <module
+    path="D:\Projects\HoloApplication\Modules\AppTest\AppTest\bin\Release\AppTest.exe"
+    waitForExit="true"
+  />
+  <module
+    path="D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe"
+    waitForExit="true"
+  />  
+
+  <!--      
   <module
     path="D:\Projects\HoloApplication\Modules\ImageReader\ImageReader\bin\Release\ImageReader.exe"
     arguments="
@@ -11,7 +20,7 @@
     "
     waitForExit="true"
   />
-  
+  -->
   <!--
   <module
     path="D:\Projects\HoloApplication\Modules\ImageProcessor\ImageProcessor\bin\Release\ImageProcessor.exe"
@@ -19,13 +28,13 @@
     waitForExit="true"
   /> 
   -->
-  
+  <!--
   <module
     path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
     arguments=""
     waitForExit="true"
   />
-  
+  -->
   <!--
   <module 
     path="D:\Projects\HoloApplication\Modules\Calculator\Calculator\bin\Release\Calculator.exe"
