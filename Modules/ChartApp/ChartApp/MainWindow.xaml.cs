@@ -65,7 +65,8 @@ namespace ChartApp
                 LineSeries lineSeries = new LineSeries()
                 {
                     Values = new ChartValues<double>(chartSeries.Points.Select(x => x.Y)),
-                    PointGeometry = null
+                    Stroke = Brushes.Black,
+                    Fill = Brushes.Transparent
                 };
                 lvSeriesCollection.Add(lineSeries);
             }
