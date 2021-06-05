@@ -23,16 +23,17 @@ namespace AppTest
             ChartSeries chartSeries = new ChartSeries()
             {
                 Points = new List<ChartPoint>()
-                {
-                    new ChartPoint(1, 8),
-                    new ChartPoint(2, 2),
-                    new ChartPoint(3, 3),
-                    new ChartPoint(4, 1),
-                    new ChartPoint(5, 2),
-                    new ChartPoint(6, 7)
-                }
             };
-
+            Random rnd = new Random();
+            
+            int count = 1000;
+            int maxValue = 256;
+            for (int x = 0; x < count; x++)
+            {
+                ChartPoint point = new ChartPoint(x, rnd.Next(maxValue));
+                chartSeries.Points.Add(point);
+            }
+                        
             chart.SeriesCollection = new List<ChartSeries>()
             {
                 chartSeries
