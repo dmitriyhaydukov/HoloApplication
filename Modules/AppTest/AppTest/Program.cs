@@ -20,23 +20,25 @@ namespace AppTest
         static void WriteChart()
         {
             Chart chart = new Chart();
-            ChartSeries chartSeries = new ChartSeries()
-            {
-                Points = new List<ChartPoint>()
-            };
+            ChartSeries chartSeries1 = new ChartSeries() { Points = new List<ChartPoint>() };
+            ChartSeries chartSeries2 = new ChartSeries() { Points = new List<ChartPoint>() };
+
             Random rnd = new Random();
             
-            int count = 6000;
-            int maxValue = 256;
-            for (int x = 0; x < count; x++)
+            int count = 50;
+            for (double x = 0; x < count; x += 0.1)
             {
-                ChartPoint point = new ChartPoint(x, rnd.Next(maxValue));
-                chartSeries.Points.Add(point);
+                ChartPoint point1 = new ChartPoint(x, Math.Sin(x));
+                chartSeries1.Points.Add(point1);
+
+                ChartPoint point2 = new ChartPoint(x, Math.Cos(x));
+                chartSeries2.Points.Add(point2);
             }
                         
             chart.SeriesCollection = new List<ChartSeries>()
             {
-                chartSeries
+                chartSeries1,
+                chartSeries2
             };
 
             ChartSerialization cs = new ChartSerialization();
