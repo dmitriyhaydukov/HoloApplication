@@ -26,7 +26,7 @@ namespace AppTest
             };
             Random rnd = new Random();
             
-            int count = 1000;
+            int count = 6000;
             int maxValue = 256;
             for (int x = 0; x < count; x++)
             {
