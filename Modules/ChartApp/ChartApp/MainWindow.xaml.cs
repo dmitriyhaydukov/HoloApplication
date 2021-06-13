@@ -20,6 +20,7 @@ using HoloCommon.Serialization.Charting;
 
 using ScottPlot;
 using ScottPlot.Plottable;
+using ScottPlot.Renderable;
 
 namespace ChartApp
 {
@@ -46,8 +47,8 @@ namespace ChartApp
 
             double[] dataX = first.Points.Select(p => p.X).ToArray();
 
-            double annotationCoordinateX = 10;
-            double annotationCoordinateY = 0;
+            //double annotationCoordinateX = 10;
+            //double annotationCoordinateY = 0;
 
             int count = chart.SeriesCollection.Count();
             for (int k = 0; k < count; k++)
@@ -59,17 +60,25 @@ namespace ChartApp
                 int r = series.ColorDescriptor.R;
                 int g = series.ColorDescriptor.G;
                 int b = series.ColorDescriptor.B;
-
                 System.Drawing.Color color = System.Drawing.Color.FromArgb(r, g, b);
-
                 scatterPlot.Color = color;
+                scatterPlot.Label = series.Name;
                 
+                /*
                 Annotation annotation = this.mainPlot.Plot.AddAnnotation(series.Name, annotationCoordinateX, annotationCoordinateY);
                 annotation.BackgroundColor = color;
                 annotation.Shadow = false;
-
+                
                 annotationCoordinateY += 25;
+                */
             }
+
+            Legend legend = this.mainPlot.Plot.Legend();
+            legend.IsVisible = true;
+            legend.FontName = "comic sans ms";
+            legend.FontSize = 18;
+            legend.FontColor = System.Drawing.Color.DarkBlue;
+
         }
     }
 }
