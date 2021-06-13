@@ -20,8 +20,8 @@ namespace AppTest
         static void WriteChart()
         {
             Chart chart = new Chart();
-            ChartSeries chartSeries1 = new ChartSeries() { Points = new List<ChartPoint>() };
-            ChartSeries chartSeries2 = new ChartSeries() { Points = new List<ChartPoint>() };
+            ChartSeries chartSeries1 = new ChartSeries() { Name = "Sin", Points = new List<ChartPoint>() };
+            ChartSeries chartSeries2 = new ChartSeries() { Name = "Cos", Points = new List<ChartPoint>() };
 
             Random rnd = new Random();
             

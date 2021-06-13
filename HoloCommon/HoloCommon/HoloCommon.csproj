@@ -63,6 +63,7 @@
     <Compile Include="Serialization\Charting\ChartSerialization.cs" />
     <Compile Include="Serialization\Charting\ChartSeriesSerialization.cs" />
     <Compile Include="Serialization\Imaging\WriteableBitmapSerialization.cs" />
+    <Compile Include="Serialization\Text\StringSerialization.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -44,6 +44,9 @@ namespace ChartApp
 
             double[] dataX = first.Points.Select(p => p.X).ToArray();
 
+            double annotationCoordinateX = 10;
+            double annotationCoordinateY = 0;
+
             int count = chart.SeriesCollection.Count();
             for (int k = 0; k < count; k++)
             {
@@ -51,7 +54,10 @@ namespace ChartApp
                 double[] dataY = series.Points.Select(p => p.Y).ToArray();
 
                 this.mainPlot.Plot.AddScatter(dataX, dataY);
-            }         
+                this.mainPlot.Plot.AddAnnotation(series.Name, annotationCoordinateX, annotationCoordinateY);
+
+                annotationCoordinateY += 25;
+            }
         }
     }
 }
