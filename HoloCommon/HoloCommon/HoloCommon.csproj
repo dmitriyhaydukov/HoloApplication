@@ -54,6 +54,7 @@
     <Compile Include="Models\Charting\Chart.cs" />
     <Compile Include="Models\Charting\ChartPoint.cs" />
     <Compile Include="Models\Charting\ChartSeries.cs" />
+    <Compile Include="Models\General\ColorDescriptor.cs" />
     <Compile Include="Modules\ModuleItem.cs" />
     <Compile Include="Modules\ModulesList.cs" />
     <Compile Include="Modules\ModulesReader.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Serialization\Charting\ChartPointSerialization.cs" />
     <Compile Include="Serialization\Charting\ChartSerialization.cs" />
     <Compile Include="Serialization\Charting\ChartSeriesSerialization.cs" />
+    <Compile Include="Serialization\General\ColorDescriptorSerialization.cs" />
     <Compile Include="Serialization\Imaging\WriteableBitmapSerialization.cs" />
     <Compile Include="Serialization\Text\StringSerialization.cs" />
   </ItemGroup>

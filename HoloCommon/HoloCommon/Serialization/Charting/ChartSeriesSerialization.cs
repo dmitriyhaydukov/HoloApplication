@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using HoloCommon.MemoryManagement;
 using HoloCommon.Models.Charting;
+using HoloCommon.Models.General;
 
 using HoloCommon.Interfaces;
 using HoloCommon.Serialization.Text;
+using HoloCommon.Serialization.General;
 
 namespace HoloCommon.Serialization.Charting
 {
@@ -15,12 +17,19 @@ namespace HoloCommon.Serialization.Charting
         {
             List<byte> resBytes = new List<byte>();
 
+            //Name
             StringSerialization ss = new StringSerialization();
             byte[] nameBytes = ss.Serialize(obj.Name);
             byte[] lengthBytes = BitConverter.GetBytes(nameBytes.Length);
             resBytes.AddRange(lengthBytes);
             resBytes.AddRange(nameBytes);
 
+            //Color
+            ColorDescriptorSerialization cds = new ColorDescriptorSerialization();
+            byte[] colorBytes = cds.Serialize(obj.ColorDescriptor);
+            resBytes.AddRange(colorBytes);
+
+            //Points
             ChartPointSerialization cps = new ChartPointSerialization();
             for (int k = 0; k < obj.Points.Count(); k++)
             {
@@ -36,9 +45,11 @@ namespace HoloCommon.Serialization.Charting
             ChartSeries chartSeries = new ChartSeries()
             {
                 Name = null,
+                ColorDescriptor = null,
                 Points = new List<ChartPoint>()
             };
 
+            //Name
             StringSerialization ss = new StringSerialization();
             byte[] nameLengthBytes = new byte[TypeSizes.SIZE_INT];
             Array.Copy(bytes, 0, nameLengthBytes, 0, TypeSizes.SIZE_INT);
@@ -48,10 +59,17 @@ namespace HoloCommon.Serialization.Charting
             Array.Copy(bytes, TypeSizes.SIZE_INT, nameBytes, 0, length);
             string name = ss.Deserialize(nameBytes);
 
-            chartSeries.Name = name;
+            int colorOffset = TypeSizes.SIZE_INT + nameBytes.Length;
 
+            //Color
+            ColorDescriptorSerialization cds = new ColorDescriptorSerialization();
+            byte[] colorBytes = new byte[cds.SizeInBytes];
+            Array.Copy(bytes, colorOffset, colorBytes, 0, cds.SizeInBytes);
+            ColorDescriptor colorDescriptor = cds.Deserialize(colorBytes);
+
+            //Points
             ChartPointSerialization cps = new ChartPointSerialization();
-            int offset = nameBytes.Length + TypeSizes.SIZE_INT;
+            int offset = colorOffset + cds.SizeInBytes;
             while (offset < bytes.Count())
             {
                 byte[] pointBytes = new byte[cps.SizeInBytes];
@@ -60,6 +78,10 @@ namespace HoloCommon.Serialization.Charting
                 chartSeries.Points.Add(point);
                 offset += cps.SizeInBytes;
             }
+
+            chartSeries.Name = name;
+            chartSeries.ColorDescriptor = colorDescriptor;
+
             return chartSeries;
         }
     }

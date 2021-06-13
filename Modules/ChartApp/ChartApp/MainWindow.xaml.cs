@@ -18,6 +18,8 @@ using HoloCommon.Models.Charting;
 using HoloCommon.MemoryManagement;
 using HoloCommon.Serialization.Charting;
 
+using ScottPlot;
+using ScottPlot.Plottable;
 
 namespace ChartApp
 {
@@ -53,8 +55,18 @@ namespace ChartApp
                 ChartSeries series = chart.SeriesCollection[k];
                 double[] dataY = series.Points.Select(p => p.Y).ToArray();
 
-                this.mainPlot.Plot.AddScatter(dataX, dataY);
-                this.mainPlot.Plot.AddAnnotation(series.Name, annotationCoordinateX, annotationCoordinateY);
+                ScatterPlot scatterPlot = this.mainPlot.Plot.AddScatter(dataX, dataY);
+                int r = series.ColorDescriptor.R;
+                int g = series.ColorDescriptor.G;
+                int b = series.ColorDescriptor.B;
+
+                System.Drawing.Color color = System.Drawing.Color.FromArgb(r, g, b);
+
+                scatterPlot.Color = color;
+                
+                Annotation annotation = this.mainPlot.Plot.AddAnnotation(series.Name, annotationCoordinateX, annotationCoordinateY);
+                annotation.BackgroundColor = color;
+                annotation.Shadow = false;
 
                 annotationCoordinateY += 25;
             }

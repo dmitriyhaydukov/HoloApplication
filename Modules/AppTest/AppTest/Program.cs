@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using HoloCommon.Models.Charting;
+using HoloCommon.Models.General;
 using HoloCommon.Serialization.Charting;
 using HoloCommon.MemoryManagement;
 
@@ -20,8 +21,8 @@ namespace AppTest
         static void WriteChart()
         {
             Chart chart = new Chart();
-            ChartSeries chartSeries1 = new ChartSeries() { Name = "Sin", Points = new List<ChartPoint>() };
-            ChartSeries chartSeries2 = new ChartSeries() { Name = "Cos", Points = new List<ChartPoint>() };
+            ChartSeries chartSeries1 = new ChartSeries() { Name = "Sin", ColorDescriptor = new ColorDescriptor(255, 0, 0), Points = new List<ChartPoint>() };
+            ChartSeries chartSeries2 = new ChartSeries() { Name = "Cos", ColorDescriptor = new ColorDescriptor(0, 255, 0), Points = new List<ChartPoint>() };
 
             Random rnd = new Random();
             
