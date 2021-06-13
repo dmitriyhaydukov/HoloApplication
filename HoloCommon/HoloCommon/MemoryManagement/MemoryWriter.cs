@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace HoloCommon.MemoryManagement
 {
@@ -216,7 +217,8 @@ namespace HoloCommon.MemoryManagement
             WriteAction writeAction = (binaryWriter) =>
             {
                 binaryWriter.Write(value);
-                return 0; //TODO: Calculate length of string
+                int bytesCount = Encoding.Unicode.GetByteCount(value) + 1;
+                return bytesCount;
             };
 
             return ExecuteWrite(writeAction, offset);
