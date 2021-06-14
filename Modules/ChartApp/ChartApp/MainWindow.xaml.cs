@@ -80,7 +80,20 @@ namespace ChartApp
             scatterPlot.Color = color;
             scatterPlot.Label = series.Name;
         }
-                
+
+
+        private void AddScatterPlot(ChartSeries series)
+        {
+            double[] dataX = series.Points.Select(p => p.X).ToArray();
+            double[] dataY = series.Points.Select(p => p.Y).ToArray();
+
+            ScatterPlot scatterPlot = this.mainPlot.Plot.AddScatter(dataX, dataY);
+            System.Drawing.Color color = GetColor(series.ColorDescriptor);
+            scatterPlot.Color = color;
+            scatterPlot.Label = series.Name;
+        }
+
+
         private void AddBubblePlot(ChartSeries series)
         {
             BubblePlot bubblePlot = this.mainPlot.Plot.AddBubblePlot();

@@ -4,6 +4,7 @@
     {
         Unknown =   0,
         Linear =    1,
-        Bubble =    2
+        Bubble =    2,
+        Scatter =   3
     }
 }
