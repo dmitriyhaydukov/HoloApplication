@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumeration\Charting\ChartSeriesType.cs" />
     <Compile Include="Interfaces\IBinarySerialization.cs" />
     <Compile Include="MemoryManagement\MemoryBaseProcessor.cs" />
     <Compile Include="MemoryManagement\MemoryWriter.cs" />

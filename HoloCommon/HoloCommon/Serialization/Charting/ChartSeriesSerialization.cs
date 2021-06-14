@@ -5,6 +5,8 @@ using HoloCommon.MemoryManagement;
 using HoloCommon.Models.Charting;
 using HoloCommon.Models.General;
 
+using HoloCommon.Enumeration.Charting;
+
 using HoloCommon.Interfaces;
 using HoloCommon.Serialization.Text;
 using HoloCommon.Serialization.General;
@@ -23,6 +25,10 @@ namespace HoloCommon.Serialization.Charting
             byte[] lengthBytes = BitConverter.GetBytes(nameBytes.Length);
             resBytes.AddRange(lengthBytes);
             resBytes.AddRange(nameBytes);
+
+            //Type
+            byte[] typeBytes = BitConverter.GetBytes((short)obj.Type);
+            resBytes.AddRange(typeBytes);
 
             //Color
             ColorDescriptorSerialization cds = new ColorDescriptorSerialization();
@@ -59,7 +65,14 @@ namespace HoloCommon.Serialization.Charting
             Array.Copy(bytes, TypeSizes.SIZE_INT, nameBytes, 0, length);
             string name = ss.Deserialize(nameBytes);
 
-            int colorOffset = TypeSizes.SIZE_INT + nameBytes.Length;
+            int typeOffset = TypeSizes.SIZE_INT + nameBytes.Length;
+
+            //Type
+            byte[] typeBytes = new byte[TypeSizes.SIZE_SHORT];
+            Array.Copy(bytes, typeOffset, typeBytes, 0, TypeSizes.SIZE_SHORT);
+            ChartSeriesType seriesType = (ChartSeriesType)BitConverter.ToInt16(typeBytes, 0);
+
+            int colorOffset = typeOffset + TypeSizes.SIZE_SHORT;
 
             //Color
             ColorDescriptorSerialization cds = new ColorDescriptorSerialization();

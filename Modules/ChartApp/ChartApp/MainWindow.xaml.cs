@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.IO.MemoryMappedFiles;
 
 using HoloCommon.Models.Charting;
+using HoloCommon.Models.General;
+using HoloCommon.Enumeration.Charting;
 using HoloCommon.MemoryManagement;
 using HoloCommon.Serialization.Charting;
 
@@ -46,39 +48,58 @@ namespace ChartApp
             ChartSeries first = chart.SeriesCollection.First();
 
             double[] dataX = first.Points.Select(p => p.X).ToArray();
-
-            //double annotationCoordinateX = 10;
-            //double annotationCoordinateY = 0;
-
+                        
             int count = chart.SeriesCollection.Count();
             for (int k = 0; k < count; k++)
             {
                 ChartSeries series = chart.SeriesCollection[k];
-                double[] dataY = series.Points.Select(p => p.Y).ToArray();
-
-                ScatterPlot scatterPlot = this.mainPlot.Plot.AddScatter(dataX, dataY);
-                int r = series.ColorDescriptor.R;
-                int g = series.ColorDescriptor.G;
-                int b = series.ColorDescriptor.B;
-                System.Drawing.Color color = System.Drawing.Color.FromArgb(r, g, b);
-                scatterPlot.Color = color;
-                scatterPlot.Label = series.Name;
-                
-                /*
-                Annotation annotation = this.mainPlot.Plot.AddAnnotation(series.Name, annotationCoordinateX, annotationCoordinateY);
-                annotation.BackgroundColor = color;
-                annotation.Shadow = false;
-                
-                annotationCoordinateY += 25;
-                */
+                this.AddLinearPlot(series, dataX);         
             }
 
+            this.InitLegend();
+        }
+
+        private void AddLinearPlot(ChartSeries series, double[] dataX)
+        {
+            double[] dataY = series.Points.Select(p => p.Y).ToArray();
+
+            ScatterPlot scatterPlot = this.mainPlot.Plot.AddScatter(dataX, dataY);
+            System.Drawing.Color color = GetColor(series.ColorDescriptor);
+            scatterPlot.Color = color;
+            scatterPlot.Label = series.Name;
+        }
+
+        /*
+        private void AddBubblePlot(ChartSeries series)
+        {
+            BubblePlot bubblePlot = this.mainPlot.Plot.AddBubblePlot();
+            System.Drawing.Color color = GetColor(series.ColorDescriptor);
+
+            int count = series.Points.Count();
+            for (int j = 0; j < count; j++)
+            {
+                
+            }
+
+            bubblePlot.Add()
+        }
+        */
+
+        private void InitLegend()
+        {
             Legend legend = this.mainPlot.Plot.Legend();
             legend.IsVisible = true;
             legend.FontName = "comic sans ms";
             legend.FontSize = 18;
             legend.FontColor = System.Drawing.Color.DarkBlue;
+        }
 
+        private System.Drawing.Color GetColor(ColorDescriptor colorDescriptor)
+        {
+            int r = colorDescriptor.R;
+            int g = colorDescriptor.G;
+            int b = colorDescriptor.B;
+            return System.Drawing.Color.FromArgb(r, g, b);
         }
     }
 }
