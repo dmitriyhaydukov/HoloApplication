@@ -93,6 +93,7 @@ namespace HoloCommon.Serialization.Charting
             }
 
             chartSeries.Name = name;
+            chartSeries.Type = seriesType;
             chartSeries.ColorDescriptor = colorDescriptor;
 
             return chartSeries;

@@ -44,6 +44,8 @@ namespace ChartApp
 
         private void ReadChart()
         {
+            this.InitLegend();
+
             Chart chart = MemoryReader.Read<Chart>(new ChartSerialization());
             ChartSeries first = chart.SeriesCollection.First();
 
@@ -53,10 +55,20 @@ namespace ChartApp
             for (int k = 0; k < count; k++)
             {
                 ChartSeries series = chart.SeriesCollection[k];
-                this.AddLinearPlot(series, dataX);         
-            }
-
-            this.InitLegend();
+                switch(series.Type)
+                {
+                    case ChartSeriesType.Linear:
+                        {
+                            this.AddLinearPlot(series, dataX);
+                            break;
+                        }
+                    case ChartSeriesType.Bubble:
+                        {
+                            this.AddBubblePlot(series);
+                            break;
+                        }
+                }                         
+            }          
         }
 
         private void AddLinearPlot(ChartSeries series, double[] dataX)
@@ -68,22 +80,20 @@ namespace ChartApp
             scatterPlot.Color = color;
             scatterPlot.Label = series.Name;
         }
-
-        /*
+                
         private void AddBubblePlot(ChartSeries series)
         {
             BubblePlot bubblePlot = this.mainPlot.Plot.AddBubblePlot();
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
+            double radius = 1;
 
             int count = series.Points.Count();
             for (int j = 0; j < count; j++)
             {
-                
+                ChartPoint point = series.Points[j];
+                bubblePlot.Add(point.X, point.Y, radius, color, 0, color);
             }
-
-            bubblePlot.Add()
         }
-        */
 
         private void InitLegend()
         {
