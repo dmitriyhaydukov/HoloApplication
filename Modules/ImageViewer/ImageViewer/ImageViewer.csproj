@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExtraLibrary">
+      <HintPath>..\..\..\ExtraLibrary\ExtraLibrary\bin\Release\ExtraLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="HoloCommon">
       <HintPath>..\..\..\HoloCommon\HoloCommon\bin\Release\HoloCommon.dll</HintPath>
     </Reference>
@@ -46,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />

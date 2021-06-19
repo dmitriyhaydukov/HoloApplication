@@ -14,8 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using ExtraLibrary.ImageProcessing;
+
+using HoloCommon.Models.Charting;
+
 using HoloCommon.Serialization.Imaging;
+using HoloCommon.Serialization.Charting;
 using HoloCommon.MemoryManagement;
+using HoloCommon.ProcessManagement;
 
 namespace ImageViewer
 {
@@ -25,6 +31,7 @@ namespace ImageViewer
     public partial class MainWindow : Window
     {
         private MainViewModel mainViewModel;
+        private string CHART_APP_PATH = @"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe";
 
         public MainWindow()
         {
@@ -37,6 +44,63 @@ namespace ImageViewer
             {
                 this.mainViewModel = value;
                 this.DataContext = this.mainViewModel;
+            }
+        }
+
+        private void mainImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1)
+            {
+                Image imageControl = sender as Image;
+                Point point = e.GetPosition(imageControl);
+                int row = (int)point.Y;
+                                
+                WriteableBitmap mainBitmap = this.mainViewModel.MainImageSource as WriteableBitmap;
+                double[] yValues = GetRowGrayScaleValues(mainBitmap, row);
+
+                Chart chart = new Chart()
+                {
+                    SeriesCollection = new List<ChartSeries>()
+                };
+
+                ChartSeries series = new ChartSeries()
+                {
+                    Name = "Row " + row.ToString(),
+                    Points = new List<ChartPoint>()
+                };
+
+                for (int x = 0; x < yValues.Length; x++)
+                {
+                    ChartPoint chartPoint = new ChartPoint(x, yValues[x]);
+                    series.Points.Add(chartPoint);
+                }
+
+                chart.SeriesCollection.Add(series);
+
+                MemoryWriter.Write<Chart>(chart, new ChartSerialization());
+                ProcessManager.RunProcess(CHART_APP_PATH, null, false);
+            }
+        }
+
+        public static double[] GetRowGrayScaleValues(WriteableBitmap bitmap, int row)
+        {
+            WriteableBitmapWrapper wrapper = WriteableBitmapWrapper.Create(bitmap);
+            if (wrapper.IsFormatGrayScale)
+            {
+                double[] grayScaleValues = wrapper.GetRowGrayValues(row);
+                return grayScaleValues;
+            }
+            else
+            {
+                Color[] rowColors = wrapper.GetRowColors(row);
+                double[] grayScaleValues = new double[rowColors.Length];
+                for (int index = 0; index < rowColors.Length; index++)
+                {
+                    Color color = rowColors[index];
+                    double grayIntensity = ColorWrapper.GetGrayIntensity(color);
+                    grayScaleValues[index] = grayIntensity;
+                }
+                return grayScaleValues;
             }
         }
     }

@@ -1,0 +1,14 @@
+D:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\dcraw.exe
+D:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\ExtraLibrary.dll
+D:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\ExtraLibrary.pdb
+D:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\Magick.NET-Q16-x86.dll
+D:\Projects\InterferogramProcessing2\ExtraLibrary\obj\x64\Debug\ExtraLibrary.dll
+D:\Projects\InterferogramProcessing2\ExtraLibrary\obj\x64\Debug\ExtraLibrary.pdb
+D:\Projects\InterferogramProcessing2\ExtraLibrary\obj\x64\Debug\ExtraLibrary.csprojResolveAssemblyReference.cache
+J:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\dcraw.exe
+J:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\ExtraLibrary.dll
+J:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\ExtraLibrary.pdb
+J:\Projects\InterferogramProcessing2\ExtraLibrary\bin\x64\Debug\Magick.NET-Q16-x86.dll
+J:\Projects\InterferogramProcessing2\ExtraLibrary\obj\x64\Debug\ExtraLibrary.csprojResolveAssemblyReference.cache
+J:\Projects\InterferogramProcessing2\ExtraLibrary\obj\x64\Debug\ExtraLibrary.dll
+J:\Projects\InterferogramProcessing2\ExtraLibrary\obj\x64\Debug\ExtraLibrary.pdb
