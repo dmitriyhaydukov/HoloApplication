@@ -22,6 +22,7 @@ namespace ImageViewer
             IEnumerable<WriteableBitmap> images = MemoryReader.ReadCollection(new WriteableBitmapSerialization());
             MainViewModel mainViewModel = new MainViewModel();
             mainViewModel.MainImageSource = images.First();
+                        
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.ViewModel = mainViewModel;

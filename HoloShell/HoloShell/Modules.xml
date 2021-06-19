@@ -12,9 +12,7 @@
   
   <module
     path="D:\Projects\HoloApplication\Modules\ImageReader\ImageReader\bin\Release\ImageReader.exe"
-    arguments="
-      D:\Images\Interferograms\Patterns\Period-80-Pixels.BMP 
-    "
+    arguments="&quot;D:\NSTU\Experiment\2020 03 14\1\Crop\Wedge1.jpg&quot;"
     waitForExit="true"
   />
   

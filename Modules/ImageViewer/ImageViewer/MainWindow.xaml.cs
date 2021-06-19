@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ExtraLibrary.ImageProcessing;
 
 using HoloCommon.Models.Charting;
+using HoloCommon.Models.General;
 
 using HoloCommon.Serialization.Imaging;
 using HoloCommon.Serialization.Charting;
@@ -56,6 +57,7 @@ namespace ImageViewer
                 int row = (int)point.Y;
                                 
                 WriteableBitmap mainBitmap = this.mainViewModel.MainImageSource as WriteableBitmap;
+                
                 double[] yValues = GetRowGrayScaleValues(mainBitmap, row);
 
                 Chart chart = new Chart()
@@ -66,6 +68,7 @@ namespace ImageViewer
                 ChartSeries series = new ChartSeries()
                 {
                     Name = "Row " + row.ToString(),
+                    ColorDescriptor = new ColorDescriptor(255, 0, 0),
                     Points = new List<ChartPoint>()
                 };
 

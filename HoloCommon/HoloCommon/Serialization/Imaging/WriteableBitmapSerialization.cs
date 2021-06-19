@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Media.Imaging;
 using HoloCommon.MemoryManagement;
 
@@ -37,12 +38,34 @@ namespace HoloCommon.Serialization.Imaging
             int width = BitConverter.ToInt32(widthBytes, 0);
             int height = BitConverter.ToInt32(heightBytes, 0);
 
-            WriteableBitmap obj = BitmapFactory.New(width, height);
+            //WriteableBitmap obj = BitmapFactory.New(width, height);
+            double dpiX = GetSystemDpiX();
+            double dpiY = GetSystemDpiY();
+
+            WriteableBitmap obj = new WriteableBitmap(width, height, dpiX, dpiY, System.Windows.Media.PixelFormats.Bgra32, BitmapPalettes.Halftone256Transparent);
             int imageSize = width * height * (obj.Format.BitsPerPixel / 8);
                         
             obj.FromByteArray(bytes, 2 * TypeSizes.SIZE_INT, imageSize);
 
             return obj;
         }
+        //------------------------------------------------------------------------------------------
+        private static double GetSystemDpiX()
+        {
+            Graphics graphics = Graphics.FromHwnd(IntPtr.Zero);
+            double dpiX = graphics.DpiX;
+            graphics.Dispose();
+            return dpiX;
+        }
+        //------------------------------------------------------------------------------------------
+        //DpiY
+        private static double GetSystemDpiY()
+        {
+            Graphics graphics = Graphics.FromHwnd(IntPtr.Zero);
+            double dpiY = graphics.DpiY;
+            graphics.Dispose();
+            return dpiY;
+        }
+        //------------------------------------------------------------------------------------------
     }
 }
