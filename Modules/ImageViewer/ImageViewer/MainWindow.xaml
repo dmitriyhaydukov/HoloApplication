@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfExtensions="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
         xmlns:local="clr-namespace:ImageViewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1227.391" Width="1111.581">
+        Title="MainWindow" Height="900" Width="1200">
     <Grid Margin="0,0,25,25">
-        <StackPanel Orientation="Vertical">
-            <Image Name="MainImage" HorizontalAlignment="Left" Height="523" Margin="33,33,0,0" VerticalAlignment="Top" Width="900"/>
-            <Image Name="AuxImage" HorizontalAlignment="Left" Height="523" Margin="33,33,0,0"  Width="900"/>
-        </StackPanel>
+        <wpfExtensions:ZoomControl x:Name="zoomControl">
+            <Image  x:Name="mainImage"
+                    Source="{Binding Path=MainImageSource}"
+                    Stretch="None">
+            </Image>
+        </wpfExtensions:ZoomControl>
     </Grid>
 </Window>

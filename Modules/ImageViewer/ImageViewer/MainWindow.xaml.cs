@@ -24,14 +24,20 @@ namespace ImageViewer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel mainViewModel;
+
         public MainWindow()
         {
-            InitializeComponent();
-                        
-            IEnumerable<WriteableBitmap> images = MemoryReader.ReadCollection(new WriteableBitmapSerialization());
+            InitializeComponent();    
+        }
 
-            this.MainImage.Source = images.First();
-            this.AuxImage.Source = images.Last();
+        public MainViewModel ViewModel
+        {
+            set
+            {
+                this.mainViewModel = value;
+                this.DataContext = this.mainViewModel;
+            }
         }
     }
 }
