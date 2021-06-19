@@ -19,6 +19,7 @@ using ExtraLibrary.ImageProcessing;
 using HoloCommon.Models.Charting;
 using HoloCommon.Models.General;
 
+using HoloCommon.Enumeration.Charting;
 using HoloCommon.Serialization.Imaging;
 using HoloCommon.Serialization.Charting;
 using HoloCommon.MemoryManagement;
@@ -50,7 +51,7 @@ namespace ImageViewer
 
         private void mainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 1)
+            if (e.ClickCount == 2)
             {
                 Image imageControl = sender as Image;
                 Point point = e.GetPosition(imageControl);
@@ -59,6 +60,7 @@ namespace ImageViewer
                 WriteableBitmap mainBitmap = this.mainViewModel.MainImageSource as WriteableBitmap;
                 
                 double[] yValues = GetRowGrayScaleValues(mainBitmap, row);
+                               
 
                 Chart chart = new Chart()
                 {
@@ -68,6 +70,7 @@ namespace ImageViewer
                 ChartSeries series = new ChartSeries()
                 {
                     Name = "Row " + row.ToString(),
+                    Type = ChartSeriesType.Linear,
                     ColorDescriptor = new ColorDescriptor(255, 0, 0),
                     Points = new List<ChartPoint>()
                 };

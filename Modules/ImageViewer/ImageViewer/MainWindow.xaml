@@ -7,13 +7,15 @@
         xmlns:local="clr-namespace:ImageViewer"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1200">
-    <Grid Margin="0,0,25,25">
+    
+    <Grid Margin="10,10,10,10">
         <wpfExtensions:ZoomControl x:Name="zoomControl">
             <Image  x:Name="mainImage"
-                    Source="{Binding Path=MainImageSource}"
-                    Stretch="None"
-                    MouseDown="mainImage_MouseDown">
+                Source="{Binding Path=MainImageSource}"
+                Stretch="None"
+                MouseDown="mainImage_MouseDown">
             </Image>
         </wpfExtensions:ZoomControl>
     </Grid>
+    
 </Window>
