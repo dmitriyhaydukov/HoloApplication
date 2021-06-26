@@ -8,13 +8,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Save" Click="menuItem_File_Save_Click" />
+            </MenuItem>
+        </Menu>
+        
         <StackPanel DockPanel.Dock="Top" Margin="5,5,5,5">
             <CheckBox 
                 Name="checkBoxIsTracking" 
                 Checked="checkBoxIsTracking_Checked" 
                 Unchecked="checkBoxIsTracking_Unchecked"
             >
-                Track    
+                Track
             </CheckBox>
         </StackPanel>
         

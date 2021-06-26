@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.MemoryMappedFiles;
+using Microsoft.Win32;
 
 using HoloCommon.Models.Charting;
 using HoloCommon.Models.General;
@@ -162,6 +163,18 @@ namespace ChartApp
         {
             this.isTracking = false;
             this.ClearCrossHair();
+        }
+
+        private void menuItem_File_Save_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            bool? dialogResult = saveFileDialog.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                string filePath = saveFileDialog.FileName;                  
+                this.mainPlot.Plot.SaveFig(filePath);
+            }
         }
     }
 }
