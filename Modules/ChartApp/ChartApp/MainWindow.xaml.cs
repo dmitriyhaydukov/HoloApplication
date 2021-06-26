@@ -35,6 +35,9 @@ namespace ChartApp
         Crosshair currentCrossHair = null;
         bool isTracking = false;
 
+        List<IPlottable> plottableList = null;
+        List<ChartSeriesListItem> seriesViewList = null;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +51,9 @@ namespace ChartApp
 
         private void ReadChart()
         {
+            this.plottableList = new List<IPlottable>();
+            this.seriesViewList = new List<ChartSeriesListItem>();
+
             this.InitLegend();
 
             Chart chart = MemoryReader.Read<Chart>(new ChartSerialization());
@@ -58,24 +64,30 @@ namespace ChartApp
             int count = chart.SeriesCollection.Count();
             for (int k = 0; k < count; k++)
             {
+                IPlottable plottable = null;
                 ChartSeries series = chart.SeriesCollection[k];
                 switch(series.Type)
                 {
                     case ChartSeriesType.Linear:
                         {
-                            this.AddLinearPlot(series, dataX);
+                            plottable = this.AddLinearPlot(series, dataX);
                             break;
                         }
                     case ChartSeriesType.Bubble:
                         {
-                            this.AddBubblePlot(series);
+                            plottable = this.AddBubblePlot(series);
                             break;
                         }
-                }                         
-            }          
+                }
+
+                this.plottableList.Add(plottable);
+                this.seriesViewList.Add(new ChartSeriesListItem() { Name = series.Name, IsVisible = true });
+            }
+
+            this.listViewSeries.ItemsSource = this.seriesViewList;
         }
 
-        private void AddLinearPlot(ChartSeries series, double[] dataX)
+        private IPlottable AddLinearPlot(ChartSeries series, double[] dataX)
         {
             double[] dataY = series.Points.Select(p => p.Y).ToArray();
 
@@ -83,10 +95,11 @@ namespace ChartApp
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
             scatterPlot.Color = color;
             scatterPlot.Label = series.Name;
+
+            return scatterPlot;           
         }
 
-
-        private void AddScatterPlot(ChartSeries series)
+        private IPlottable AddScatterPlot(ChartSeries series)
         {
             double[] dataX = series.Points.Select(p => p.X).ToArray();
             double[] dataY = series.Points.Select(p => p.Y).ToArray();
@@ -95,10 +108,11 @@ namespace ChartApp
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
             scatterPlot.Color = color;
             scatterPlot.Label = series.Name;
+
+            return scatterPlot;           
         }
 
-
-        private void AddBubblePlot(ChartSeries series)
+        private IPlottable AddBubblePlot(ChartSeries series)
         {
             BubblePlot bubblePlot = this.mainPlot.Plot.AddBubblePlot();
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
@@ -110,6 +124,8 @@ namespace ChartApp
                 ChartPoint point = series.Points[j];
                 bubblePlot.Add(point.X, point.Y, radius, color, 0, color);
             }
+
+            return bubblePlot;            
         }
 
         private void InitLegend()
@@ -176,5 +192,12 @@ namespace ChartApp
                 this.mainPlot.Plot.SaveFig(filePath);
             }
         }
+
+        private class ChartSeriesListItem
+        {
+            public string Name { get; set; }
+            public bool IsVisible { get; set; }
+        }
     }
+   
 }

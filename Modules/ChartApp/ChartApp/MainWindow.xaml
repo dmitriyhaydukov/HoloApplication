@@ -13,7 +13,28 @@
                 <MenuItem Header="Save" Click="menuItem_File_Save_Click" />
             </MenuItem>
         </Menu>
-        
+        <StackPanel DockPanel.Dock="Right" Margin="5,5,5,5" VerticalAlignment="Center">
+            <ListView Name="listViewSeries">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Visible">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Margin="5, 0" IsChecked="{Binding IsVisible}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="5, 0" Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
         <StackPanel DockPanel.Dock="Top" Margin="5,5,5,5">
             <CheckBox 
                 Name="checkBoxIsTracking" 
