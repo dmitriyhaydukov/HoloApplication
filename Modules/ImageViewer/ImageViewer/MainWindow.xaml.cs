@@ -60,7 +60,6 @@ namespace ImageViewer
                 WriteableBitmap mainBitmap = this.mainViewModel.MainImageSource as WriteableBitmap;
                 
                 double[] yValues = GetRowGrayScaleValues(mainBitmap, row);
-                               
 
                 Chart chart = new Chart()
                 {

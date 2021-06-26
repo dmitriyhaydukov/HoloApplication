@@ -31,6 +31,9 @@ namespace ChartApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        Crosshair currentCrossHair = null;
+        bool isTracking = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -123,6 +126,42 @@ namespace ChartApp
             int g = colorDescriptor.G;
             int b = colorDescriptor.B;
             return System.Drawing.Color.FromArgb(r, g, b);
+        }
+
+        private void mainPlot_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this.isTracking)
+            {
+                IInputElement inputElement = sender as IInputElement;
+                Point point = e.GetPosition(inputElement);
+
+                double coordinateX = this.mainPlot.Plot.GetCoordinateX(Convert.ToSingle(point.X));
+                double coordinateY = this.mainPlot.Plot.GetCoordinateY(Convert.ToSingle(point.Y));
+
+                this.ClearCrossHair();
+                this.currentCrossHair = this.mainPlot.Plot.AddCrosshair(coordinateX, coordinateY);
+                this.currentCrossHair.LineColor = System.Drawing.Color.Black;
+            }
+        }
+
+        private void ClearCrossHair()
+        {
+            if (this.currentCrossHair != null)
+            {
+                this.mainPlot.Plot.Remove(this.currentCrossHair);
+                this.currentCrossHair = null;
+            }
+        }
+
+        private void checkBoxIsTracking_Checked(object sender, RoutedEventArgs e)
+        {
+            this.isTracking = true;
+        }
+
+        private void checkBoxIsTracking_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.isTracking = false;
+            this.ClearCrossHair();
         }
     }
 }

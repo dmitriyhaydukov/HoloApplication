@@ -7,7 +7,20 @@
         
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <WpfPlot Name="mainPlot" />
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="5,5,5,5">
+            <CheckBox 
+                Name="checkBoxIsTracking" 
+                Checked="checkBoxIsTracking_Checked" 
+                Unchecked="checkBoxIsTracking_Unchecked"
+            >
+                Track    
+            </CheckBox>
+        </StackPanel>
+        
+        <WpfPlot 
+            Name="mainPlot"
+            MouseMove="mainPlot_MouseMove"
+        />
+    </DockPanel>
 </Window>
