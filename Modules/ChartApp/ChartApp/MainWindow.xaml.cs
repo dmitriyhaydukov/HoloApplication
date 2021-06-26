@@ -116,8 +116,8 @@ namespace ChartApp
         {
             Legend legend = this.mainPlot.Plot.Legend();
             legend.IsVisible = true;
-            legend.FontName = "comic sans ms";
-            legend.FontSize = 18;
+            legend.FontName = "Arial";
+            legend.FontSize = 12;
             legend.FontColor = System.Drawing.Color.DarkBlue;
         }
 
