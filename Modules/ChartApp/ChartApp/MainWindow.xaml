@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:ChartApp"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="900">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Save" Click="menuItem_File_Save_Click" />
             </MenuItem>
         </Menu>
-        <StackPanel DockPanel.Dock="Right" Margin="5,5,5,5" VerticalAlignment="Center">
+        <StackPanel DockPanel.Dock="Right" Margin="0,5,5,5" VerticalAlignment="Center">
             <ListView Name="listViewSeries">
                 <ListView.View>
                     <GridView>
