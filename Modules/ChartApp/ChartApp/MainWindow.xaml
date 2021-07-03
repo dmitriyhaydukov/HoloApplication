@@ -20,7 +20,11 @@
                         <GridViewColumn Header="Visible">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox Margin="5, 0" IsChecked="{Binding IsVisible}"/>
+                                    <CheckBox 
+                                        Margin="5, 0" IsChecked="{Binding IsVisible}"
+                                        Checked="listViewSeriesCheckBox_Checked"
+                                        Unchecked="listViewSeriesCheckBox_Unchecked"
+                                    />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

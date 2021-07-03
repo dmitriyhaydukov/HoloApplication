@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -81,7 +82,12 @@ namespace ChartApp
                 }
 
                 this.plottableList.Add(plottable);
-                this.seriesViewList.Add(new ChartSeriesListItem() { Name = series.Name, IsVisible = true });
+                this.seriesViewList.Add(new ChartSeriesListItem()
+                {
+                    Name = series.Name,
+                    IsVisible = true,
+                    Plottable = plottable
+                });
             }
 
             this.listViewSeries.ItemsSource = this.seriesViewList;
@@ -192,12 +198,50 @@ namespace ChartApp
                 this.mainPlot.Plot.SaveFig(filePath);
             }
         }
+        
+        private void listViewSeriesCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            IPlottable plottable = GetPlottableByCheckBox(checkBox);
+            if (plottable != null)
+            {
+                plottable.IsVisible = true;
+            }
+        }
+
+        private void listViewSeriesCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            IPlottable plottable = GetPlottableByCheckBox(checkBox);
+            if (plottable != null)
+            {
+                plottable.IsVisible = false;
+            }
+        }
+
+        private IPlottable GetPlottableByCheckBox(CheckBox checkBox)
+        {
+            IPlottable plottable = null;
+            if (checkBox != null)
+            {
+                ListViewItem item = checkBox.FindParent<ListViewItem>();
+                if (item != null)
+                {
+                    ChartSeriesListItem chartSeriesListItem = item.Content as ChartSeriesListItem;
+                    if (chartSeriesListItem != null)
+                    {
+                        plottable = chartSeriesListItem.Plottable;
+                    }
+                }
+            }
+            return plottable;
+        }
 
         private class ChartSeriesListItem
         {
             public string Name { get; set; }
             public bool IsVisible { get; set; }
+            public IPlottable Plottable { get; set; }
         }
-    }
-   
+    } 
 }

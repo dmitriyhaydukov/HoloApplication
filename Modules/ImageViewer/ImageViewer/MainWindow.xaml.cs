@@ -33,7 +33,9 @@ namespace ImageViewer
     public partial class MainWindow : Window
     {
         private MainViewModel mainViewModel;
-        private string CHART_APP_PATH = @"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe";
+
+        //private string CHART_APP_PATH = @"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe";
+        private string CHART_APP_PATH = @"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Debug\ChartApp.exe";
 
         public MainWindow()
         {
