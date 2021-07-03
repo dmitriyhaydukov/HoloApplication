@@ -203,19 +203,22 @@ namespace ChartApp
         {
             CheckBox checkBox = sender as CheckBox;
             IPlottable plottable = GetPlottableByCheckBox(checkBox);
-            if (plottable != null)
-            {
-                plottable.IsVisible = true;
-            }
+            UpdatePlottableVisibility(plottable, true);
         }
 
         private void listViewSeriesCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
             IPlottable plottable = GetPlottableByCheckBox(checkBox);
+            UpdatePlottableVisibility(plottable, false);           
+        }
+
+        private void UpdatePlottableVisibility(IPlottable plottable, bool isVisible)
+        {
             if (plottable != null)
             {
-                plottable.IsVisible = false;
+                plottable.IsVisible = isVisible;
+                this.mainPlot.Render();
             }
         }
 
