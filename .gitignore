@@ -8,3 +8,6 @@ storage.ide-wal
 */**/bin/Debug
 */**/obj/Debug
 */**/obj/Release
+*/**/bin/x64/Debug
+*/**/obj/x64/Debug
+*/**/obj/x64/Release

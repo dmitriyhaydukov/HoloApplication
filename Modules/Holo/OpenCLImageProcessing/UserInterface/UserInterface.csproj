@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6724FE34-E163-49E0-9646-1A2896FBED54}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UserInterface</RootNamespace>
+    <AssemblyName>UserInterface</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Cloo.clSharp, Version=0.9.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Cloo.clSharp.0.9.2.7\lib\net20\Cloo.clSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OpenTK.GLControl.3.0.1\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControlExtensions.cs" />
+    <Compile Include="DataEditors\ContainerHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\ContainerHeader.Designer.cs">
+      <DependentUpon>ContainerHeader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\DataEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\DataEditor.Designer.cs">
+      <DependentUpon>DataEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\DataEditorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\DataEditorView.Designer.cs">
+      <DependentUpon>DataEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Binder.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\BindingBase.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\ActionBinding.cs" />
+    <Compile Include="DataEditors\IDataEditor.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\CheckboxBinding.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\Controls\DropdownWithLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\DropdownWithLabel.Designer.cs">
+      <DependentUpon>DropdownWithLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\ImageSlotWithSubfieldsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\ImageSlotWithSubfieldsControl.Designer.cs">
+      <DependentUpon>ImageSlotWithSubfieldsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\SubfieldGroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\SubfieldGroupControl.Designer.cs">
+      <DependentUpon>SubfieldGroupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\DropdownSelectorBinding.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\ImageSlotWithSubfieldsBinder.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\MergeSubfieldsBinding.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\SubfieldGroupBinding.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\Controls\EnumRadioGroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\EnumRadioGroupControl.Designer.cs">
+      <DependentUpon>EnumRadioGroupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\EnumRadioGroupBinding.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\ImageSlotBinder.cs" />
+    <Compile Include="DataEditors\InterfaceBinding\Controls\ImageSlotControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\ImageSlotControl.Designer.cs">
+      <DependentUpon>ImageSlotControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\NumberControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\Controls\NumberControl.Designer.cs">
+      <DependentUpon>NumberControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataEditors\InterfaceBinding\NumberBinding.cs" />
+    <Compile Include="DataEditors\Renderers\DataRendererForAttribute.cs" />
+    <Compile Include="DataEditors\Renderers\Graphics\ImagePlane.cs" />
+    <Compile Include="DataEditors\Renderers\Graphics\IDrawable.cs" />
+    <Compile Include="DataEditors\Renderers\Graphics\Selection\SelectionDrawable.cs" />
+    <Compile Include="DataEditors\Renderers\Graphics\Selection\SelectionShader.cs" />
+    <Compile Include="DataEditors\Renderers\IDataRenderer.cs" />
+    <Compile Include="DataEditors\Renderers\IDataRendererControlMode.cs" />
+    <Compile Include="DataEditors\Renderers\IDataRendererViewMode.cs" />
+    <Compile Include="DataEditors\Renderers\ImageRenderer\DefaultControlMode.cs" />
+    <Compile Include="DataEditors\Renderers\ImageRenderer\DefaultViewMode.cs" />
+    <Compile Include="DataEditors\Renderers\DataProcessorRenderer\DataProcessorRenderer.cs" />
+    <Compile Include="DataEditors\Renderers\ImageRenderer\ImageRenderer.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\CustomizableShader.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\AmplitudePhaseImageShader.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\RealImaginativeImageShader.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\RGBAImageShader.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\RGBImageShader.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\ShaderProvider.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\SimpleShader.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\IShader.cs" />
+    <Compile Include="DataEditors\Renderers\Shaders\SimpleShaderWithProjectionViewModelMatricesBase.cs" />
+    <Compile Include="DataEditors\Renderers\ViewParametres.cs" />
+    <Compile Include="DataEditors\Tools\SelectionTool.cs" />
+    <Compile Include="DataEditors\Tools\ToolBase.cs" />
+    <Compile Include="DataEditors\Tools\ToolstripButtonInfo.cs" />
+    <Compile Include="PointExtensions.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterfaceDataProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\OpenClProgramCodeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\OpenClProgramCodeEditor.Designer.cs">
+      <DependentUpon>OpenClProgramCodeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\SelectImageHandlerPopupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\SelectImageHandlerPopupForm.Designer.cs">
+      <DependentUpon>SelectImageHandlerPopupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkspacePanel\DataProcessorWorkspacePanelItemController.cs" />
+    <Compile Include="WorkspacePanel\ImageWorkspacePanelItemController.cs" />
+    <Compile Include="WorkspacePanel\WorkspacePanelItemControllerBase.cs" />
+    <Compile Include="WorkspacePanel\WorkspacePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkspacePanel\WorkspacePanel.Designer.cs">
+      <DependentUpon>WorkspacePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorkspacePanel\WorkspacePanelItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkspacePanel\WorkspacePanelItem.Designer.cs">
+      <DependentUpon>WorkspacePanelItem.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{95da8cf5-cae9-436d-a07e-74e83dcab0f8}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{d414b285-3781-4f76-af5f-59caff56a96d}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Processing\Processing.csproj">
+      <Project>{39221112-49e4-49b9-a8ed-d63243fb0bdc}</Project>
+      <Name>Processing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\icons8-close-window-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataEditors\ContainerHeader.resx">
+      <DependentUpon>ContainerHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\DataEditor.resx">
+      <DependentUpon>DataEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\DataEditorView.resx">
+      <DependentUpon>DataEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\InterfaceBinding\Controls\DropdownWithLabel.resx">
+      <DependentUpon>DropdownWithLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\InterfaceBinding\Controls\EnumRadioGroupControl.resx">
+      <DependentUpon>EnumRadioGroupControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\InterfaceBinding\Controls\ImageSlotControl.resx">
+      <DependentUpon>ImageSlotControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\InterfaceBinding\Controls\ImageSlotWithSubfieldsControl.resx">
+      <DependentUpon>ImageSlotWithSubfieldsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\InterfaceBinding\Controls\NumberControl.resx">
+      <DependentUpon>NumberControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataEditors\InterfaceBinding\Controls\SubfieldGroupControl.resx">
+      <DependentUpon>SubfieldGroupControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utility\OpenClProgramCodeEditor.resx">
+      <DependentUpon>OpenClProgramCodeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utility\SelectImageHandlerPopupForm.resx">
+      <DependentUpon>SelectImageHandlerPopupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkspacePanel\WorkspacePanel.resx">
+      <DependentUpon>WorkspacePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkspacePanel\WorkspacePanelItem.resx">
+      <DependentUpon>WorkspacePanelItem.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-Добавить изображение-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-Add Image_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-ok-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-add-new-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-cancel-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-add-new-16 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\layer_select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chevron_5834.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chevron-collapse_9378.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_state_blue_collapsed_8599.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_state_blue_expanded_4097.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

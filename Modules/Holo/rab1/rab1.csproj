@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{34CEC1D9-4DDA-430D-B04C-AEB13036D6C2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>rab1</RootNamespace>
+    <AssemblyName>rab1</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>MixedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClassLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\ClassLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\Library\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADD_Math.cs" />
+    <Compile Include="ATAN_PSI.cs" />
+    <Compile Include="AxesInfo.cs" />
+    <Compile Include="CameraController.cs" />
+    <Compile Include="CanonCamera\CameraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CanonCamera\CameraForm.designer.cs">
+      <DependentUpon>CameraForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CanonCamera\LiveViewUpdatedHandler.cs" />
+    <Compile Include="CanonCamera\PictureTakenHandler.cs" />
+    <Compile Include="CanonSdkProvider.cs" />
+    <Compile Include="Chart\AdornerCursorCoordinateDrawer.cs" />
+    <Compile Include="Chart\ChartControl.cs" />
+    <Compile Include="Chart\ChartControl2.cs" />
+    <Compile Include="Chart\ChartPrimitive.cs" />
+    <Compile Include="Chart\ChartPrimitiveEventLine.cs" />
+    <Compile Include="Chart\ChartPrimitiveHBar.cs" />
+    <Compile Include="Chart\ChartPrimitiveLineSegments.cs" />
+    <Compile Include="Chart\ChartPrimitiveXY.cs" />
+    <Compile Include="Chart\ChartUtilities.cs" />
+    <Compile Include="Chart\ClosestPointPicker.cs" />
+    <Compile Include="Chart\ColorLabel.xaml.cs">
+      <DependentUpon>ColorLabel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\CopyToClipboard.xaml.cs">
+      <DependentUpon>CopyToClipboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chart\CursorCoordinateCanvas.cs" />
+    <Compile Include="Chart\GridLabel.cs" />
+    <Compile Include="Chart\GridLine.cs" />
+    <Compile Include="Chart\GridLineCanvas.cs" />
+    <Compile Include="Chart\GridLineOverride.cs" />
+    <Compile Include="Chart\GridLineSpacings.cs" />
+    <Compile Include="Chart\IChartRendererWPF.cs" />
+    <Compile Include="Chart\LineAndPloygon.cs" />
+    <Compile Include="Chart\PanZoomCalculator.cs" />
+    <Compile Include="Chart\PlotRenderer.cs" />
+    <Compile Include="Chart\PointSelectedArgs.cs" />
+    <Compile Include="Chart\Range.cs" />
+    <Compile Include="Chart\ResultsPlottingUtilities.cs" />
+    <Compile Include="Chart\TypeSwitch.cs" />
+    <Compile Include="Chart\UniformWrapPanel.cs" />
+    <Compile Include="ColorItem.cs" />
+    <Compile Include="ColorModeEnum.cs" />
+    <Compile Include="ControlExtensions.cs" />
+    <Compile Include="DependencyPropertyInfo.cs" />
+    <Compile Include="File_Change_Size.cs" />
+    <Compile Include="Forms\ADD_Cmplx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ADD_Cmplx.Designer.cs">
+      <DependentUpon>ADD_Cmplx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CUDA_FFT.cs" />
+    <Compile Include="Forms\AltGraphicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AltGraphicForm.Designer.cs">
+      <DependentUpon>AltGraphicForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChartControl\SwordfishXYLineChartControl.xaml.cs">
+      <DependentUpon>SwordfishXYLineChartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChartControl\ZedGraphChartControl.xaml.cs">
+      <DependentUpon>ZedGraphChartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Corr256.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Corr256.Designer.cs">
+      <DependentUpon>Corr256.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CorrectBr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CorrectBr.Designer.cs">
+      <DependentUpon>CorrectBr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CurvesGraph\CurvesGraphForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CurvesGraph\CurvesGraphForm.Designer.cs">
+      <DependentUpon>CurvesGraphForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileMaker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FileMaker.Designer.cs">
+      <DependentUpon>FileMaker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_Filtr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Filtr.Designer.cs">
+      <DependentUpon>Form_Filtr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Graph3D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Graph3D.Designer.cs">
+      <DependentUpon>Graph3D.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GraphFormHost.cs" />
+    <Compile Include="Forms\Graphic2D.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Graphic2D.Designer.cs">
+      <DependentUpon>Graphic2D.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Lissagu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Lissagu.Designer.cs">
+      <DependentUpon>Lissagu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Structur.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Structur.Designer.cs">
+      <DependentUpon>Structur.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Teorema1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Teorema1.Designer.cs">
+      <DependentUpon>Teorema1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UnRupLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UnRupLine.Designer.cs">
+      <DependentUpon>UnRupLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImageForm.Designer.cs">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FurieN.cs" />
+    <Compile Include="GammaCorrection.cs" />
+    <Compile Include="GraphInfo.cs" />
+    <Compile Include="GroupItem.cs" />
+    <Compile Include="HelperWPF.cs" />
+    <Compile Include="ImageLayer.cs" />
+    <Compile Include="ImageSaveItem.cs" />
+    <Compile Include="ImsgeSaveModeEnum.cs" />
+    <Compile Include="Interval.cs" />
+    <Compile Include="ModularArithmeticHelper.cs" />
+    <Compile Include="OS.cs" />
+    <Compile Include="Pain_t_Core.cs" />
+    <Compile Include="PhaseShiftDeviceController.cs" />
+    <Compile Include="PhaseShiftParameters.cs" />
+    <Compile Include="PlaneManager.cs" />
+    <Compile Include="Point2D.cs" />
+    <Compile Include="Polynomial.cs" />
+    <Compile Include="Forms\RangeExtensionModelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RangeExtensionModelForm.Designer.cs">
+      <DependentUpon>RangeExtensionModelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RealIntervalTransform.cs" />
+    <Compile Include="RecodingHelper.cs" />
+    <Compile Include="Rot.cs" />
+    <Compile Include="Forms\UnrupForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UnrupForm1.Designer.cs">
+      <DependentUpon>UnrupForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Super.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Super.Designer.cs">
+      <DependentUpon>Super.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakePhotoSeiesType.cs" />
+    <Compile Include="Tools.cs" />
+    <Compile Include="VisualPolynomial.cs" />
+    <Compile Include="ZArrayDescriptor.cs" />
+    <Compile Include="ZedGraphInfo.cs" />
+    <Compile Include="ZIntDescriptor.cs" />
+    <Compile Include="Unrup.cs" />
+    <Compile Include="Forms\UnrupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UnrupForm.Designer.cs">
+      <DependentUpon>UnrupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Model_Faza.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Model_Faza.Designer.cs">
+      <DependentUpon>Model_Faza.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Model_Sin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Model_Sin.Designer.cs">
+      <DependentUpon>Model_Sin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Visual.cs" />
+    <Compile Include="Model_Sinus.cs" />
+    <Compile Include="Model_object.cs" />
+    <Compile Include="File_Helper.cs" />
+    <Compile Include="FiltrClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\BackgroundImagesGeneratorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BackgroundImagesGeneratorForm.Designer.cs">
+      <DependentUpon>BackgroundImagesGeneratorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Components\CustomPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\ChooseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChooseForm.Designer.cs">
+      <DependentUpon>ChooseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CompareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompareForm.Designer.cs">
+      <DependentUpon>CompareForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Complex_form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Complex_form.Designer.cs" />
+    <Compile Include="Forms\FrenelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrenelForm.designer.cs">
+      <DependentUpon>FrenelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Graphic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Graphic.Designer.cs">
+      <DependentUpon>Graphic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Model.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Model.Designer.cs">
+      <DependentUpon>Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PSI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PSI.Designer.cs">
+      <DependentUpon>PSI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphic_util.cs" />
+    <Compile Include="Forms\InterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InterForm.Designer.cs" />
+    <Compile Include="Forms\InterFormSph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InterFormSph.Designer.cs">
+      <DependentUpon>InterFormSph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util_array.cs" />
+    <Compile Include="Model_interf.cs" />
+    <Compile Include="ZComplexDescriptor.cs" />
+    <Compile Include="Furie.cs" />
+    <Compile Include="Forms\RestoreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RestoreForm.Designer.cs">
+      <DependentUpon>RestoreForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StretchImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StretchImageForm.Designer.cs">
+      <DependentUpon>StretchImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageHelper.cs" />
+    <Compile Include="Forms\PopupProgressBar.cs" />
+    <Compile Include="ImageProcessor.cs" />
+    <Compile Include="Pi_Class1.cs" />
+    <Compile Include="SumClass.cs" />
+    <Compile Include="Forms\GraphForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GraphForm.Designer.cs">
+      <DependentUpon>GraphForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SinClass1.cs" />
+    <Compile Include="FazaClass1.cs" />
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CanonCamera\CameraForm.resx" />
+    <EmbeddedResource Include="Forms\ADD_Cmplx.resx">
+      <DependentUpon>ADD_Cmplx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BackgroundImagesGeneratorForm.resx">
+      <DependentUpon>BackgroundImagesGeneratorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChooseForm.resx">
+      <DependentUpon>ChooseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompareForm.resx">
+      <DependentUpon>CompareForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Complex_form.resx" />
+    <EmbeddedResource Include="Forms\Corr256.resx">
+      <DependentUpon>Corr256.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CorrectBr.resx">
+      <DependentUpon>CorrectBr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CurvesGraph\CurvesGraphForm.resx">
+      <DependentUpon>CurvesGraphForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileMaker.resx">
+      <DependentUpon>FileMaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Filtr.resx">
+      <DependentUpon>Form_Filtr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Graph3D.resx">
+      <DependentUpon>Graph3D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Graphic2D.resx">
+      <DependentUpon>Graphic2D.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Lissagu.resx">
+      <DependentUpon>Lissagu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RangeExtensionModelForm.resx">
+      <DependentUpon>RangeExtensionModelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Structur.resx">
+      <DependentUpon>Structur.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Super.resx">
+      <DependentUpon>Super.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Teorema1.resx">
+      <DependentUpon>Teorema1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UnRupLine.resx">
+      <DependentUpon>UnRupLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrenelForm.resx">
+      <DependentUpon>FrenelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Graphic.resx">
+      <DependentUpon>Graphic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImageForm.resx">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InterForm.resx" />
+    <EmbeddedResource Include="Forms\InterFormSph.resx">
+      <DependentUpon>InterFormSph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Model.resx">
+      <DependentUpon>Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Model_Faza.resx">
+      <DependentUpon>Model_Faza.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Model_Sin.resx">
+      <DependentUpon>Model_Sin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PSI.resx">
+      <DependentUpon>PSI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RestoreForm.resx">
+      <DependentUpon>RestoreForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GraphForm.resx">
+      <DependentUpon>GraphForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UnrupForm.resx">
+      <DependentUpon>UnrupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UnrupForm1.resx">
+      <DependentUpon>UnrupForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Forms\StretchImageForm.resx">
+      <DependentUpon>StretchImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="ClassDiagram4.cd" />
+    <None Include="ClassDiagram5.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Клиентский профиль Microsoft .NET Framework 4 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>Клиентский профиль .NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Установщик Windows 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClassLibrary.dll" />
+    <Content Include="CudaCalculationFFT.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EDSDKLib\EDSDKLib.csproj">
+      <Project>{aeb0a485-01fc-4111-818c-e81434a388f1}</Project>
+      <Name>EDSDKLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Chart\ColorLabel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Chart\CopyToClipboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ChartControl\SwordfishXYLineChartControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ChartControl\ZedGraphChartControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

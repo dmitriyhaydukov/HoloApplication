@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{39221112-49E4-49B9-A8ED-D63243FB0BDC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Processing</RootNamespace>
+    <AssemblyName>Processing</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Cloo.clSharp, Version=0.9.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Cloo.clSharp.0.9.2.7\lib\net20\Cloo.clSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.0.1.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OpenTK.3.0.1\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Computing\Fourier.cs" />
+    <Compile Include="Computing\Freshnel.cs" />
+    <Compile Include="Computing\ImageProcessing.cs" />
+    <Compile Include="Computing\IOpenClSourcesProvider.cs" />
+    <Compile Include="Computing\OpenGlApplication.cs" />
+    <Compile Include="Computing\OpenClApplication.cs" />
+    <Compile Include="Computing\OpenClContextSettings.cs" />
+    <Compile Include="Computing\OpenClDataManager.cs" />
+    <Compile Include="DataBinding\ActionAttribute.cs" />
+    <Compile Include="DataBinding\CheckboxAttribute.cs" />
+    <Compile Include="DataBinding\DropdownSelectorAttribute.cs" />
+    <Compile Include="DataBinding\MergeSubfieldsAttribute.cs" />
+    <Compile Include="DataBinding\PropertyWithAvailableValuesList.cs" />
+    <Compile Include="DataBinding\SubfieldGroupAttribute.cs" />
+    <Compile Include="DataBinding\EnumRadioGroupAttribute.cs" />
+    <Compile Include="DataBinding\ImageSlotAttribute.cs" />
+    <Compile Include="DataBinding\ImageSlotWithSubfieldsAttribute.cs" />
+    <Compile Include="DataBinding\MemberBindingAttributeBase.cs" />
+    <Compile Include="DataBinding\NumberAttribute.cs" />
+    <Compile Include="DataBinding\ListWithEvents.cs" />
+    <Compile Include="DataProcessors\CombineChannelsProcessor.cs" />
+    <Compile Include="DataProcessors\DataProcessorExtensions.cs" />
+    <Compile Include="DataProcessors\DataProcessorPropertyInfo.cs" />
+    <Compile Include="DataProcessors\DataProcessorRepository.cs" />
+    <Compile Include="DataProcessors\DataProcessorsProvider.cs" />
+    <Compile Include="DataProcessors\DivideProcessor.cs" />
+    <Compile Include="DataProcessors\FourierTransformProcessor.cs" />
+    <Compile Include="DataProcessors\FourShiftsAndAverageProcessor.cs" />
+    <Compile Include="DataProcessors\FrehnelTransformProcessor.cs" />
+    <Compile Include="DataProcessors\IDataProcessor.cs" />
+    <Compile Include="DataProcessors\InterferenceDataProcessor.cs" />
+    <Compile Include="DataProcessors\PhaseRecoveryProcessor.cs" />
+    <Compile Include="DataProcessors\PsiProcessor.cs" />
+    <Compile Include="DataProcessors\RgbToGreyscaleConverter.cs" />
+    <Compile Include="DataProcessors\ShiftProcessor.cs" />
+    <Compile Include="DataProcessors\SingleImageOutputDataProcessorBase.cs" />
+    <Compile Include="DataProcessors\FlatWavefrontGenerator.cs" />
+    <Compile Include="DataProcessors\SphericWavefrontGenerator.cs" />
+    <Compile Include="DataProcessors\SummProcessor.cs" />
+    <Compile Include="DataProcessors\Test\TestCpuFourier.cs" />
+    <Compile Include="DataProcessors\Test\TestFourierProcessor.cs" />
+    <Compile Include="DataProcessors\TransposeProcessor.cs" />
+    <Compile Include="ImageHandler.cs" />
+    <Compile Include="IDataProvider.cs" />
+    <Compile Include="ImageHandlerRepository.cs" />
+    <Compile Include="ImageReaders\BitmapImageReader.cs" />
+    <Compile Include="ImageReaders\IImageReader.cs" />
+    <Compile Include="ImageReaders\ImageReaderProvider.cs" />
+    <Compile Include="ImageSelection.cs" />
+    <Compile Include="ImageSelectionManager.cs" />
+    <Compile Include="OpenGlErrorThrower.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ArrayDrawer.cs" />
+    <Compile Include="Utils\ImageUtils.cs" />
+    <Compile Include="Utils\NamingUtil.cs" />
+    <Compile Include="Utils\ThumbnailGenerator.cs" />
+    <Compile Include="Vector2Extensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+    <None Include="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ImageWriters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{95da8cf5-cae9-436d-a07e-74e83dcab0f8}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{d414b285-3781-4f76-af5f-59caff56a96d}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OpenClSources\fft.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenClSources\program.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
