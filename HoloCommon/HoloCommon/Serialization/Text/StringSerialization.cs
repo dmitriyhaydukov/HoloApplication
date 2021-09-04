@@ -17,18 +17,7 @@ namespace HoloCommon.Serialization.Text
             }
 
             return Encoding.Unicode.GetBytes(obj);
-
-            /*
-            int count = Encoding.Unicode.GetByteCount(obj) + TypeSizes.SIZE_INT;
-            byte[] resBytes = new byte[count];
-            byte[] lengthBytes = BitConverter.GetBytes(obj.Length);
-            byte[] objBytes = Encoding.Unicode.GetBytes(obj);
-
-            Array.Copy(lengthBytes, 0, resBytes, 0, TypeSizes.SIZE_INT);
-            Array.Copy(objBytes, 0, resBytes, TypeSizes.SIZE_INT, objBytes.Length);
-            
-            return resBytes;   
-            */
+           
         }
         public String Deserialize(byte[] bytes)
         {
