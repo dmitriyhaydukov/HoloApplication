@@ -290,12 +290,12 @@ namespace Processing.DataProcessors.Test
             return X;
         }
 
-        public static Vector2[] ToVector2(this Complex[] self)
+        public static OpenTK.Vector2[] ToVector2(this Complex[] self)
         {
-            return self.Select(c => new Vector2((float) c.Real, (float) c.Imaginary)).ToArray();
+            return self.Select(c => new OpenTK.Vector2((float) c.Real, (float) c.Imaginary)).ToArray();
         }
 
-        public static Complex[] ToComplex(this Vector2[] self)
+        public static Complex[] ToComplex(this OpenTK.Vector2[] self)
         {
             return self.Select(v => new Complex(v.X, v.Y)).ToArray();
         }

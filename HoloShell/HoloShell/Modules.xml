@@ -1,4 +1,10 @@
 ﻿<modules>
+  
+  <module
+    path="d:\Projects\HoloApplication\Modules\Holo\rab1\bin\x64\Debug\rab1.exe"
+    waitForExit="true"
+  />
+  
   <!--
   <module
     path="D:\Projects\HoloApplication\Modules\AppTest\AppTest\bin\Release\AppTest.exe"
@@ -10,26 +16,19 @@
   />
   -->
   
+  <!--
   <module
     path="D:\Projects\HoloApplication\Modules\ImageReader\ImageReader\bin\Release\ImageReader.exe"
     arguments="&quot;D:\NSTU\Experiment\2020 03 14\1\Crop\Wedge1.jpg&quot;"
     waitForExit="true"
   />
-  
-  <!--
-  <module
-    path="D:\Projects\HoloApplication\Modules\ImageProcessor\ImageProcessor\bin\Release\ImageProcessor.exe"
-    arguments=""
-    waitForExit="true"
-  /> 
-  -->
-  
+      
   <module
     path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
     arguments=""
     waitForExit="true"
   />
-  
+  -->  
   <!--
   <module 
     path="D:\Projects\HoloApplication\Modules\Calculator\Calculator\bin\Release\Calculator.exe"

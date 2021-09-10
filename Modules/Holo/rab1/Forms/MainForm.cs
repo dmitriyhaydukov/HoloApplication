@@ -302,8 +302,32 @@ namespace rab1
                     }
                     else
                     {
-                        Graphic graphic_x = new Graphic(zArrayPicture.width, yy, buf);
-                        graphic_x.Show();
+                        //Graphic graphic_x = new Graphic(zArrayPicture.width, yy, buf);
+                        //graphic_x.Show();
+
+                        List<HoloCommon.Models.Charting.ChartPoint> chartPoints = new List<HoloCommon.Models.Charting.ChartPoint>();
+                        for (int k = 0; k < buf.Length; k++)
+                        {
+                            HoloCommon.Models.Charting.ChartPoint point = new HoloCommon.Models.Charting.ChartPoint(k, buf[k]);
+                            chartPoints.Add(point);
+                        }
+
+                        HoloCommon.Models.Charting.Chart chart = new HoloCommon.Models.Charting.Chart()
+                        {
+                            SeriesCollection = new List<HoloCommon.Models.Charting.ChartSeries>()
+                            {
+                                new HoloCommon.Models.Charting.ChartSeries()
+                                {
+                                    Name = "Graphic " + yy.ToString(),
+                                    ColorDescriptor = new HoloCommon.Models.General.ColorDescriptor(255, 0, 0),
+                                    Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                                    Points = chartPoints
+                                }
+                            }
+                        };
+
+                        HoloCommon.MemoryManagement.MemoryWriter.Write<HoloCommon.Models.Charting.Chart>(chart, new HoloCommon.Serialization.Charting.ChartSerialization());
+                        HoloCommon.ProcessManagement.ProcessManager.RunProcess(@"d:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false);
                     }
                 }
                 else                                                                     // по Y
