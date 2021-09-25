@@ -61,6 +61,8 @@
     <Compile Include="CustomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="File_Change_Size.cs" />
+    <Compile Include="Furie.cs" />
     <Compile Include="ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +72,7 @@
     <Compile Include="ImageProcessor.cs" />
     <Compile Include="ImageSaveItem.cs" />
     <Compile Include="ImsgeSaveModeEnum.cs" />
+    <Compile Include="Model_Sinus.cs" />
     <Compile Include="PhaseShiftDeviceController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="TakePhotoSeiesType.cs" />
     <Compile Include="Vizual.cs" />
     <Compile Include="ZArrayDescriptor.cs" />
+    <Compile Include="ZComplexDescriptor.cs" />
     <EmbeddedResource Include="CanonCamera\CameraForm.resx">
       <DependentUpon>CameraForm.cs</DependentUpon>
     </EmbeddedResource>
