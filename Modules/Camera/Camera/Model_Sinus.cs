@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
-using ClassLibrary;
+
 
 namespace Camera
 {
