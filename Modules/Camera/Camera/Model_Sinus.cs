@@ -115,7 +115,7 @@ namespace Camera
             for (int i = 0; i < NX; i += kr1)
             {
                 double v = minIntensity + a1 * (Math.Sin(2.0 * Math.PI * i / n_polos - fz) + 1.0) / 2.0;          // синусоида от 0 до 1
-                sn[i] = CorrectBr.CorrectValueByClin(v, clinArray, 255);
+                sn[i] = CorrectValueByClin(v, clinArray, 255);
             }
           
            // double max = double.MinValue;
@@ -773,6 +773,14 @@ namespace Camera
             return cmpl;
         }
 
-      
+        public static double CorrectValueByClin(double idealValue, double[] clinArray, int idealCount)
+        {
+            if (clinArray == null) { return idealValue; }
+            double clinArrayCount = 240;
+
+            int value = Convert.ToInt32(idealValue * clinArrayCount / idealCount);  // от 0 до 240
+            double resValue = clinArray[value];
+            return resValue;
+        }
     }
 }

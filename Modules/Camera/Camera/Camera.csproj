@@ -61,7 +61,6 @@
     <Compile Include="CustomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="File_Change_Size.cs" />
     <Compile Include="Furie.cs" />
     <Compile Include="ImageForm.cs">
       <SubType>Form</SubType>
