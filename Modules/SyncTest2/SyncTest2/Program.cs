@@ -13,7 +13,7 @@ namespace SyncTest2
 
         static void Main(string[] args)
         {
-            EventWaitHandle handle = EventWaitHandle.OpenExisting(SYNC_EVENT_NAME);
+            EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.ManualReset, SYNC_EVENT_NAME);
 
             string command = null;
             while(!String.Equals(command, "q", StringComparison.OrdinalIgnoreCase))
