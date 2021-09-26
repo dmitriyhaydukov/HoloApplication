@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using HoloCommon.Synchronization;
+
 namespace Camera
 {
     static class Program
@@ -16,7 +18,17 @@ namespace Camera
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CameraForm());
+
+            CameraForm cameraForm = new CameraForm();
+
+            Action takePictureAction = () =>
+            {
+                cameraForm.TakePhoto();
+            };
+
+            SynchronizationManager.RunActionOnSignal(takePictureAction, Events.Camera.TAKE_PICTURE);
+
+            Application.Run(cameraForm);
         }
     }
 }

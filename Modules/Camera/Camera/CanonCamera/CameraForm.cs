@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using EDSDKLib;
 using HoloCommon.MemoryManagement;
 using HoloCommon.Serialization.Imaging;
+using HoloCommon.Synchronization;
 
 namespace Camera
 {
@@ -113,6 +114,10 @@ namespace Camera
    
         }
 
+        public void TakePhoto()
+        {
+            CameraHandler.TakePhoto();
+        }
         private void InitializeDefaultValues()
         {
             phaseShiftCountTextBox.Text = "4";
@@ -227,6 +232,8 @@ namespace Camera
                     };
 
                     PictureTaken(eventArgs);
+                    MemoryWriter.Write(bitmap, new ImageSerialization());
+                    SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
                 }
                 else
                 {
@@ -398,6 +405,9 @@ namespace Camera
         #endregion
 
         #region Settings
+
+
+
 
                 
         private void TakePhotoButton_Click(object sender, EventArgs e)
@@ -812,12 +822,7 @@ namespace Camera
 
             MakeDelay();
         }
-
-        private void TakePhoto()
-        {
-            CameraHandler.TakePhoto();
-        }
-
+                
         private void ClosePhaseShiftSerialPort()
         {
             DisposePhaseShiftDeviceController();
