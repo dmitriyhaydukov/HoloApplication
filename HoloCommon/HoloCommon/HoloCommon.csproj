@@ -69,6 +69,8 @@
     <Compile Include="Serialization\Imaging\ImageSerialization.cs" />
     <Compile Include="Serialization\Imaging\WriteableBitmapSerialization.cs" />
     <Compile Include="Serialization\Text\StringSerialization.cs" />
+    <Compile Include="Synchronization\Events.cs" />
+    <Compile Include="Synchronization\SynchronizationManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
