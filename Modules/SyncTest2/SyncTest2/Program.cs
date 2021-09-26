@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using HoloCommon.Synchronization;
+
 namespace SyncTest2
 {
     class Program
     {
-        private const string SYNC_EVENT_NAME = "HoloSyncEvent";
-
         static void Main(string[] args)
         {
-            EventWaitHandle handle = new EventWaitHandle(false, EventResetMode.ManualReset, SYNC_EVENT_NAME);
+            SynchronizationManager.RunActionOnSignal(PictureTakenHandler, Events.Camera.PICTURE_TAKEN);
 
             string command = null;
             while(!String.Equals(command, "q", StringComparison.OrdinalIgnoreCase))
@@ -21,9 +21,14 @@ namespace SyncTest2
                 command = Console.ReadLine();
                 if (command == "sync")
                 {
-                    handle.Set();
+                    SynchronizationManager.SetSignal(Events.Camera.TAKE_PICTURE);
                 }
             }
+        }
+
+        static void PictureTakenHandler()
+        {
+            Console.WriteLine("picture taken handler");
         }
     }
 }
