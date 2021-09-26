@@ -66,6 +66,7 @@
     <Compile Include="Serialization\Charting\ChartSerialization.cs" />
     <Compile Include="Serialization\Charting\ChartSeriesSerialization.cs" />
     <Compile Include="Serialization\General\ColorDescriptorSerialization.cs" />
+    <Compile Include="Serialization\Imaging\ImageSerialization.cs" />
     <Compile Include="Serialization\Imaging\WriteableBitmapSerialization.cs" />
     <Compile Include="Serialization\Text\StringSerialization.cs" />
   </ItemGroup>

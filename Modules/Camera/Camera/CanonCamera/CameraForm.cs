@@ -10,6 +10,8 @@ using System.Linq;
 using System.Drawing.Imaging;
 
 using EDSDKLib;
+using HoloCommon.MemoryManagement;
+using HoloCommon.Serialization.Imaging;
 
 namespace Camera
 {
@@ -783,7 +785,8 @@ namespace Camera
             }
             else
             {
-                imageForm.SetImage(MainForm.GetImageFromPictureBox(currentImageNumber));
+                Image image = MemoryReader.Read(new ImageSerialization());
+                imageForm.SetImage(image);
             }
         }
 
@@ -851,7 +854,10 @@ namespace Camera
             this.imageForm.Location = location;
             this.imageForm.WindowState = FormWindowState.Maximized;
             this.imageForm.Show();
-            this.imageForm.SetImage(this.MainForm.GetImageFromPictureBox(imageNumber));
+
+            Image image = MemoryReader.Read(new ImageSerialization());
+
+            this.imageForm.SetImage(image);
         }
 
         private void ShowBackgroundFromMainImage()
@@ -868,7 +874,9 @@ namespace Camera
             this.imageForm.Location = location;
             this.imageForm.WindowState = FormWindowState.Maximized;
             this.imageForm.Show();
-            this.imageForm.SetImage(this.MainForm.GetMainImageFromPictureBox());
+
+            Image image = MemoryReader.Read(new ImageSerialization());
+            this.imageForm.SetImage(image);
         }
 
         private void takeSeriesFromPictureBoxesButton_Click(object sender, EventArgs e)
