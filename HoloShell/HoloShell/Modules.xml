@@ -2,7 +2,7 @@
   
   <module
     path="d:\Projects\HoloApplication\Modules\Holo\rab1\bin\x64\Debug\rab1.exe"
-    waitForExit="true"
+    waitForExit="false"
   />
   
   <!--
