@@ -21,7 +21,8 @@ namespace HoloCommon.Synchronization
             eventWaitHandle.Reset();
         }
 
-        public static void RunActionOnSignal(Action action, string signalName)
+        //Returns runned thread in which action is executed
+        public static Thread RunActionOnSignal(Action action, string signalName)
         {
             ThreadStart threadStart = () => 
             {
@@ -35,6 +36,8 @@ namespace HoloCommon.Synchronization
 
             Thread thread = new Thread(threadStart);
             thread.Start();
+
+            return thread;
         }
 
         private static EventWaitHandle CreateEventWaitHandle(string name)

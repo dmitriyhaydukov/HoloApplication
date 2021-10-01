@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,9 +27,14 @@ namespace Camera
                 cameraForm.TakePhoto();
             };
 
-            SynchronizationManager.RunActionOnSignal(takePictureAction, Events.Camera.TAKE_PICTURE);
+            Thread thread = SynchronizationManager.RunActionOnSignal(takePictureAction, Events.Camera.TAKE_PICTURE);
+
+            cameraForm.FormClosed += (object sender, FormClosedEventArgs e) =>
+            {
+                thread.Abort();
+            };
 
             Application.Run(cameraForm);
-        }
+        }       
     }
 }

@@ -205,6 +205,9 @@ namespace Camera
 
         private void SDK_ImageDownloaded(Bitmap bitmap, ImageType imageType)
         {
+            MemoryWriter.Write(bitmap, new ImageSerialization());
+            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
+
             if (PictureTaken != null)
             {
                 short number = 0; 
@@ -232,8 +235,6 @@ namespace Camera
                     };
 
                     PictureTaken(eventArgs);
-                    MemoryWriter.Write(bitmap, new ImageSerialization());
-                    SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
                 }
                 else
                 {
