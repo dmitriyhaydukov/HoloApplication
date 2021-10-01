@@ -3978,7 +3978,28 @@ namespace rab1
             Vizual.Vizual_Picture(resArray, pictureBox01);
         }
 
-      
+        private void btnWriteImagesToMemory_Click(object sender, EventArgs e)
+        {
+            if (this.pictureBoxArray.Length == 0)
+            {
+                return;
+            }
+
+            List<Image> imagesList = new List<Image>();
+            for (int k = 0; k < this.pictureBoxArray.Length; k++)
+            {
+                PictureBox pictureBox = this.pictureBoxArray[k];
+                Image image = pictureBox.Image;
+                if (image != null)
+                {
+                    imagesList.Add(image);
+                }
+            }
+
+            HoloCommon.MemoryManagement.MemoryWriter.WriteCollection<Image>(imagesList, new HoloCommon.Serialization.Imaging.ImageSerialization());
+
+            MessageBox.Show("Images have been written to memory");
+        }
 
         private void ExtractCoordinates(string formattedCoordinate, out string x, out string y)
         {
