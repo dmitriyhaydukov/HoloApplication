@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using System.Threading;
 
 using HoloCommon.Serialization.Imaging;
@@ -28,7 +29,13 @@ namespace ImageViewer
 
             Action action = () =>
             {
-                mainViewModel.MainImageSource = ReadImage();
+                Application.Current.Dispatcher.BeginInvoke
+                    (DispatcherPriority.Background, new Action(
+                        () =>
+                        {
+                            mainViewModel.MainImageSource = ReadImage();
+                        })
+                    );
             };
 
             Thread thread = HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(action, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
