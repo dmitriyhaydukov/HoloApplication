@@ -11,7 +11,13 @@
     path="D:\Projects\HoloApplication\Modules\Camera\Camera\bin\Debug\Camera.exe"
     waitForExit="false"
   />
-        
+  
+  <module
+    path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
+    arguments=""
+    waitForExit="false"
+  />
+    
   <module
     path="D:\Projects\HoloApplication\Modules\SyncTest2\SyncTest2\bin\Debug\SyncTest2.exe"
     waitForExit="false"
