@@ -40,9 +40,9 @@ namespace HoloShell
 
                     ProcessManager.RunProcess(path, arguments, waitForExit);
                 }
-            }
 
-            Console.ReadLine();
+                Console.ReadLine();
+            }           
         }
     }
 }

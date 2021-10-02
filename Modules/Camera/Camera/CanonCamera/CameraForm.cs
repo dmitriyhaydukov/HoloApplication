@@ -116,6 +116,7 @@ namespace Camera
 
         public void TakePhoto()
         {
+            //CameraHandler.SetCapacity();
             CameraHandler.TakePhoto();
         }
         private void InitializeDefaultValues()
@@ -205,7 +206,8 @@ namespace Camera
 
         private void SDK_ImageDownloaded(Bitmap bitmap, ImageType imageType)
         {
-            MemoryWriter.Write(bitmap, new ImageSerialization());
+            Bitmap newBitmap = new Bitmap(bitmap);
+            MemoryWriter.Write(newBitmap, new ImageSerialization());
             SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
 
             if (PictureTaken != null)

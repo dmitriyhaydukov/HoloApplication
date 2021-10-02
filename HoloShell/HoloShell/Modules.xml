@@ -1,7 +1,19 @@
 ﻿<modules>
   
+  <!--
   <module
     path="d:\Projects\HoloApplication\Modules\Holo\rab1\bin\x64\Debug\rab1.exe"
+    waitForExit="false"
+  />
+  -->
+    
+  <module
+    path="D:\Projects\HoloApplication\Modules\Camera\Camera\bin\Debug\Camera.exe"
+    waitForExit="false"
+  />
+        
+  <module
+    path="D:\Projects\HoloApplication\Modules\SyncTest2\SyncTest2\bin\Debug\SyncTest2.exe"
     waitForExit="false"
   />
   

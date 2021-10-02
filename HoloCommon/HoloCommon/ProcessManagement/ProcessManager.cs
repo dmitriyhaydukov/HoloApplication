@@ -9,7 +9,7 @@ namespace HoloCommon.ProcessManagement
             Process process = new Process();
             process.StartInfo.FileName = path;
             process.StartInfo.Arguments = arguments;
-            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.UseShellExecute = true;
             process.StartInfo.RedirectStandardOutput = false;
             process.Start();
 

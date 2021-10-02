@@ -13,7 +13,7 @@ namespace SyncTest1
     {        
         static void Main(string[] args)
         {
-            SynchronizationManager.RunActionOnSignal(Process, Events.Camera.TAKE_PICTURE);           
+            SynchronizationManager.RunActionOnSignal(Process, Events.Camera.TAKE_PICTURE);        
         }
 
         private static void Process()

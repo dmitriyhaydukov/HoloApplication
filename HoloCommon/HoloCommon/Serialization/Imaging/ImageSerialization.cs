@@ -12,19 +12,24 @@ namespace HoloCommon.Serialization.Imaging
     {
         public byte[] Serialize(Image obj)
         {
+            byte[] resBytes = null;
             using (MemoryStream stream = new MemoryStream())
             {
                 obj.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
+                resBytes = stream.ToArray();
             }
+
+            return resBytes; 
         }
 
         public Image Deserialize(byte[] bytes)
         {
+            Image resImage = null;
             using (MemoryStream stream = new MemoryStream(bytes))
             {
-                return Image.FromStream(stream);
+                resImage = Image.FromStream(stream);
             }
+            return resImage;
         }  
     }
 }
