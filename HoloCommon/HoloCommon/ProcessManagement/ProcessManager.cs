@@ -4,7 +4,7 @@ namespace HoloCommon.ProcessManagement
 {
     public class ProcessManager
     {
-        public static void RunProcess(string path, string arguments, bool waitForExit)
+        public static Process RunProcess(string path, string arguments, bool waitForExit)
         {
             Process process = new Process();
             process.StartInfo.FileName = path;
@@ -17,6 +17,8 @@ namespace HoloCommon.ProcessManagement
             {
                 process.WaitForExit();
             }
+
+            return process;
         }
     }
 }

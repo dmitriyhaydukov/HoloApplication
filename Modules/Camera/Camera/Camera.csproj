@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="HoloCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\HoloCommon\HoloCommon\bin\Debug\HoloCommon.dll</HintPath>
+      <HintPath>..\..\..\HoloCommon\HoloCommon\bin\Release\HoloCommon.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
