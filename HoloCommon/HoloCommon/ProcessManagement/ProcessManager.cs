@@ -20,5 +20,13 @@ namespace HoloCommon.ProcessManagement
 
             return process;
         }
+
+        public static void KillProcess(Process process)
+        {
+            if(process != null)
+            {
+                process.Kill();
+            }
+        }
     }
 }
