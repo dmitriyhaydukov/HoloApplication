@@ -20,6 +20,7 @@ using HoloCommon.Models.Charting;
 using HoloCommon.Models.General;
 using HoloCommon.Enumeration.Charting;
 using HoloCommon.MemoryManagement;
+using HoloCommon.ProcessManagement;
 using HoloCommon.Serialization.Charting;
 
 using ScottPlot;
@@ -42,7 +43,7 @@ namespace ChartApp
         public MainWindow()
         {
             InitializeComponent();
-            InitChart();
+            InitChart();           
         }
 
         private void InitChart()
