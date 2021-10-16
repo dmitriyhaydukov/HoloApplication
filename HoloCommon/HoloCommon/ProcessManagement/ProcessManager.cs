@@ -27,7 +27,7 @@ namespace HoloCommon.ProcessManagement
             }
 
             return process;
-        }       
+        }
 
         public static void KillProcess(Process process)
         {
