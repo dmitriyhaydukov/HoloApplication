@@ -11,9 +11,6 @@ using HoloCommon.Modules;
 using HoloCommon.ProcessManagement;
 using HoloCommon.MemoryManagement;
 
-using HoloCommon.Models.Charting;
-using HoloCommon.Serialization.Charting;
-
 namespace HoloShell
 {
     class Program
@@ -80,7 +77,7 @@ namespace HoloShell
         {
             foreach(Process process in processList)
             {
-                process.Kill();
+                ProcessManager.KillProcess(process);
             }
         }
     }
