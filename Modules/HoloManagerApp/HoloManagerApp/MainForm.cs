@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using HoloCommon.ProcessManagement;
+
 namespace HoloManagerApp
 {
     public partial class MainForm : Form
@@ -15,6 +17,11 @@ namespace HoloManagerApp
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void btnCorrectedGraph_Click(object sender, EventArgs e)
+        {
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\CorrectedGraph\CorrectedGraph\bin\Debug\CorrectedGraph.exe", null, false);
         }
     }
 }

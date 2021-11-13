@@ -20,6 +20,11 @@
     path="D:\Projects\HoloApplication\Modules\SyncTest2\SyncTest2\bin\Debug\SyncTest2.exe"
     waitForExit="false"
   />
+
+  <module
+    path="D:\Projects\HoloApplication\Modules\HoloManagerApp\HoloManagerApp\bin\Debug\HoloManagerApp.exe"
+    waitForExit="false"
+  />
   
   <!--
   <module

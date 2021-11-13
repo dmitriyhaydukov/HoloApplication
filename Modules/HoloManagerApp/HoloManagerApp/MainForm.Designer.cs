@@ -28,20 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnCorrectedGraph = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnCorrectedGraph
+            // 
+            this.btnCorrectedGraph.Location = new System.Drawing.Point(12, 12);
+            this.btnCorrectedGraph.Name = "btnCorrectedGraph";
+            this.btnCorrectedGraph.Size = new System.Drawing.Size(114, 36);
+            this.btnCorrectedGraph.TabIndex = 0;
+            this.btnCorrectedGraph.Text = "CorrectedGraph";
+            this.btnCorrectedGraph.UseVisualStyleBackColor = true;
+            this.btnCorrectedGraph.Click += new System.EventHandler(this.btnCorrectedGraph_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(895, 467);
+            this.ClientSize = new System.Drawing.Size(895, 400);
+            this.Controls.Add(this.btnCorrectedGraph);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Holo manager";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnCorrectedGraph;
     }
 }
 
