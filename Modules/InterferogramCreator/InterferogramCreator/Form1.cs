@@ -32,25 +32,31 @@ namespace InterferogramCreator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
             int width = 4096;
             int height = 2048;
             double percentNoise = 0;
 
             int fringeCount = 20;
 
-            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise); 
+            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise);
             LinearFringeInterferogramCreator interferogramCreator = new LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
 
             double phaseShift = 0;
             RealMatrix interferogramMatrix = interferogramCreator.CreateInterferogram(phaseShift);
 
-            WriteableBitmap writeableBitmap = 
+            WriteableBitmap writeableBitmap =
                 WriteableBitmapCreator.CreateGrayScaleWriteableBitmapFromMatrix(interferogramMatrix, OS.IntegerSystemDpiX, OS.IntegerSystemDpiY);
 
             MemoryWriter.Write<WriteableBitmap>(writeableBitmap, new WriteableBitmapSerialization());
+
             //ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe", null, false);
             SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
-
         }
     }
 }

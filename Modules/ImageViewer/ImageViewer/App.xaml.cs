@@ -27,43 +27,63 @@ namespace ImageViewer
             
             MainViewModel mainViewModel = new MainViewModel();
 
-            Action action = () =>
+            Action actionPictureTaken = () =>
             {
                 Application.Current.Dispatcher.BeginInvoke
                     (DispatcherPriority.Background, new Action(
                         () =>
                         {
-                            mainViewModel.MainImageSource = ReadImage();
+                            mainViewModel.MainImageSource = ReadForPictureTakenEvent();
                         })
                     );
             };
 
-            Thread threadCamera = HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(action, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
-            Thread threadImage = HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(action, HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
+            Action actionImageCreated = () =>
+            {
+                Application.Current.Dispatcher.BeginInvoke
+                    (DispatcherPriority.Background, new Action(
+                        () =>
+                        {
+                            mainViewModel.MainImageSource = ReadForImageCreatedEvent();
+                        })
+                    );
+            };
+
+            Thread threadPictureTaken = 
+                HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(actionPictureTaken, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
+
+            Thread threadImageCreated = 
+                HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(actionImageCreated, HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.ViewModel = mainViewModel;
 
             mainWindow.Closed += (object ss, EventArgs args) =>
             {
-                threadCamera.Abort();
-                threadImage.Abort();
+                threadPictureTaken.Abort();
+                threadImageCreated.Abort();
             };
 
             mainWindow.Show();
         }
                 
-        private WriteableBitmap ReadImage()
+        private WriteableBitmap ReadForPictureTakenEvent()
         {
             System.Drawing.Bitmap image = MemoryReader.Read<System.Drawing.Bitmap>(new BitmapSerialization());
 
-            System.Windows.Media.Imaging.BitmapSource bitmapSource =
+            BitmapSource bitmapSource =
                 System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                 image.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
-                System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+                BitmapSizeOptions.FromEmptyOptions());
 
             WriteableBitmap writeableBitmap = new WriteableBitmap(bitmapSource);
 
+            return writeableBitmap;
+        }
+
+        private WriteableBitmap ReadForImageCreatedEvent()
+        {
+            WriteableBitmap writeableBitmap = MemoryReader.Read<WriteableBitmap>(new WriteableBitmapSerialization());
             return writeableBitmap;
         }
     }
