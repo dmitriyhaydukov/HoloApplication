@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnCorrectedGraph = new System.Windows.Forms.Button();
+            this.btnCreateInterferogram = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -41,11 +42,22 @@
             this.btnCorrectedGraph.UseVisualStyleBackColor = true;
             this.btnCorrectedGraph.Click += new System.EventHandler(this.btnCorrectedGraph_Click);
             // 
+            // btnCreateInterferogram
+            // 
+            this.btnCreateInterferogram.Location = new System.Drawing.Point(12, 64);
+            this.btnCreateInterferogram.Name = "btnCreateInterferogram";
+            this.btnCreateInterferogram.Size = new System.Drawing.Size(114, 39);
+            this.btnCreateInterferogram.TabIndex = 1;
+            this.btnCreateInterferogram.Text = "Create interferogram";
+            this.btnCreateInterferogram.UseVisualStyleBackColor = true;
+            this.btnCreateInterferogram.Click += new System.EventHandler(this.btnCreateInterferogram_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 400);
+            this.Controls.Add(this.btnCreateInterferogram);
             this.Controls.Add(this.btnCorrectedGraph);
             this.Name = "MainForm";
             this.Text = "Holo manager";
@@ -56,6 +68,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnCorrectedGraph;
+        private System.Windows.Forms.Button btnCreateInterferogram;
     }
 }
 

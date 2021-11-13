@@ -23,5 +23,10 @@ namespace HoloManagerApp
         {
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\CorrectedGraph\CorrectedGraph\bin\Debug\CorrectedGraph.exe", null, false);
         }
+
+        private void btnCreateInterferogram_Click(object sender, EventArgs e)
+        {
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreator\InterferogramCreator\bin\Debug\InterferogramCreator.exe", null, false);
+        }
     }
 }

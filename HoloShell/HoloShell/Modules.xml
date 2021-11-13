@@ -1,6 +1,12 @@
 ﻿<modules>
   
   <module
+    path="D:\Projects\HoloApplication\Modules\HoloManagerApp\HoloManagerApp\bin\Debug\HoloManagerApp.exe"
+    waitForExit="false"
+  />
+  
+  <!--
+  <module
     path="d:\Projects\HoloApplication\Modules\Holo\rab1\bin\x64\Debug\rab1.exe"
     waitForExit="false"
   />
@@ -20,11 +26,7 @@
     path="D:\Projects\HoloApplication\Modules\SyncTest2\SyncTest2\bin\Debug\SyncTest2.exe"
     waitForExit="false"
   />
-
-  <module
-    path="D:\Projects\HoloApplication\Modules\HoloManagerApp\HoloManagerApp\bin\Debug\HoloManagerApp.exe"
-    waitForExit="false"
-  />
+  -->
   
   <!--
   <module
