@@ -17,6 +17,7 @@ using ExtraLibrary.OS;
 using HoloCommon.MemoryManagement;
 using HoloCommon.ProcessManagement;
 using HoloCommon.Serialization.Imaging;
+using HoloCommon.Synchronization;
 
 using Interferometry.InterferogramCreation;
 
@@ -47,7 +48,8 @@ namespace InterferogramCreator
                 WriteableBitmapCreator.CreateGrayScaleWriteableBitmapFromMatrix(interferogramMatrix, OS.IntegerSystemDpiX, OS.IntegerSystemDpiY);
 
             MemoryWriter.Write<WriteableBitmap>(writeableBitmap, new WriteableBitmapSerialization());
-            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe", null, false);
+            //ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe", null, false);
+            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
 
         }
     }

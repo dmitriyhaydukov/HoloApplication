@@ -38,14 +38,16 @@ namespace ImageViewer
                     );
             };
 
-            Thread thread = HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(action, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
-            
+            Thread threadCamera = HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(action, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
+            Thread threadImage = HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(action, HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
+
             MainWindow mainWindow = new MainWindow();
             mainWindow.ViewModel = mainViewModel;
 
             mainWindow.Closed += (object ss, EventArgs args) =>
             {
-                thread.Abort();
+                threadCamera.Abort();
+                threadImage.Abort();
             };
 
             mainWindow.Show();
