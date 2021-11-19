@@ -11,24 +11,31 @@ namespace Interferometry.InterferogramCreation {
 
         double meanIntensity;       //Средняя интенсивность
         double intensityModulation; //Модуляция интенсивности
+        double minIntensity;        //Минимальное значение интенсивности
         double maxIntensity;        //Максимаьная интенсивность
 
         double noisePercent;        //Процент шума интенсивности
         double maxNoise;            //Максимальное значение шума
+
+        
         //--------------------------------------------------------------------------------
         public InterferogramInfo(
             int width,
             int height,
-            double percentNoise
+            double percentNoise,
+            double minIntensity
         ) {
             this.width = width;
             this.height = height;
             this.noisePercent = percentNoise;
 
-            this.meanIntensity = 127.5;
+            this.minIntensity = minIntensity;
             this.maxIntensity = 255;
+            this.meanIntensity = 127.5 - this.minIntensity;
             this.intensityModulation = 1;
             this.maxNoise = this.maxIntensity / 100 * this.noisePercent;
+
+            
         }
         //--------------------------------------------------------------------------------
         //Ширина

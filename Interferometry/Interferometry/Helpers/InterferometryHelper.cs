@@ -58,9 +58,9 @@ namespace Interferometry.Helpers {
         //--------------------------------------------------------------------------------------------------------------
         //Интерферограммы с линейными полосами
         public static RealMatrix[] GetLinearInterferograms(
-            int width, int height, int noisePercent, int fringeCount, params double[] phaseShifts
+            int width, int height, int noisePercent, int fringeCount, double minIntensity, params double[] phaseShifts
         ) {
-            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, noisePercent );
+            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, noisePercent, minIntensity );
             InterferogramCreator interferogramCreator = 
                 new LinearFringeInterferogramCreator( interferogramInfo, fringeCount );
             InterferogramGenerator interferogramGenerator = new InterferogramGenerator( interferogramCreator );
@@ -70,9 +70,9 @@ namespace Interferometry.Helpers {
         //--------------------------------------------------------------------------------------------------------------
         //Интерферограммы с круговыми полосами
         public static RealMatrix[] GetCircleInterferograms(
-            int width, int height, int noisePercent, params double[] phaseShifts
+            int width, int height, int noisePercent, double minIntensity, params double[] phaseShifts
         ) {
-            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, noisePercent );
+            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, minIntensity, noisePercent );
             InterferogramCreator interferogramCreator = new CircleFringeInterferogramCreator( interferogramInfo );
             InterferogramGenerator interferogramGenerator = new InterferogramGenerator( interferogramCreator );
             RealMatrix[] interferograms = interferogramGenerator.GenerateInterferograms( phaseShifts );
@@ -81,10 +81,10 @@ namespace Interferometry.Helpers {
         //--------------------------------------------------------------------------------------------------------------
         //Интерферограммы с линейными полосами ( изображения )
         public static WriteableBitmap[] GetLinearInterferogramImages(
-            int width, int height, int noisePercent, int fringeCount, params double[] phaseShifts
+            int width, int height, int noisePercent, int fringeCount, double minIntensity, params double[] phaseShifts
         ) {
             RealMatrix[] interferograms = InterferometryHelper.GetLinearInterferograms
-                ( width, height, noisePercent, fringeCount, phaseShifts );
+                ( width, height, noisePercent, fringeCount, minIntensity, phaseShifts );
             int dpiX = Convert.ToInt32( OS.SystemDpiX );
             int dpiY = Convert.ToInt32( OS.SystemDpiY );
             WriteableBitmap[] images = WriteableBitmapsManager.CreateGrayScaleWriteableBitmapsFromMatrices
@@ -94,10 +94,10 @@ namespace Interferometry.Helpers {
         //--------------------------------------------------------------------------------------------------------------
         //Интерферограммы с круговыми полосами ( изображения )
         public static WriteableBitmap[] GetLinearInterferogramImages(
-            int width, int height, int noisePercent, params double[] phaseShifts
+            int width, int height, int noisePercent, double minIntensity, params double[] phaseShifts
         ) {
             RealMatrix[] interferograms = InterferometryHelper.GetCircleInterferograms
-                ( width, height, noisePercent, phaseShifts );
+                ( width, height, noisePercent, minIntensity, phaseShifts );
             int dpiX = Convert.ToInt32( OS.SystemDpiX );
             int dpiY = Convert.ToInt32( OS.SystemDpiY );
             WriteableBitmap[] images = WriteableBitmapsManager.CreateGrayScaleWriteableBitmapsFromMatrices

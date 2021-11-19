@@ -43,8 +43,9 @@ namespace InterferogramCreator
             double percentNoise = 0;
 
             int fringeCount = 20;
+            double minIntensity = 35;
 
-            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise);
+            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity);
             LinearFringeInterferogramCreator interferogramCreator = new LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
 
             double phaseShift = 0;
