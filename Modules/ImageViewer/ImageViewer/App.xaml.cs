@@ -21,10 +21,6 @@ namespace ImageViewer
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //IEnumerable<WriteableBitmap> images = MemoryReader.ReadCollection(new WriteableBitmapSerialization());
-            //MainViewModel mainViewModel = new MainViewModel();
-            //mainViewModel.MainImageSource = images.First();          
-            
             MainViewModel mainViewModel = new MainViewModel();
 
             Action actionPictureTaken = () =>
@@ -49,19 +45,38 @@ namespace ImageViewer
                     );
             };
 
-            Thread threadPictureTaken = 
-                HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(actionPictureTaken, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
+            Thread threadPictureTaken = null;
+            Thread threadImageCreated = null;
 
-            Thread threadImageCreated = 
-                HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(actionImageCreated, HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
+            if (e.Args.Length > 0)
+            {
+                if (e.Args.Contains(HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN))
+                {
+                    threadPictureTaken =
+                        HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(actionPictureTaken, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
+                }
+
+                if (e.Args.Contains(HoloCommon.Synchronization.Events.Image.IMAGE_CREATED))
+                {
+                    threadImageCreated =
+                        HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(actionImageCreated, HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
+                }
+            }
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.ViewModel = mainViewModel;
 
             mainWindow.Closed += (object ss, EventArgs args) =>
             {
-                threadPictureTaken.Abort();
-                threadImageCreated.Abort();
+                if (threadPictureTaken != null)
+                {
+                    threadPictureTaken.Abort();
+                }
+
+                if (threadImageCreated != null)
+                {
+                    threadImageCreated.Abort();
+                }
             };
 
             mainWindow.Show();
