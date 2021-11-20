@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using HoloCommon.ProcessManagement;
+using HoloCommon.Synchronization;
+
 
 namespace HoloManagerApp
 {
@@ -27,6 +29,11 @@ namespace HoloManagerApp
         private void btnCreateInterferogram_Click(object sender, EventArgs e)
         {
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreator\InterferogramCreator\bin\Debug\InterferogramCreator.exe", null, false);
+        }
+
+        private void btnTakePicture_Click(object sender, EventArgs e)
+        {
+            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.TAKE_PICTURE);
         }
     }
 }

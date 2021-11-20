@@ -11,6 +11,18 @@
     waitForExit="false"
   />
   
+  <module
+    path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
+    arguments="EVENT_CAMERA_PICTURE_TAKEN"
+    waitForExit="false"
+  />
+  
+  <module
+    path="D:\Projects\HoloApplication\Modules\Camera\Camera\bin\Debug\Camera.exe"
+    arguments="IMAGE_CREATED"
+    waitForExit="false"
+  />
+  
   <!--
   <module
     path="d:\Projects\HoloApplication\Modules\Holo\rab1\bin\x64\Debug\rab1.exe"
