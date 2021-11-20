@@ -31,7 +31,7 @@ namespace Interferometry.InterferogramCreation {
 
             this.minIntensity = minIntensity;
             this.maxIntensity = 255;
-            this.meanIntensity = 127.5 - this.minIntensity;
+            this.meanIntensity = (this.maxIntensity - this.minIntensity) / 2.0;
             this.intensityModulation = 1;
             this.maxNoise = this.maxIntensity / 100 * this.noisePercent;
 
@@ -56,6 +56,15 @@ namespace Interferometry.InterferogramCreation {
         public double MaxIntensity {
             get {
                 return this.maxIntensity;
+            }
+        }
+        //--------------------------------------------------------------------------------
+        //Максимальная интенсивность
+        public double MinIntensity
+        {
+            get
+            {
+                return this.minIntensity;
             }
         }
         //--------------------------------------------------------------------------------

@@ -149,6 +149,7 @@ namespace Interferometry.InterferogramCreation {
                 ( this.randomNumberGenerator.GetNextDouble() - 0.5 ) * 2 *
                 this.interferogramInfo.MaxNoise;
             double intensity =
+                this.interferogramInfo.MinIntensity +
                 this.interferogramInfo.MeanIntensity +
                 this.interferogramInfo.MeanIntensity *
                 this.interferogramInfo.IntensityModulation *

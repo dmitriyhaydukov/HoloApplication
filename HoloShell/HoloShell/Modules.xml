@@ -8,7 +8,7 @@
   <module
     path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
     arguments=""
-    waitForExit="true"
+    waitForExit="false"
   />
   
   <!--
