@@ -74,7 +74,7 @@ namespace HoloManagerApp
 
         private double GetPhaseShiftStep()
         {
-            return 2 * Math.PI / 220;
+            return  Math.PI / 4;
         }
     }
 }
