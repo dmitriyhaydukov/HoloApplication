@@ -13,7 +13,9 @@
             <Image  x:Name="mainImage"
                 Source="{Binding Path=MainImageSource}"
                 Stretch="None"
-                MouseDown="mainImage_MouseDown">
+                MouseDown="mainImage_MouseDown"
+                Loaded="mainImage_Loaded"
+                TargetUpdated="mainImage_TargetUpdated">
             </Image>
         </wpfExtensions:ZoomControl>
     </Grid>

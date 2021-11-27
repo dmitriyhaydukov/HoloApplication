@@ -11,6 +11,8 @@
         public static class Image
         {
             public const string IMAGE_CREATED = "IMAGE_CREATED";
+            public const string IMAGE_RENDERED = "IMAGE_RENDERED";
+            public const string IMAGE_UPDATED = "IMAGE_UPDATED";
         }
     }
 }

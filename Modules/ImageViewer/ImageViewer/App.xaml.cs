@@ -41,6 +41,7 @@ namespace ImageViewer
                         () =>
                         {
                             mainViewModel.MainImageSource = ReadForImageCreatedEvent();
+                            HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
                         })
                     );
             };

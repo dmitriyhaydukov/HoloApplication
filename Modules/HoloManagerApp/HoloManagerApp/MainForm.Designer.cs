@@ -31,6 +31,7 @@
             this.btnCorrectedGraph = new System.Windows.Forms.Button();
             this.btnCreateInterferogram = new System.Windows.Forms.Button();
             this.btnTakePicture = new System.Windows.Forms.Button();
+            this.btnTakeSeries = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -63,11 +64,22 @@
             this.btnTakePicture.UseVisualStyleBackColor = true;
             this.btnTakePicture.Click += new System.EventHandler(this.btnTakePicture_Click);
             // 
+            // btnTakeSeries
+            // 
+            this.btnTakeSeries.Location = new System.Drawing.Point(12, 170);
+            this.btnTakeSeries.Name = "btnTakeSeries";
+            this.btnTakeSeries.Size = new System.Drawing.Size(114, 39);
+            this.btnTakeSeries.TabIndex = 3;
+            this.btnTakeSeries.Text = "Take series";
+            this.btnTakeSeries.UseVisualStyleBackColor = true;
+            this.btnTakeSeries.Click += new System.EventHandler(this.btnTakeSeries_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 400);
+            this.Controls.Add(this.btnTakeSeries);
             this.Controls.Add(this.btnTakePicture);
             this.Controls.Add(this.btnCreateInterferogram);
             this.Controls.Add(this.btnCorrectedGraph);
@@ -82,6 +94,7 @@
         private System.Windows.Forms.Button btnCorrectedGraph;
         private System.Windows.Forms.Button btnCreateInterferogram;
         private System.Windows.Forms.Button btnTakePicture;
+        private System.Windows.Forms.Button btnTakeSeries;
     }
 }
 

@@ -110,5 +110,15 @@ namespace ImageViewer
                 return grayScaleValues;
             }
         }
+
+        private void mainImage_Loaded(object sender, RoutedEventArgs e)
+        {
+            //HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+        }
+
+        private void mainImage_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            //HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+        }
     }
 }

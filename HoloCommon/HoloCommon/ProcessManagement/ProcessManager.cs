@@ -8,12 +8,18 @@ namespace HoloCommon.ProcessManagement
 {
     public class ProcessManager
     {
-        public static Process RunProcess(string path, string arguments, bool waitForExit)
+        public static Process RunProcess(string path, string arguments, bool waitForExit, bool useShellExecute = true)
         {
             Process process = new Process();
             process.StartInfo.FileName = path;
             process.StartInfo.Arguments = arguments;
-            process.StartInfo.UseShellExecute = true;
+
+            process.StartInfo.UseShellExecute = useShellExecute;
+            if (!useShellExecute)
+            {
+                process.StartInfo.CreateNoWindow = true;
+            }
+
             process.StartInfo.RedirectStandardOutput = false;
 
             process.EnableRaisingEvents = true;
