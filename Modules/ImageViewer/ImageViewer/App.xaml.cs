@@ -8,9 +8,12 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Threading;
+using System.IO;
 
 using HoloCommon.Serialization.Imaging;
 using HoloCommon.MemoryManagement;
+
+using ExtraLibrary.ImageProcessing;
 
 namespace ImageViewer
 {
@@ -19,9 +22,15 @@ namespace ImageViewer
     /// </summary>
     public partial class App : Application
     {
+        private const string DEFAULT_SAVE_IMAGE_PATH = @"d:\Images\!\";
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            string[] args = e.Args;
+
             MainViewModel mainViewModel = new MainViewModel();
+
+            int imageNumber = 1;
 
             Action actionPictureTaken = () =>
             {
@@ -29,7 +38,17 @@ namespace ImageViewer
                     (DispatcherPriority.Background, new Action(
                         () =>
                         {
-                            mainViewModel.MainImageSource = ReadForPictureTakenEvent();
+                            WriteableBitmap bitmap = ReadForPictureTakenEvent();
+                            mainViewModel.MainImageSource = bitmap;
+
+                            if (args.Contains(HoloCommon.Synchronization.Events.Action.SAVE_IMAGE))
+                            {
+                                WriteableBitmapWrapper bitmapWrapper = WriteableBitmapWrapper.Create(bitmap);
+                                string fileName = Path.Combine(DEFAULT_SAVE_IMAGE_PATH, imageNumber.ToString() + ".png");
+                                bitmapWrapper.SaveToPngFile(fileName);
+                                imageNumber++;
+                                HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
+                            }
                         })
                     );
             };
@@ -40,8 +59,18 @@ namespace ImageViewer
                     (DispatcherPriority.Background, new Action(
                         () =>
                         {
-                            mainViewModel.MainImageSource = ReadForImageCreatedEvent();
+                            WriteableBitmap bitmap = ReadForImageCreatedEvent();
+                            mainViewModel.MainImageSource = bitmap;
                             HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+                            
+                            /*
+                            WriteableBitmapWrapper bitmapWrapper = WriteableBitmapWrapper.Create(bitmap);
+                            string fileName = Path.Combine(DEFAULT_SAVE_IMAGE_PATH, imageNumber.ToString() + ".png");
+                            bitmapWrapper.SaveToPngFile(fileName);
+                            imageNumber++;
+                            HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
+                            */
+
                         })
                     );
             };
@@ -49,8 +78,13 @@ namespace ImageViewer
             Thread threadPictureTaken = null;
             Thread threadImageCreated = null;
 
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.ViewModel = mainViewModel;
+
             if (e.Args.Length > 0)
             {
+                mainWindow.Title = string.Join(" ", e.Args);
+
                 if (e.Args.Contains(HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN))
                 {
                     threadPictureTaken =
@@ -62,12 +96,9 @@ namespace ImageViewer
                     threadImageCreated =
                         HoloCommon.Synchronization.SynchronizationManager.RunActionOnSignal(actionImageCreated, HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
                 }
-            }
+            }         
 
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.ViewModel = mainViewModel;
-
-            mainWindow.Closed += (object ss, EventArgs args) =>
+            mainWindow.Closed += (object ss, EventArgs eventArgs) =>
             {
                 if (threadPictureTaken != null)
                 {

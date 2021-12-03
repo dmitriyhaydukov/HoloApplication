@@ -40,8 +40,7 @@ namespace HoloManagerApp
         private void btnTakePicture_Click(object sender, EventArgs e)
         {
             SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.TAKE_PICTURE);
-        }
-
+        }       
         private void btnTakeSeries_Click(object sender, EventArgs e)
         {
             double phaseShift = 0;
@@ -68,6 +67,29 @@ namespace HoloManagerApp
             SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
         }
         
+
+        /*
+        private void btnTakeSeries_Click(object sender, EventArgs e)
+        {
+            double phaseShift = 0;
+            double phaseShiftStep = GetPhaseShiftStep();
+
+            Action action = () =>
+            {
+                Thread.Sleep(PICTURE_TAKEN_DELAY);
+                if (phaseShift < 2 * Math.PI)
+                {
+                    CreateInterferogram(phaseShift);
+                    phaseShift += phaseShiftStep;
+                }
+            };
+            
+            Thread thread2 = SynchronizationManager.RunActionOnSignal(action, HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+
+            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+        }
+        */
+
         private void CreateInterferogram(double phaseShift)
         {
             string arguments = phaseShift.ToString();

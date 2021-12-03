@@ -13,6 +13,11 @@
             public const string IMAGE_CREATED = "IMAGE_CREATED";
             public const string IMAGE_RENDERED = "IMAGE_RENDERED";
             public const string IMAGE_UPDATED = "IMAGE_UPDATED";
+            public const string IMAGE_SAVED = "IMAGE_SAVED";
+        }
+        public static class Action
+        {
+            public const string SAVE_IMAGE = "SAVE_IMAGE";
         }
     }
 }
