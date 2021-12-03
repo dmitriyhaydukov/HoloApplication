@@ -17,6 +17,8 @@ namespace HoloManagerApp
 {
     public partial class MainForm : Form
     {
+        private const int PICTURE_TAKEN_DELAY = 2000;
+
         public MainForm()
         {
             InitializeComponent();
@@ -47,7 +49,7 @@ namespace HoloManagerApp
 
             Action takePictureAction = () =>
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(PICTURE_TAKEN_DELAY);
                 SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.TAKE_PICTURE);
             };
 
