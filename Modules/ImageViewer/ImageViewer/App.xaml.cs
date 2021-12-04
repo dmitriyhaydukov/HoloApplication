@@ -107,6 +107,8 @@ namespace ImageViewer
                 
         private WriteableBitmap ReadForPictureTakenEvent()
         {
+            //System.GC.Collect();
+
             System.Drawing.Bitmap image = MemoryReader.Read<System.Drawing.Bitmap>(new BitmapSerialization());
 
             BitmapSource bitmapSource =
