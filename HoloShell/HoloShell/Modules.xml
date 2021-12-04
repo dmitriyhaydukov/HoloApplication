@@ -13,7 +13,7 @@
   
   <module
     path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Release\ImageViewer.exe"
-    arguments="EVENT_CAMERA_PICTURE_TAKEN"
+    arguments="EVENT_CAMERA_PICTURE_TAKEN SAVE_IMAGE"
     waitForExit="false"
   />
   

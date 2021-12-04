@@ -39,7 +39,7 @@ namespace ImageViewer
                         () =>
                         {
                             WriteableBitmap bitmap = ReadForPictureTakenEvent();
-                            mainViewModel.MainImageSource = bitmap;
+                            //mainViewModel.MainImageSource = bitmap;
 
                             if (args.Contains(HoloCommon.Synchronization.Events.Action.SAVE_IMAGE))
                             {
@@ -62,15 +62,6 @@ namespace ImageViewer
                             WriteableBitmap bitmap = ReadForImageCreatedEvent();
                             mainViewModel.MainImageSource = bitmap;
                             HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
-                            
-                            /*
-                            WriteableBitmapWrapper bitmapWrapper = WriteableBitmapWrapper.Create(bitmap);
-                            string fileName = Path.Combine(DEFAULT_SAVE_IMAGE_PATH, imageNumber.ToString() + ".png");
-                            bitmapWrapper.SaveToPngFile(fileName);
-                            imageNumber++;
-                            HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
-                            */
-
                         })
                     );
             };

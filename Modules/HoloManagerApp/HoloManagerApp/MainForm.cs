@@ -61,7 +61,7 @@ namespace HoloManagerApp
                 }
             };
 
-            Thread thread1 = SynchronizationManager.RunActionOnSignal(pictureTakenAction, HoloCommon.Synchronization.Events.Camera.PICTURE_TAKEN);
+            Thread thread1 = SynchronizationManager.RunActionOnSignal(pictureTakenAction, HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
             Thread thread2 = SynchronizationManager.RunActionOnSignal(takePictureAction, HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
 
             SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
@@ -92,13 +92,13 @@ namespace HoloManagerApp
 
         private void CreateInterferogram(double phaseShift)
         {
-            string arguments = phaseShift.ToString();
+            string arguments = phaseShift.ToString(CultureInfo.InvariantCulture);
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false, false);
         }
 
         private double GetPhaseShiftStep()
         {
-            return  Math.PI / 4;
+            return  2 * Math.PI / 220;
         }
     }
 }
