@@ -22,6 +22,9 @@ namespace ImageViewer
     /// </summary>
     public partial class App : Application
     {
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
         private const string DEFAULT_SAVE_IMAGE_PATH = @"d:\Images\!\";
 
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -39,7 +42,7 @@ namespace ImageViewer
                         () =>
                         {
                             WriteableBitmap bitmap = ReadForPictureTakenEvent();
-                            //mainViewModel.MainImageSource = bitmap;
+                            mainViewModel.MainImageSource = bitmap;
 
                             if (args.Contains(HoloCommon.Synchronization.Events.Action.SAVE_IMAGE))
                             {
@@ -107,16 +110,26 @@ namespace ImageViewer
                 
         private WriteableBitmap ReadForPictureTakenEvent()
         {
-            //System.GC.Collect();
-
             System.Drawing.Bitmap image = MemoryReader.Read<System.Drawing.Bitmap>(new BitmapSerialization());
 
-            BitmapSource bitmapSource =
-                System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                image.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
+            IntPtr hBitmap = image.GetHbitmap();
 
-            WriteableBitmap writeableBitmap = new WriteableBitmap(bitmapSource);
+            WriteableBitmap writeableBitmap = null;
+
+            try
+            {
+                BitmapSource bitmapSource =
+                    System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                        hBitmap, IntPtr.Zero, Int32Rect.Empty,
+                        BitmapSizeOptions.FromEmptyOptions()
+                    );
+
+                writeableBitmap = new WriteableBitmap(bitmapSource);
+            }
+            finally
+            {
+                DeleteObject(hBitmap);
+            }
 
             return writeableBitmap;
         }
