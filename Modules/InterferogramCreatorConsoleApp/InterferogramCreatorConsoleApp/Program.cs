@@ -29,7 +29,7 @@ namespace InterferogramCreatorConsoleApp
             double phaseShift = double.Parse(args[0], CultureInfo.InvariantCulture);
 
             int width = 4096;
-            int height = 512;
+            int height = 1024;
             double percentNoise = 0;
 
             int fringeCount = 10;
