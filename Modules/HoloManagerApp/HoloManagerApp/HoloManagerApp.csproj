@@ -39,6 +39,7 @@
     <Reference Include="HoloCommon">
       <HintPath>..\..\..\HoloCommon\HoloCommon\bin\Release\HoloCommon.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

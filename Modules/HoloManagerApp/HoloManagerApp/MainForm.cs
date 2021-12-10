@@ -8,10 +8,20 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Globalization;
+using System.IO;
 
+using HoloCommon.MemoryManagement;
 using HoloCommon.ProcessManagement;
 using HoloCommon.Synchronization;
+using HoloCommon.Serialization.Charting;
+using HoloCommon.Models.General;
+using HoloCommon.Models.Charting;
+
+using ExtraLibrary.ImageProcessing;
+using ExtraLibrary.Mathematics.Matrices;
 
 namespace HoloManagerApp
 {
@@ -99,6 +109,52 @@ namespace HoloManagerApp
         private double GetPhaseShiftStep()
         {
             return  2 * Math.PI / 220;
+        }
+
+        private void btnGraphFromImages_Click(object sender, EventArgs e)
+        {
+            string directoryPath = @"d:\Images\Interferograms\!\";
+
+            int x = 2690;
+            int y = 1990;
+
+            if (Directory.Exists(directoryPath))
+            {
+                string[] files = Directory.GetFiles(directoryPath);
+                IEnumerable<string> sortedFiles = files.OrderBy(f => int.Parse(Path.GetFileNameWithoutExtension(f)));
+
+                int n = 0;
+                List<ChartPoint> points = new List<ChartPoint>();
+
+                foreach(string file in sortedFiles)
+                {
+                    using (Bitmap bitmap = new Bitmap(file))
+                    {
+                        System.Drawing.Color color = bitmap.GetPixel(x, y);
+                        int intensity = ColorWrapper.GetGrayIntensity(color);
+                        ChartPoint chartPoint = new ChartPoint(n, intensity);
+                        points.Add(chartPoint);
+                        n++;
+                    }
+                }
+
+                Chart chart = new Chart()
+                {
+                    SeriesCollection = new List<ChartSeries>()
+                    {
+                        new ChartSeries()
+                        {
+                            Name = "Grpah",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                            Points = points
+                        }
+                    }
+                };
+
+                MemoryWriter.Write<Chart>(chart, new ChartSerialization());
+                ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+            }
         }
     }
 }
