@@ -33,14 +33,14 @@
             this.btnTakePicture = new System.Windows.Forms.Button();
             this.btnTakeSeries = new System.Windows.Forms.Button();
             this.btnGraphFromImages = new System.Windows.Forms.Button();
+            this.btnIntensityIncrease = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
             // 
-            this.btnCorrectedGraph.Location = new System.Drawing.Point(16, 15);
-            this.btnCorrectedGraph.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCorrectedGraph.Location = new System.Drawing.Point(12, 12);
             this.btnCorrectedGraph.Name = "btnCorrectedGraph";
-            this.btnCorrectedGraph.Size = new System.Drawing.Size(152, 44);
+            this.btnCorrectedGraph.Size = new System.Drawing.Size(114, 36);
             this.btnCorrectedGraph.TabIndex = 0;
             this.btnCorrectedGraph.Text = "CorrectedGraph";
             this.btnCorrectedGraph.UseVisualStyleBackColor = true;
@@ -48,10 +48,9 @@
             // 
             // btnCreateInterferogram
             // 
-            this.btnCreateInterferogram.Location = new System.Drawing.Point(16, 79);
-            this.btnCreateInterferogram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCreateInterferogram.Location = new System.Drawing.Point(12, 64);
             this.btnCreateInterferogram.Name = "btnCreateInterferogram";
-            this.btnCreateInterferogram.Size = new System.Drawing.Size(152, 48);
+            this.btnCreateInterferogram.Size = new System.Drawing.Size(114, 39);
             this.btnCreateInterferogram.TabIndex = 1;
             this.btnCreateInterferogram.Text = "Create interferogram";
             this.btnCreateInterferogram.UseVisualStyleBackColor = true;
@@ -59,10 +58,9 @@
             // 
             // btnTakePicture
             // 
-            this.btnTakePicture.Location = new System.Drawing.Point(16, 146);
-            this.btnTakePicture.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTakePicture.Location = new System.Drawing.Point(12, 119);
             this.btnTakePicture.Name = "btnTakePicture";
-            this.btnTakePicture.Size = new System.Drawing.Size(152, 44);
+            this.btnTakePicture.Size = new System.Drawing.Size(114, 36);
             this.btnTakePicture.TabIndex = 2;
             this.btnTakePicture.Text = "Take picture";
             this.btnTakePicture.UseVisualStyleBackColor = true;
@@ -70,10 +68,9 @@
             // 
             // btnTakeSeries
             // 
-            this.btnTakeSeries.Location = new System.Drawing.Point(16, 209);
-            this.btnTakeSeries.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTakeSeries.Location = new System.Drawing.Point(12, 170);
             this.btnTakeSeries.Name = "btnTakeSeries";
-            this.btnTakeSeries.Size = new System.Drawing.Size(152, 48);
+            this.btnTakeSeries.Size = new System.Drawing.Size(114, 39);
             this.btnTakeSeries.TabIndex = 3;
             this.btnTakeSeries.Text = "Take series";
             this.btnTakeSeries.UseVisualStyleBackColor = true;
@@ -81,25 +78,36 @@
             // 
             // btnGraphFromImages
             // 
-            this.btnGraphFromImages.Location = new System.Drawing.Point(16, 279);
+            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 227);
+            this.btnGraphFromImages.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGraphFromImages.Name = "btnGraphFromImages";
-            this.btnGraphFromImages.Size = new System.Drawing.Size(152, 50);
+            this.btnGraphFromImages.Size = new System.Drawing.Size(114, 41);
             this.btnGraphFromImages.TabIndex = 4;
             this.btnGraphFromImages.Text = "Graph from images";
             this.btnGraphFromImages.UseVisualStyleBackColor = true;
             this.btnGraphFromImages.Click += new System.EventHandler(this.btnGraphFromImages_Click);
             // 
+            // btnIntensityIncrease
+            // 
+            this.btnIntensityIncrease.Location = new System.Drawing.Point(146, 12);
+            this.btnIntensityIncrease.Name = "btnIntensityIncrease";
+            this.btnIntensityIncrease.Size = new System.Drawing.Size(103, 36);
+            this.btnIntensityIncrease.TabIndex = 5;
+            this.btnIntensityIncrease.Text = "Intensity Increasing";
+            this.btnIntensityIncrease.UseVisualStyleBackColor = true;
+            this.btnIntensityIncrease.Click += new System.EventHandler(this.btnIntensityIncrease_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 352);
+            this.ClientSize = new System.Drawing.Size(350, 286);
+            this.Controls.Add(this.btnIntensityIncrease);
             this.Controls.Add(this.btnGraphFromImages);
             this.Controls.Add(this.btnTakeSeries);
             this.Controls.Add(this.btnTakePicture);
             this.Controls.Add(this.btnCreateInterferogram);
             this.Controls.Add(this.btnCorrectedGraph);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "Holo manager";
             this.ResumeLayout(false);
@@ -113,6 +121,7 @@
         private System.Windows.Forms.Button btnTakePicture;
         private System.Windows.Forms.Button btnTakeSeries;
         private System.Windows.Forms.Button btnGraphFromImages;
+        private System.Windows.Forms.Button btnIntensityIncrease;
     }
 }
 

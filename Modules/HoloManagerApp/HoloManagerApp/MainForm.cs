@@ -229,5 +229,117 @@ namespace HoloManagerApp
                 Thread.Sleep(2000);
             }
         }
+
+        private void btnIntensityIncrease_Click(object sender, EventArgs e)
+        {
+            int count = 1000;
+            double step = GetStep();
+
+            List<double> valuesList = new List<double>();
+
+            double x = 0;
+            for (int k = 0; k < count; k++)
+            {
+                double value = Math.Cos(x);
+                valuesList.Add(value);
+                x += step;
+            }
+
+            List<ChartPoint> points = new List<ChartPoint>();
+            for (int k = 0; k < count; k++)
+            {
+                ChartPoint p = new ChartPoint(k, valuesList[k]);
+                points.Add(p);
+            }
+
+            Chart chart1 = new Chart()
+            {
+                SeriesCollection = new List<ChartSeries>()
+                    {
+                        new ChartSeries()
+                        {
+                            Name = "Graph",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                            Points = points
+                        }
+                    }
+            };
+
+            MemoryWriter.Write<Chart>(chart1, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
+
+            Interval<double> startInterval = new Interval<double>(-1, 1);
+            Interval<double> finishInterval = new Interval<double>(0, 2000);
+            RealIntervalTransform transform = new RealIntervalTransform(startInterval, finishInterval);
+            List<ChartPoint> points2 = new List<ChartPoint>();
+            for (int k = 0; k < count; k++)
+            {
+                double newValue = transform.TransformToFinishIntervalValue(valuesList[k]);
+                ChartPoint p = new ChartPoint(k, newValue);
+                points2.Add(p);
+            }
+
+            double M1 = 127;
+            double M2 = 63;
+
+            List<ChartPoint> points3 = new List<ChartPoint>();
+            for(int k = 0; k < points2.Count; k++)
+            {
+                ChartPoint p = points2[k];
+                double v = p.Y % M1;
+                ChartPoint newPoint = new ChartPoint(p.X, v);
+                points3.Add(newPoint);
+            }
+
+            List<ChartPoint> points4 = new List<ChartPoint>();
+            for (int k = 0; k < points2.Count; k++)
+            {
+                ChartPoint p = points2[k];
+                double v = p.Y % M2;
+                ChartPoint newPoint = new ChartPoint(p.X, v);
+                points4.Add(newPoint);
+            }
+
+            Chart chart2 = new Chart()
+            {
+                SeriesCollection = new List<ChartSeries>()
+                    {
+                        new ChartSeries()
+                        {
+                            Name = "Graph",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(0, 0, 0),
+                            Points = points2
+                        },
+                        new ChartSeries()
+                        {
+                            Name = "M1",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(0, 255, 0),
+                            Points = points3
+                        },
+                        new ChartSeries()
+                        {
+                            Name = "M2",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                            Points = points4
+                        }
+                    }
+            };
+
+            MemoryWriter.Write<Chart>(chart2, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
+        }
+        
+        private double GetStep()
+        {
+            return 0.01;
+        }
     }
 }
