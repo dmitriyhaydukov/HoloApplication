@@ -9,5 +9,7 @@ namespace HoloCommon.Models.Charting
     public class Chart
     {
         public List<ChartSeries> SeriesCollection { get; set; }
+        public bool InvertAxisX { get; set; }
+        public bool InvertAxisY { get; set; }
     }
 }

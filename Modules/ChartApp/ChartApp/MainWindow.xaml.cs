@@ -112,6 +112,7 @@ namespace ChartApp
             double[] dataY = series.Points.Select(p => p.Y).ToArray();
 
             ScatterPlot scatterPlot = this.mainPlot.Plot.AddScatter(dataX, dataY);
+            
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
             scatterPlot.Color = color;
             scatterPlot.Label = series.Name;
@@ -122,6 +123,7 @@ namespace ChartApp
         private IPlottable AddBubblePlot(ChartSeries series)
         {
             BubblePlot bubblePlot = this.mainPlot.Plot.AddBubblePlot();
+            
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
             double radius = 2;
 

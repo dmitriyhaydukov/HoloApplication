@@ -31,6 +31,14 @@ namespace HoloCommon.Serialization.Charting
                 resBytes.AddRange(seriesBytes);
             }
 
+            /*
+            byte[] invertAxisXBytes = BitConverter.GetBytes(obj.InvertAxisX);
+            byte[] invertAxisYBytes = BitConverter.GetBytes(obj.InvertAxisY);
+
+            resBytes.AddRange(invertAxisXBytes);
+            resBytes.AddRange(invertAxisYBytes);
+            */
+
             return resBytes.ToArray();
         }
 
@@ -62,7 +70,7 @@ namespace HoloCommon.Serialization.Charting
                 chart.SeriesCollection.Add(series);
 
                 offset += seriesSize;
-            }
+            }          
 
             return chart;
         }
