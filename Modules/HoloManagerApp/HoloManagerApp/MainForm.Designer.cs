@@ -34,6 +34,7 @@
             this.btnTakeSeries = new System.Windows.Forms.Button();
             this.btnGraphFromImages = new System.Windows.Forms.Button();
             this.btnIntensityIncrease = new System.Windows.Forms.Button();
+            this.btnBuildTable = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -79,7 +80,7 @@
             // btnGraphFromImages
             // 
             this.btnGraphFromImages.Location = new System.Drawing.Point(12, 227);
-            this.btnGraphFromImages.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGraphFromImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnGraphFromImages.Name = "btnGraphFromImages";
             this.btnGraphFromImages.Size = new System.Drawing.Size(114, 41);
             this.btnGraphFromImages.TabIndex = 4;
@@ -97,11 +98,22 @@
             this.btnIntensityIncrease.UseVisualStyleBackColor = true;
             this.btnIntensityIncrease.Click += new System.EventHandler(this.btnIntensityIncrease_Click);
             // 
+            // btnBuildTable
+            // 
+            this.btnBuildTable.Location = new System.Drawing.Point(146, 64);
+            this.btnBuildTable.Name = "btnBuildTable";
+            this.btnBuildTable.Size = new System.Drawing.Size(103, 39);
+            this.btnBuildTable.TabIndex = 6;
+            this.btnBuildTable.Text = "Build table";
+            this.btnBuildTable.UseVisualStyleBackColor = true;
+            this.btnBuildTable.Click += new System.EventHandler(this.btnBuildTable_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 286);
+            this.Controls.Add(this.btnBuildTable);
             this.Controls.Add(this.btnIntensityIncrease);
             this.Controls.Add(this.btnGraphFromImages);
             this.Controls.Add(this.btnTakeSeries);
@@ -122,6 +134,7 @@
         private System.Windows.Forms.Button btnTakeSeries;
         private System.Windows.Forms.Button btnGraphFromImages;
         private System.Windows.Forms.Button btnIntensityIncrease;
+        private System.Windows.Forms.Button btnBuildTable;
     }
 }
 

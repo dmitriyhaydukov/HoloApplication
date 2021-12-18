@@ -24,12 +24,18 @@ using ExtraLibrary.ImageProcessing;
 using ExtraLibrary.Mathematics.Matrices;
 using ExtraLibrary.Mathematics.Transformation;
 using ExtraLibrary.Mathematics.Sets;
+using ExtraLibrary.Geometry2D;
 
 namespace HoloManagerApp
 {
     public partial class MainForm : Form
     {
         private const int PICTURE_TAKEN_DELAY = 2000;
+
+        private const int M1 = 213;
+        private const int M2 = 167;
+
+        private const int MAX_RANGE_VALUE = 800;
 
         public MainForm()
         {
@@ -272,7 +278,7 @@ namespace HoloManagerApp
             Thread.Sleep(2000);
 
             Interval<double> startInterval = new Interval<double>(-1, 1);
-            Interval<double> finishInterval = new Interval<double>(0, 2000);
+            Interval<double> finishInterval = new Interval<double>(0, MAX_RANGE_VALUE);
             RealIntervalTransform transform = new RealIntervalTransform(startInterval, finishInterval);
             List<ChartPoint> points2 = new List<ChartPoint>();
             for (int k = 0; k < count; k++)
@@ -281,10 +287,7 @@ namespace HoloManagerApp
                 ChartPoint p = new ChartPoint(k, newValue);
                 points2.Add(p);
             }
-
-            double M1 = 127;
-            double M2 = 63;
-
+            
             List<ChartPoint> points3 = new List<ChartPoint>();
             for(int k = 0; k < points2.Count; k++)
             {
@@ -335,11 +338,91 @@ namespace HoloManagerApp
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 
             Thread.Sleep(2000);
+            
+            List<ChartPoint> points5 = new List<ChartPoint>();
+            
+            for (int k = 0; k < points3.Count; k++)
+            {
+                ChartPoint m1Point = points3[k];
+                ChartPoint m2Point = points4[k];
+
+                ChartPoint point = new ChartPoint(m1Point.Y, m2Point.Y);
+                points5.Add(point);
+            }
+
+            List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE);
+
+            List<ChartPoint> points6 = new List<ChartPoint>();
+            for (int k = 0; k < pointsDiagonal.Count; k++)
+            {
+                Point2D p = pointsDiagonal[k];
+                ChartPoint p1 = new ChartPoint(p.X, p.Y);
+                points6.Add(p1);
+            }
+                       
+            Chart chart5 = new Chart()
+            {
+                SeriesCollection = new List<ChartSeries>()
+                    {
+                        new ChartSeries()
+                        {
+                            Name = "Diagonal",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(0, 255, 0),
+                            Points = points6
+                        },
+
+                        new ChartSeries()
+                        {
+                            Name = "Points",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                            ColorDescriptor = new ColorDescriptor(0, 0, 0),
+                            Points = points5
+                        }
+                    }
+            };
+
+            MemoryWriter.Write<Chart>(chart5, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
         }
         
         private double GetStep()
         {
             return 0.01;
+        }
+
+        private void btnBuildTable_Click(object sender, EventArgs e)
+        {
+            List<Point2D> points = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE);
+
+            List<ChartPoint> chartPoints = new List<ChartPoint>();
+            for (int k = 0; k < points.Count; k++)
+            {
+                Point2D p = points[k];
+                ChartPoint p1 = new ChartPoint(p.X, p.Y);
+                chartPoints.Add(p1);
+            }
+
+            Chart chart1 = new Chart()
+            {
+                SeriesCollection = new List<ChartSeries>()
+                    {
+                        new ChartSeries()
+                        {
+                            Name = "Graph diagonals",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                            Points = chartPoints
+                        }
+                    }
+            };
+
+            MemoryWriter.Write<Chart>(chart1, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
         }
     }
 }

@@ -123,7 +123,7 @@ namespace ChartApp
         {
             BubblePlot bubblePlot = this.mainPlot.Plot.AddBubblePlot();
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
-            double radius = 1;
+            double radius = 2;
 
             int count = series.Points.Count();
             for (int j = 0; j < count; j++)
