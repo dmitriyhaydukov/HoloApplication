@@ -346,7 +346,8 @@ namespace HoloManagerApp
                 ChartPoint m1Point = points3[k];
                 ChartPoint m2Point = points4[k];
 
-                ChartPoint point = new ChartPoint(m1Point.Y, m2Point.Y);
+                //ChartPoint point = new ChartPoint(m1Point.Y, m2Point.Y);
+                ChartPoint point = new ChartPoint(m1Point.Y - M1, M2 - m2Point.Y);
                 points5.Add(point);
             }
 
@@ -356,12 +357,15 @@ namespace HoloManagerApp
             for (int k = 0; k < pointsDiagonal.Count; k++)
             {
                 Point2D p = pointsDiagonal[k];
-                ChartPoint p1 = new ChartPoint(p.X, p.Y);
+                //ChartPoint p1 = new ChartPoint(p.X, p.Y);
+                ChartPoint p1 = new ChartPoint(p.X - M1, M2 - p.Y);
                 points6.Add(p1);
             }
-                       
+
             Chart chart5 = new Chart()
             {
+                InvertAxisX = true,
+                //InvertAxisY = true,
                 SeriesCollection = new List<ChartSeries>()
                     {
                         new ChartSeries()

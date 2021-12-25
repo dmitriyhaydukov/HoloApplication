@@ -5,6 +5,7 @@
     waitForExit="false"
   />
 
+  <!--
   <module
     path="D:\Projects\HoloApplication\Modules\ImageViewer\ImageViewer\bin\Debug\ImageViewer.exe"
     arguments="IMAGE_CREATED"
@@ -22,7 +23,7 @@
     arguments="IMAGE_CREATED"
     waitForExit="false"
   />
-  
+  -->
   <!--
   <module
     path="d:\Projects\HoloApplication\Modules\Holo\rab1\bin\x64\Debug\rab1.exe"

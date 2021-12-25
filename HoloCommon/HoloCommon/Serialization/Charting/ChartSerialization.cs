@@ -30,15 +30,13 @@ namespace HoloCommon.Serialization.Charting
                 //series bytes
                 resBytes.AddRange(seriesBytes);
             }
-
-            /*
+                        
             byte[] invertAxisXBytes = BitConverter.GetBytes(obj.InvertAxisX);
             byte[] invertAxisYBytes = BitConverter.GetBytes(obj.InvertAxisY);
 
             resBytes.AddRange(invertAxisXBytes);
             resBytes.AddRange(invertAxisYBytes);
-            */
-
+            
             return resBytes.ToArray();
         }
 
@@ -70,7 +68,17 @@ namespace HoloCommon.Serialization.Charting
                 chart.SeriesCollection.Add(series);
 
                 offset += seriesSize;
-            }          
+            }
+
+            byte[] invertAxisXBytes = new byte[TypeSizes.SIZE_BOOL];
+            byte[] invertAxisYBytes = new byte[TypeSizes.SIZE_BOOL];
+
+            Array.Copy(bytes, offset, invertAxisXBytes, 0, TypeSizes.SIZE_BOOL);
+            offset += TypeSizes.SIZE_BOOL;
+            Array.Copy(bytes, offset, invertAxisYBytes, 0, TypeSizes.SIZE_BOOL);
+
+            chart.InvertAxisX = BitConverter.ToBoolean(invertAxisXBytes, 0);
+            chart.InvertAxisY = BitConverter.ToBoolean(invertAxisYBytes, 0);
 
             return chart;
         }

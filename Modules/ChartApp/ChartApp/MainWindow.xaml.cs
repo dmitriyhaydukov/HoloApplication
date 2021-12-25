@@ -59,6 +59,10 @@ namespace ChartApp
             this.InitLegend();
 
             Chart chart = MemoryReader.Read<Chart>(new ChartSerialization());
+
+            this.mainPlot.Plot.XAxis.TickLabelNotation(invertSign: chart.InvertAxisX);
+            this.mainPlot.Plot.YAxis.TickLabelNotation(invertSign: chart.InvertAxisY);
+
             ChartSeries first = chart.SeriesCollection.First();
 
             double[] dataX = first.Points.Select(p => p.X).ToArray();
