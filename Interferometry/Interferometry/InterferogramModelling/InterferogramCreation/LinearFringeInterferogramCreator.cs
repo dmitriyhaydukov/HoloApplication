@@ -5,6 +5,8 @@ using System.Text;
 
 using ExtraLibrary.Mathematics;
 using ExtraLibrary.Mathematics.Matrices;
+using ExtraLibrary.Mathematics.Sets;
+using ExtraLibrary.Mathematics.Transformation;
 using ExtraLibrary.Randomness;
 
 namespace Interferometry.InterferogramCreation {
@@ -98,6 +100,17 @@ namespace Interferometry.InterferogramCreation {
                 Math.Cos( phase ) +
                 noise;
             intensity = this.GetCorrectedIntensity( intensity );
+
+            if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue)
+            {
+                Interval<double> startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
+                Interval<double> finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
+                RealIntervalTransform transform = new RealIntervalTransform(startInterval, finishInterval);
+
+                intensity = transform.TransformToFinishIntervalValue(intensity);
+                intensity = intensity % interferogramInfo.ModuleValue.Value;
+            }      
+
             return intensity;
         }
         //----------------------------------------------------------------------------------------------

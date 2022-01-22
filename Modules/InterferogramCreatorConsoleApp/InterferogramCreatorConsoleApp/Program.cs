@@ -21,21 +21,37 @@ namespace InterferogramCreatorConsoleApp
     {
         static void Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length != 3)
             {
                 return;
             }
 
             double phaseShift = double.Parse(args[0], CultureInfo.InvariantCulture);
 
+            double? maxRange = null;
+            int? moduleValue = null;
+            
+            double parsedMaxRange;
+            int parsedModuleValue;
+            
+            if (double.TryParse(args[1], out parsedMaxRange))
+            {
+                maxRange = parsedMaxRange;
+            }
+
+            if (int.TryParse(args[2], out parsedModuleValue))
+            {
+                moduleValue = parsedModuleValue;
+            }
+
             int width = 4096;
             int height = 1024;
             double percentNoise = 0;
 
             int fringeCount = 10;
-            double minIntensity = 35;
+            double minIntensity = 0;
 
-            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity);
+            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity, maxRange, moduleValue);
             LinearFringeInterferogramCreator interferogramCreator = new LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
                         
             RealMatrix interferogramMatrix = interferogramCreator.CreateInterferogram(phaseShift);

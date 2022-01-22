@@ -16,14 +16,18 @@ namespace Interferometry.InterferogramCreation {
 
         double noisePercent;        //Процент шума интенсивности
         double maxNoise;            //Максимальное значение шума
-
         
+        double? maxRange;
+        int? moduleValue;
+
         //--------------------------------------------------------------------------------
         public InterferogramInfo(
             int width,
             int height,
             double percentNoise,
-            double minIntensity
+            double minIntensity,
+            double? maxRange,
+            int? moduleValue
         ) {
             this.width = width;
             this.height = height;
@@ -35,7 +39,8 @@ namespace Interferometry.InterferogramCreation {
             this.intensityModulation = 1;
             this.maxNoise = this.maxIntensity / 100 * this.noisePercent;
 
-            
+            this.maxRange = maxRange;
+            this.moduleValue = moduleValue;
         }
         //--------------------------------------------------------------------------------
         //Ширина
@@ -90,7 +95,21 @@ namespace Interferometry.InterferogramCreation {
             }
         }
         //--------------------------------------------------------------------------------
+        public double? MaxRange
+        {
+            get
+            {
+                return this.maxRange;
+            }
+        }
         //--------------------------------------------------------------------------------
+        public int? ModuleValue
+        {
+            get
+            {
+                return this.moduleValue;
+            }
+        }
         //--------------------------------------------------------------------------------
     }
 }

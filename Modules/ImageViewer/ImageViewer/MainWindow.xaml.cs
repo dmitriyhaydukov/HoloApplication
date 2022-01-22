@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 using ExtraLibrary.ImageProcessing;
 
@@ -119,6 +120,19 @@ namespace ImageViewer
         private void mainImage_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             //HoloCommon.Synchronization.SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+        }
+
+        private void saveImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            string filePath = @"D:\Images\!\Image.png";
+
+            BitmapSource image = mainViewModel.MainImageSource;
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image as BitmapSource));
+                encoder.Save(fileStream);
+            }
         }
     }
 }

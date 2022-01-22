@@ -35,6 +35,8 @@
             this.btnGraphFromImages = new System.Windows.Forms.Button();
             this.btnIntensityIncrease = new System.Windows.Forms.Button();
             this.btnBuildTable = new System.Windows.Forms.Button();
+            this.btnCreateInterferogram2 = new System.Windows.Forms.Button();
+            this.btnBuildRealTable = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -59,7 +61,7 @@
             // 
             // btnTakePicture
             // 
-            this.btnTakePicture.Location = new System.Drawing.Point(12, 119);
+            this.btnTakePicture.Location = new System.Drawing.Point(12, 169);
             this.btnTakePicture.Name = "btnTakePicture";
             this.btnTakePicture.Size = new System.Drawing.Size(114, 36);
             this.btnTakePicture.TabIndex = 2;
@@ -69,7 +71,7 @@
             // 
             // btnTakeSeries
             // 
-            this.btnTakeSeries.Location = new System.Drawing.Point(12, 170);
+            this.btnTakeSeries.Location = new System.Drawing.Point(12, 220);
             this.btnTakeSeries.Name = "btnTakeSeries";
             this.btnTakeSeries.Size = new System.Drawing.Size(114, 39);
             this.btnTakeSeries.TabIndex = 3;
@@ -79,7 +81,7 @@
             // 
             // btnGraphFromImages
             // 
-            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 227);
+            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 277);
             this.btnGraphFromImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnGraphFromImages.Name = "btnGraphFromImages";
             this.btnGraphFromImages.Size = new System.Drawing.Size(114, 41);
@@ -108,11 +110,33 @@
             this.btnBuildTable.UseVisualStyleBackColor = true;
             this.btnBuildTable.Click += new System.EventHandler(this.btnBuildTable_Click);
             // 
+            // btnCreateInterferogram2
+            // 
+            this.btnCreateInterferogram2.Location = new System.Drawing.Point(12, 115);
+            this.btnCreateInterferogram2.Name = "btnCreateInterferogram2";
+            this.btnCreateInterferogram2.Size = new System.Drawing.Size(114, 37);
+            this.btnCreateInterferogram2.TabIndex = 7;
+            this.btnCreateInterferogram2.Text = "Create interferogram 2";
+            this.btnCreateInterferogram2.UseVisualStyleBackColor = true;
+            this.btnCreateInterferogram2.Click += new System.EventHandler(this.btnCreateInterferogram2_Click);
+            // 
+            // btnBuildRealTable
+            // 
+            this.btnBuildRealTable.Location = new System.Drawing.Point(146, 115);
+            this.btnBuildRealTable.Name = "btnBuildRealTable";
+            this.btnBuildRealTable.Size = new System.Drawing.Size(103, 37);
+            this.btnBuildRealTable.TabIndex = 8;
+            this.btnBuildRealTable.Text = "Build Real table";
+            this.btnBuildRealTable.UseVisualStyleBackColor = true;
+            this.btnBuildRealTable.Click += new System.EventHandler(this.btnBuildRealTable_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 286);
+            this.ClientSize = new System.Drawing.Size(350, 432);
+            this.Controls.Add(this.btnBuildRealTable);
+            this.Controls.Add(this.btnCreateInterferogram2);
             this.Controls.Add(this.btnBuildTable);
             this.Controls.Add(this.btnIntensityIncrease);
             this.Controls.Add(this.btnGraphFromImages);
@@ -135,6 +159,8 @@
         private System.Windows.Forms.Button btnGraphFromImages;
         private System.Windows.Forms.Button btnIntensityIncrease;
         private System.Windows.Forms.Button btnBuildTable;
+        private System.Windows.Forms.Button btnCreateInterferogram2;
+        private System.Windows.Forms.Button btnBuildRealTable;
     }
 }
 

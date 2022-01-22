@@ -50,7 +50,13 @@ namespace HoloManagerApp
         private void btnCreateInterferogram_Click(object sender, EventArgs e)
         {
             double phaseShift = 0;
-            string arguments = phaseShift.ToString(CultureInfo.InvariantCulture);
+            string arguments = 
+                string.Format(
+                    "{0} {1} {2}",
+                    phaseShift.ToString(CultureInfo.InvariantCulture),
+                    MAX_RANGE_VALUE.ToString(CultureInfo.InvariantCulture),
+                    M1.ToString(CultureInfo.InvariantCulture)
+                );
 
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
         }
@@ -111,6 +117,7 @@ namespace HoloManagerApp
         private void CreateInterferogram(double phaseShift)
         {
             string arguments = phaseShift.ToString(CultureInfo.InvariantCulture);
+                
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false, false);
         }
 
@@ -427,6 +434,42 @@ namespace HoloManagerApp
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 
             Thread.Sleep(2000);
+        }
+
+        private void btnCreateInterferogram2_Click(object sender, EventArgs e)
+        {
+            double phaseShift = 0;
+            string arguments =
+                string.Format(
+                    "{0} {1} {2}",
+                    phaseShift.ToString(CultureInfo.InvariantCulture),
+                    MAX_RANGE_VALUE.ToString(CultureInfo.InvariantCulture),
+                    M2.ToString(CultureInfo.InvariantCulture)
+                );
+
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
+        }
+
+        private void btnBuildRealTable_Click(object sender, EventArgs e)
+        {
+            string imagePath1 = @"D:\Images\20220122\Image1.png";
+            string imagePath2 = @"D:\Images\20220122\Image2.png";
+
+            int row = 251;
+
+            WriteableBitmap bitmap1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath1);
+            WriteableBitmap bitmap2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath2);
+
+            WriteableBitmapWrapper wrapper1 = WriteableBitmapWrapper.Create(bitmap1);
+            WriteableBitmapWrapper wrapper2 = WriteableBitmapWrapper.Create(bitmap2);
+
+            double[] rowValues1 = wrapper1.GetRowGrayValues(row);
+            double[] rowValues2 = wrapper2.GetRowGrayValues(row);
+              
+
+
+
+            
         }
     }
 }

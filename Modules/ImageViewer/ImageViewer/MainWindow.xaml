@@ -7,8 +7,13 @@
         xmlns:local="clr-namespace:ImageViewer"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1200">
+
     
-    <Grid Margin="10,10,10,10">
+    
+    <DockPanel Margin="10,10,10,10" LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top">
+            <Button Name="saveImageButton" Content="Save image" Click="saveImageButton_Click" Height="50"></Button>
+        </StackPanel>
         <wpfExtensions:ZoomControl x:Name="zoomControl">
             <Image  x:Name="mainImage"
                 Source="{Binding Path=MainImageSource}"
@@ -18,6 +23,6 @@
                 TargetUpdated="mainImage_TargetUpdated">
             </Image>
         </wpfExtensions:ZoomControl>
-    </Grid>
+    </DockPanel>
     
 </Window>
