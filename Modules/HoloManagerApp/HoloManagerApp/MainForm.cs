@@ -465,11 +465,8 @@ namespace HoloManagerApp
 
             double[] rowValues1 = wrapper1.GetRowGrayValues(row);
             double[] rowValues2 = wrapper2.GetRowGrayValues(row);
-              
+           
 
-
-
-            
         }
     }
 }
