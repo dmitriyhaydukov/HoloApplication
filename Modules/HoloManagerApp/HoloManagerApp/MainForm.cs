@@ -455,7 +455,7 @@ namespace HoloManagerApp
             string imagePath1 = @"D:\Images\20220122\Image1.png";
             string imagePath2 = @"D:\Images\20220122\Image2.png";
 
-            int row = 251;
+            int row = 2084;
 
             WriteableBitmap bitmap1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath1);
             WriteableBitmap bitmap2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath2);
@@ -463,10 +463,57 @@ namespace HoloManagerApp
             WriteableBitmapWrapper wrapper1 = WriteableBitmapWrapper.Create(bitmap1);
             WriteableBitmapWrapper wrapper2 = WriteableBitmapWrapper.Create(bitmap2);
 
-            double[] rowValues1 = wrapper1.GetRowGrayValues(row);
-            double[] rowValues2 = wrapper2.GetRowGrayValues(row);
-           
+            //double[] rowValues1 = wrapper1.GetRowGrayValues(row);
+            //double[] rowValues2 = wrapper2.GetRowGrayValues(row);
 
+            double[] rowValues1 = wrapper1.GetGrayScaleMatrix().GetRow(row);
+            double[] rowValues2 = wrapper2.GetGrayScaleMatrix().GetRow(row);
+
+            double min1 = rowValues1.Min();
+            double min2 = rowValues2.Min();
+            
+            double max1 = rowValues1.Max();
+            double max2 = rowValues2.Max();
+
+            double min = Math.Min(min1, min2);
+            double max = Math.Max(max1, max2);
+
+            Interval<double> startInterval = new Interval<double>(min, max);
+
+            Interval<double> intervalM1 = new Interval<double>(0, M1);
+            Interval<double> intervalM2 = new Interval<double>(0, M2);
+
+            RealIntervalTransform intervalTransformM1 = new RealIntervalTransform(startInterval, intervalM1);
+            RealIntervalTransform intervalTransformM2 = new RealIntervalTransform(startInterval, intervalM2);
+
+            double[] values1 = rowValues1.Select(x => intervalTransformM1.TransformToFinishIntervalValue(x)).ToArray();
+            double[] values2 = rowValues2.Select(x => intervalTransformM2.TransformToFinishIntervalValue(x)).ToArray();
+
+            List<ChartPoint> chartPoints = new List<ChartPoint>();
+            for (int k = 0; k < values1.Length; k++)
+            {
+                ChartPoint p1 = new ChartPoint(values1[k], values2[k]);
+                chartPoints.Add(p1);
+            }
+
+            Chart chart = new Chart()
+            {
+                SeriesCollection = new List<ChartSeries>()
+                    {
+                        new ChartSeries()
+                        {
+                            Name = "Distribution",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                            Points = chartPoints
+                        }
+                    }
+            };
+
+            MemoryWriter.Write<Chart>(chart, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
         }
     }
 }
