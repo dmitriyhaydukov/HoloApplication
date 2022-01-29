@@ -462,10 +462,7 @@ namespace HoloManagerApp
 
             WriteableBitmapWrapper wrapper1 = WriteableBitmapWrapper.Create(bitmap1);
             WriteableBitmapWrapper wrapper2 = WriteableBitmapWrapper.Create(bitmap2);
-
-            //double[] rowValues1 = wrapper1.GetRowGrayValues(row);
-            //double[] rowValues2 = wrapper2.GetRowGrayValues(row);
-
+                        
             double[] rowValues1 = wrapper1.GetGrayScaleMatrix().GetRow(row);
             double[] rowValues2 = wrapper2.GetGrayScaleMatrix().GetRow(row);
 
@@ -478,13 +475,15 @@ namespace HoloManagerApp
             double min = Math.Min(min1, min2);
             double max = Math.Max(max1, max2);
 
-            Interval<double> startInterval = new Interval<double>(min, max);
+            //Interval<double> startInterval = new Interval<double>(min, max);
+            Interval<double> startInterval1 = new Interval<double>(min1, max1);
+            Interval<double> startInterval2 = new Interval<double>(min2, max2);
 
             Interval<double> intervalM1 = new Interval<double>(0, M1);
             Interval<double> intervalM2 = new Interval<double>(0, M2);
 
-            RealIntervalTransform intervalTransformM1 = new RealIntervalTransform(startInterval, intervalM1);
-            RealIntervalTransform intervalTransformM2 = new RealIntervalTransform(startInterval, intervalM2);
+            RealIntervalTransform intervalTransformM1 = new RealIntervalTransform(startInterval1, intervalM1);
+            RealIntervalTransform intervalTransformM2 = new RealIntervalTransform(startInterval2, intervalM2);
 
             double[] values1 = rowValues1.Select(x => intervalTransformM1.TransformToFinishIntervalValue(x)).ToArray();
             double[] values2 = rowValues2.Select(x => intervalTransformM2.TransformToFinishIntervalValue(x)).ToArray();
@@ -496,10 +495,27 @@ namespace HoloManagerApp
                 chartPoints.Add(p1);
             }
 
+            List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE);
+
+            List<ChartPoint> chartPointsIdeal = new List<ChartPoint>();
+            for (int k = 0; k < pointsIdeal.Count; k++)
+            {
+                Point2D p = pointsIdeal[k];
+                ChartPoint p1 = new ChartPoint(p.X, p.Y);
+                chartPointsIdeal.Add(p1);
+            }
+
             Chart chart = new Chart()
             {
                 SeriesCollection = new List<ChartSeries>()
                     {
+                        new ChartSeries()
+                        {
+                            Name = "Diagonals",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                            ColorDescriptor = new ColorDescriptor(0, 125, 0),
+                            Points = chartPointsIdeal
+                        },
                         new ChartSeries()
                         {
                             Name = "Distribution",
