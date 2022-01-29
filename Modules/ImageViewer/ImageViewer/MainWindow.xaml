@@ -12,7 +12,8 @@
     
     <DockPanel Margin="10,10,10,10" LastChildFill="True">
         <StackPanel DockPanel.Dock="Top">
-            <Button Name="saveImageButton" Content="Save image" Click="saveImageButton_Click" Height="50"></Button>
+            <Button Name="saveImageButton" Content="Save image" Click="saveImageButton_Click" Height="50" Margin="2"></Button>
+            <Button Name="loadImageButton" Content="Load image" Click="loadImageButton_Click" Height="50" Margin="2"></Button>
         </StackPanel>
         <wpfExtensions:ZoomControl x:Name="zoomControl">
             <Image  x:Name="mainImage"

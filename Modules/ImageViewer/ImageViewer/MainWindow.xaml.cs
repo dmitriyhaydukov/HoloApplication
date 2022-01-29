@@ -13,9 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 using System.IO;
 
 using ExtraLibrary.ImageProcessing;
+using ExtraLibrary.OS;
 
 using HoloCommon.Models.Charting;
 using HoloCommon.Models.General;
@@ -132,6 +134,22 @@ namespace ImageViewer
                 BitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(image as BitmapSource));
                 encoder.Save(fileStream);
+            }
+        }
+
+        private void loadImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult dialogResult = openFileDialog.ShowDialog();
+            if (dialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = openFileDialog.FileName;
+
+                double dpiX = OS.SystemDpiX;
+                double dpiY = OS.SystemDpiY;
+
+                ExtraImageInfo extraImageInfo = WriteableBitmapCreator.CreateWriteableBitmapFromFile(fileName, dpiX, dpiY);
+                mainViewModel.MainImageSource = extraImageInfo.Image;
             }
         }
     }

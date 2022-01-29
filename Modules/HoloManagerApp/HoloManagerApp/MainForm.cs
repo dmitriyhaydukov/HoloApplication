@@ -452,10 +452,10 @@ namespace HoloManagerApp
 
         private void btnBuildRealTable_Click(object sender, EventArgs e)
         {
-            string imagePath1 = @"D:\Images\20220122\Image1.png";
-            string imagePath2 = @"D:\Images\20220122\Image2.png";
+            string imagePath1 = @"D:\Images\20220122-Croped\Image1.png";
+            string imagePath2 = @"D:\Images\20220122-Croped\Image2.png";
 
-            int row = 2084;
+            int row = 150;
 
             WriteableBitmap bitmap1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath1);
             WriteableBitmap bitmap2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath2);
