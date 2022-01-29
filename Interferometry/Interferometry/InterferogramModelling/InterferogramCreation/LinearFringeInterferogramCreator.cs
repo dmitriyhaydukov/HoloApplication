@@ -17,6 +17,10 @@ namespace Interferometry.InterferogramCreation {
         //----------------------------------------------------------------------------------------------
         private int previousValueY;
         private int previousValueX;
+
+        Interval<double> startInterval;
+        Interval<double> finishInterval;
+        RealIntervalTransform transform = null;
         //----------------------------------------------------------------------------------------------
         //Конструктор
         public LinearFringeInterferogramCreator(
@@ -25,6 +29,13 @@ namespace Interferometry.InterferogramCreation {
         ) :
             base( InterferogramInfo ) {
             this.fringeCount = fringeCount;
+
+            if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue)
+            {
+                this.startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
+                this.finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
+                this.transform = new RealIntervalTransform(startInterval, finishInterval);
+            }
         }
         //----------------------------------------------------------------------------------------------
         //Сформировать картину
@@ -101,12 +112,8 @@ namespace Interferometry.InterferogramCreation {
                 noise;
             intensity = this.GetCorrectedIntensity( intensity );
 
-            if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue)
+            if (this.transform != null)
             {
-                Interval<double> startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
-                Interval<double> finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
-                RealIntervalTransform transform = new RealIntervalTransform(startInterval, finishInterval);
-
                 intensity = transform.TransformToFinishIntervalValue(intensity);
                 intensity = intensity % interferogramInfo.ModuleValue.Value;
             }      
