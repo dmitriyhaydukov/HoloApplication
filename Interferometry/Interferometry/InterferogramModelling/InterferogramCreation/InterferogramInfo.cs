@@ -19,6 +19,8 @@ namespace Interferometry.InterferogramCreation {
         
         double? maxRange;
         int? moduleValue;
+        
+        double? finalMinIntensity;
 
         //--------------------------------------------------------------------------------
         public InterferogramInfo(
@@ -27,20 +29,23 @@ namespace Interferometry.InterferogramCreation {
             double percentNoise,
             double minIntensity,
             double? maxRange,
-            int? moduleValue
+            int? moduleValue,
+            double? finalMinIntensity
         ) {
             this.width = width;
             this.height = height;
             this.noisePercent = percentNoise;
 
             this.minIntensity = minIntensity;
-            this.maxIntensity = 255;
+            this.maxIntensity = moduleValue.HasValue ? moduleValue.Value : 255;
             this.meanIntensity = (this.maxIntensity - this.minIntensity) / 2.0;
             this.intensityModulation = 1;
             this.maxNoise = this.maxIntensity / 100 * this.noisePercent;
 
             this.maxRange = maxRange;
             this.moduleValue = moduleValue;
+
+            this.finalMinIntensity = finalMinIntensity;
         }
         //--------------------------------------------------------------------------------
         //Ширина
@@ -111,5 +116,12 @@ namespace Interferometry.InterferogramCreation {
             }
         }
         //--------------------------------------------------------------------------------
+        public double? FinalMinIntensity
+        {
+            get
+            {
+                return this.finalMinIntensity;
+            }
+        }
     }
 }

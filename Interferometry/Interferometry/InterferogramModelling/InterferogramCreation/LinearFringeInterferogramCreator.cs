@@ -21,6 +21,11 @@ namespace Interferometry.InterferogramCreation {
         Interval<double> startInterval;
         Interval<double> finishInterval;
         RealIntervalTransform transform = null;
+
+        Interval<double> finalStartInterval;
+        Interval<double> finalifnishInterval;
+        RealIntervalTransform finalTransform = null;
+
         //----------------------------------------------------------------------------------------------
         //Конструктор
         public LinearFringeInterferogramCreator(
@@ -33,8 +38,15 @@ namespace Interferometry.InterferogramCreation {
             if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue)
             {
                 this.startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
-                this.finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
+                this.finishInterval = new Interval<double>(0, interferogramInfo.MaxRange.Value);
                 this.transform = new RealIntervalTransform(startInterval, finishInterval);
+
+                if (interferogramInfo.FinalMinIntensity.HasValue)
+                {
+                    this.finalStartInterval = new Interval<double>(0, interferogramInfo.ModuleValue.Value);
+                    this.finalifnishInterval = new Interval<double>(interferogramInfo.FinalMinIntensity.Value, interferogramInfo.ModuleValue.Value);
+                    this.finalTransform = new RealIntervalTransform(finalStartInterval, finalifnishInterval);
+                }               
             }
         }
         //----------------------------------------------------------------------------------------------
@@ -116,7 +128,12 @@ namespace Interferometry.InterferogramCreation {
             {
                 intensity = transform.TransformToFinishIntervalValue(intensity);
                 intensity = intensity % interferogramInfo.ModuleValue.Value;
-            }      
+
+                if (this.finalTransform != null)
+                {
+                    intensity = this.finalTransform.TransformToFinishIntervalValue(intensity);
+                }
+            }
 
             return intensity;
         }

@@ -50,8 +50,9 @@ namespace InterferogramCreatorConsoleApp
 
             int fringeCount = 10;
             double minIntensity = 0;
+            double finalMinIntensity = 30;
 
-            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity, maxRange, moduleValue);
+            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity, maxRange, moduleValue, finalMinIntensity);
             LinearFringeInterferogramCreator interferogramCreator = new LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
                         
             RealMatrix interferogramMatrix = interferogramCreator.CreateInterferogram(phaseShift);
