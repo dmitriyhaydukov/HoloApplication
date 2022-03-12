@@ -38,7 +38,8 @@ namespace Interferometry.InterferogramCreation {
             if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue)
             {
                 this.startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
-                this.finishInterval = new Interval<double>(0, interferogramInfo.MaxRange.Value);
+                this.finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
+                //this.finishInterval = new Interval<double>(0, interferogramInfo.MaxRange.Value);
                 this.transform = new RealIntervalTransform(startInterval, finishInterval);
 
                 if (interferogramInfo.FinalMinIntensity.HasValue)

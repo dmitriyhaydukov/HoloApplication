@@ -36,7 +36,7 @@ namespace HoloManagerApp
         private const int M2 = 167;
 
         private const int MAX_RANGE_VALUE = 800;
-
+                
         public MainForm()
         {
             InitializeComponent();
@@ -51,6 +51,7 @@ namespace HoloManagerApp
         {
             int timesM1 = MAX_RANGE_VALUE / M1;
             int maxRange = M1 * timesM1;
+            //int maxRange = MAX_RANGE_VALUE;
 
             double phaseShift = 0;
             string arguments = 
@@ -443,6 +444,7 @@ namespace HoloManagerApp
         {
             int timesM2 = MAX_RANGE_VALUE / M2;
             int maxRange = M2 * timesM2;
+            //int maxRange = MAX_RANGE_VALUE;
 
             double phaseShift = 0;
             string arguments =
@@ -458,10 +460,10 @@ namespace HoloManagerApp
 
         private void btnBuildRealTable_Click(object sender, EventArgs e)
         {
-            string imagePath1 = @"D:\Images\20220219-Cropped\Image1.png";
-            string imagePath2 = @"D:\Images\20220219-Cropped\Image2.png";
+            string imagePath1 = @"D:\Images\20220312-Cropped\Image1.png";
+            string imagePath2 = @"D:\Images\20220312-Cropped\Image2.png";
 
-            int row = 150;
+            int row = 50;
 
             WriteableBitmap bitmap1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath1);
             WriteableBitmap bitmap2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath2);
