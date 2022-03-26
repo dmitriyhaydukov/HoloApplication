@@ -362,7 +362,8 @@ namespace HoloManagerApp
                 points5.Add(point);
             }
 
-            List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE);
+            List<Point2D> notDiagonalPoints = new List<Point2D>();
+            List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPoints);
 
             List<ChartPoint> points6 = new List<ChartPoint>();
             for (int k = 0; k < pointsDiagonal.Count; k++)
@@ -410,7 +411,8 @@ namespace HoloManagerApp
 
         private void btnBuildTable_Click(object sender, EventArgs e)
         {
-            List<Point2D> points = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE);
+            List<Point2D> notDiagonalPoints = new List<Point2D>();
+            List<Point2D> points = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPoints);
 
             List<ChartPoint> chartPoints = new List<ChartPoint>();
             for (int k = 0; k < points.Count; k++)
@@ -503,7 +505,8 @@ namespace HoloManagerApp
                 chartPoints.Add(p1);
             }
 
-            List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE);
+            List<Point2D> notDiagonalPoints = new List<Point2D>();
+            List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPoints);
 
             List<ChartPoint> chartPointsIdeal = new List<ChartPoint>();
             for (int k = 0; k < pointsIdeal.Count; k++)
@@ -513,16 +516,24 @@ namespace HoloManagerApp
                 chartPointsIdeal.Add(p1);
             }
 
+            List<ChartPoint> notDiagonalChartPoints = new List<ChartPoint>();
+            for (int k = 0; k < notDiagonalPoints.Count; k++)
+            {
+                Point2D p = notDiagonalPoints[k];
+                ChartPoint p1 = new ChartPoint(p.X, p.Y);
+                notDiagonalChartPoints.Add(p1);
+            }
+
             Chart chart = new Chart()
             {
                 SeriesCollection = new List<ChartSeries>()
                     {
                         new ChartSeries()
                         {
-                            Name = "Diagonals",
-                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                            ColorDescriptor = new ColorDescriptor(0, 125, 0),
-                            Points = chartPointsIdeal
+                            Name = "Not diagonals",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                            ColorDescriptor = new ColorDescriptor(0, 255, 255),
+                            Points = notDiagonalChartPoints
                         },
                         new ChartSeries()
                         {
@@ -530,6 +541,13 @@ namespace HoloManagerApp
                             Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
                             ColorDescriptor = new ColorDescriptor(255, 0, 0),
                             Points = chartPoints
+                        },
+                        new ChartSeries()
+                        {
+                            Name = "Diagonals",
+                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                            ColorDescriptor = new ColorDescriptor(0, 125, 0),
+                            Points = chartPointsIdeal
                         }
                     }
             };

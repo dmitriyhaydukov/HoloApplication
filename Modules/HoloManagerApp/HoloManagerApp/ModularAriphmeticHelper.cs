@@ -53,7 +53,7 @@ namespace HoloManagerApp
             return res;
         }
 
-        public static List<Point2D> BuildTable(int m1, int m2, int range)
+        public static List<Point2D> BuildTable(int m1, int m2, int? range, out List<Point2D> notDiagonalPoints)
         {
             int M1 = m2;
             int M2 = m1;
@@ -62,16 +62,34 @@ namespace HoloManagerApp
             int N2 = CalculateN(M2, m2);
 
             Dictionary<int, Point2D> pointsDictionary = new Dictionary<int, Point2D>();
+            notDiagonalPoints = new List<Point2D>();
 
             for (int b1 = 0; b1 < m1; b1++)
             {
                 for (int b2 = 0; b2 < m2; b2++)
                 {
                     int value = (M1 * N1 * b1 + M2 * N2 * b2) % (m1 * m2);
-                    if (value <= range)
+                    if (range != null)
                     {
-                        Point2D point = new Point2D(b1, b2);
-                        pointsDictionary.Add(value, point);
+                        if (value < range)
+                        {
+                            Point2D point = new Point2D(b1, b2);
+                            pointsDictionary.Add(value, point);
+                        }
+                        else
+                        {
+                            int r = 20;
+
+                            if (Math.Abs(b1 - b2) < r)
+                            {
+                                Point2D point = new Point2D(b1, b2);
+                                notDiagonalPoints.Add(point);
+                            }
+                            else
+                            {
+                                
+                            }
+                        }
                     }
                 }
             }
