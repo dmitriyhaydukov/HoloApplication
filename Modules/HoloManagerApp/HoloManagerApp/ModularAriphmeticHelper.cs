@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 using ExtraLibrary.Geometry2D;
@@ -64,6 +65,49 @@ namespace HoloManagerApp
             Dictionary<int, Point2D> pointsDictionary = new Dictionary<int, Point2D>();
             notDiagonalPoints = new List<Point2D>();
 
+            int diagonalRange = 150;
+
+            int[] diagonalNumbersByb2 = new int[m2];
+            for (int i = 0; i < m2; i++) // i = b2
+            {
+                int diagonalNumber = ((M2 * N2 * i) % (m1 * m2)) / m1;
+                diagonalNumbersByb2[i] = diagonalNumber;
+            }
+
+            int[] diagonalNumbersByb1 = new int[m1];
+            for (int i = 0; i < m1; i++) // i = b1
+            {
+                int diagonalNumber = ((M1 * N1 * i) % (m1 * m2)) / m1;
+                diagonalNumbersByb1[i] = diagonalNumber;
+            }
+
+            int[] diagonalNumbersAugmented = new int[m1 + m2 - 1];
+                        
+            for (int k = diagonalNumbersByb1.Length - 1, j = 0; k >= 0; k--, j++)
+            {
+                diagonalNumbersAugmented[j] = diagonalNumbersByb1[k];
+            }
+
+            for (int k = 0, j = m1 - 1; k < diagonalNumbersByb2.Length; k++, j++)
+            {
+                diagonalNumbersAugmented[j] = diagonalNumbersByb2[k];
+            }
+
+            for (int i = 0; i < diagonalNumbersAugmented.Length; i++)
+            {
+                if (diagonalNumbersAugmented[i] > diagonalRange)
+                {
+                    diagonalNumbersAugmented[i] = 0;
+                }
+            }
+
+            string fileContent =
+                string.Join(" ", diagonalNumbersByb2) + '\n' +
+                string.Join(" ", diagonalNumbersByb1) + '\n' +
+                string.Join(" ", diagonalNumbersAugmented);
+
+            File.WriteAllText(@"D:\Images\!!\diagonals.txt", fileContent);
+
             for (int b1 = 0; b1 < m1; b1++)
             {
                 for (int b2 = 0; b2 < m2; b2++)
@@ -78,17 +122,12 @@ namespace HoloManagerApp
                         }
                         else
                         {
-                            int r = 20;
-
-                            if (Math.Abs(b1 - b2) < r)
+                            /*
+                            if (b2 > b1 && diagonalNumbersAugmented[b2 - b1] == 0)
                             {
-                                Point2D point = new Point2D(b1, b2);
-                                notDiagonalPoints.Add(point);
+                                notDiagonalPoints.Add(new Point2D(b1, b2));
                             }
-                            else
-                            {
-                                
-                            }
+                            */
                         }
                     }
                 }

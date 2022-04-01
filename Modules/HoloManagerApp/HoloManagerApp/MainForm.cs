@@ -462,8 +462,8 @@ namespace HoloManagerApp
 
         private void btnBuildRealTable_Click(object sender, EventArgs e)
         {
-            string imagePath1 = @"D:\Images\20220312-Cropped\Image1.png";
-            string imagePath2 = @"D:\Images\20220312-Cropped\Image2.png";
+            string imagePath1 = @"D:\Images\!!\Image1.png";
+            string imagePath2 = @"D:\Images\!!\Image2.png";
 
             int row = 50;
 
