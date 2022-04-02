@@ -54,7 +54,7 @@ namespace HoloManagerApp
             return res;
         }
 
-        public static List<Point2D> BuildTable(int m1, int m2, int? range, out List<Point2D> notDiagonalPoints)
+        public static List<Point2D> BuildTable(int m1, int m2, int? range, out Dictionary<int, List<Point2D>> notDiagonalPointsDictionary)
         {
             int M1 = m2;
             int M2 = m1;
@@ -63,9 +63,9 @@ namespace HoloManagerApp
             int N2 = CalculateN(M2, m2);
 
             Dictionary<int, Point2D> pointsDictionary = new Dictionary<int, Point2D>();
-            notDiagonalPoints = new List<Point2D>();
+            notDiagonalPointsDictionary = new Dictionary<int, List<Point2D>>();
 
-            int diagonalRange = 4;
+            int diagonalRange = 2;
 
             int[] diagonalNumbersByb2 = new int[m2];
             for (int i = 0; i < m2; i++) // i = b2
@@ -167,17 +167,18 @@ namespace HoloManagerApp
                         {
                             int index = b2 + m1 - 1 - b1;
                             int diagonalNum = resDiagonalNumbersAugmented[index];
-                            if (diagonalNum == 1)
-                            {
-                                notDiagonalPoints.Add(new Point2D(b1, b2));
-                            }
 
-                            //int index = b2 - b1 >= 0 ? b2 - b1 : b2 - b1 + m2;
-                            //if (diagonalNumbersAugmented[b2 + m1 - 1 - b1] == 0)
-                            //{
-                            //    notDiagonalPoints.Add(new Point2D(b1, b2));
-                            //}
+                            Point2D point = new Point2D(b1, b2);
                             
+                            List<Point2D> points = null;
+                            if (notDiagonalPointsDictionary.TryGetValue(diagonalNum, out points))
+                            {
+                                points.Add(point);
+                            }
+                            else
+                            {
+                                notDiagonalPointsDictionary.Add(diagonalNum, new List<Point2D>() { point });
+                            }
                         }
                     }
                 }

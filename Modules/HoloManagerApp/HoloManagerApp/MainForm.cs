@@ -362,8 +362,8 @@ namespace HoloManagerApp
                 points5.Add(point);
             }
 
-            List<Point2D> notDiagonalPoints = new List<Point2D>();
-            List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPoints);
+            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = new  Dictionary<int, List<Point2D>>();
+            List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPointsDictionary);
 
             List<ChartPoint> points6 = new List<ChartPoint>();
             for (int k = 0; k < pointsDiagonal.Count; k++)
@@ -411,8 +411,8 @@ namespace HoloManagerApp
 
         private void btnBuildTable_Click(object sender, EventArgs e)
         {
-            List<Point2D> notDiagonalPoints = new List<Point2D>();
-            List<Point2D> points = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPoints);
+            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = new Dictionary<int, List<Point2D>>();
+            List<Point2D> points = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPointsDictionary);
 
             List<ChartPoint> chartPoints = new List<ChartPoint>();
             for (int k = 0; k < points.Count; k++)
@@ -462,8 +462,8 @@ namespace HoloManagerApp
 
         private void btnBuildRealTable_Click(object sender, EventArgs e)
         {
-            string imagePath1 = @"D:\Images\20220312-Cropped\Image1.png";
-            string imagePath2 = @"D:\Images\20220312-Cropped\Image2.png";
+            string imagePath1 = @"D:\Images\!!\Image1.png";
+            string imagePath2 = @"D:\Images\!!\Image2.png";
 
             int row = 50;
 
@@ -505,8 +505,8 @@ namespace HoloManagerApp
                 chartPoints.Add(p1);
             }
 
-            List<Point2D> notDiagonalPoints = new List<Point2D>();
-            List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPoints);
+            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = new Dictionary<int, List<Point2D>>();
+            List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPointsDictionary);
 
             List<ChartPoint> chartPointsIdeal = new List<ChartPoint>();
             for (int k = 0; k < pointsIdeal.Count; k++)
@@ -516,46 +516,88 @@ namespace HoloManagerApp
                 chartPointsIdeal.Add(p1);
             }
 
-            List<ChartPoint> notDiagonalChartPoints = new List<ChartPoint>();
-            for (int k = 0; k < notDiagonalPoints.Count; k++)
+
+            Chart chart = new Chart() { SeriesCollection = new List<ChartSeries>() };
+
+            System.Drawing.Color[] colors = GetVaryingColors(10).ToArray();
+
+            foreach(KeyValuePair<int, List<Point2D>> kvp in notDiagonalPointsDictionary)
             {
-                Point2D p = notDiagonalPoints[k];
-                ChartPoint p1 = new ChartPoint(p.X, p.Y);
-                notDiagonalChartPoints.Add(p1);
+                //byte blueValue = kvp.Key % 2 == 0 ? Convert.ToByte(50 + kvp.Key * (kvp.Key % 4)) : Convert.ToByte(100 + kvp.Key * 3);
+                //byte redValue = kvp.Key % 2 == 0 ? Convert.ToByte(100 - kvp.Key * 3) : Convert.ToByte(50 - kvp.Key * 3);
+                //byte greenValue = kvp.Key % 2 == 0 ? Convert.ToByte(50 + kvp.Key * 3) : Convert.ToByte(100 + kvp.Key * 3);
+
+                System.Drawing.Color color = colors[kvp.Key];
+
+                ChartSeries chartSeries = new ChartSeries()
+                {
+                    Name = kvp.Key.ToString(),
+                    Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                    ColorDescriptor = new ColorDescriptor(Convert.ToByte(color.R), Convert.ToByte(color.G), Convert.ToByte(color.B)),
+                    Points = kvp.Value.Select(a => new ChartPoint(a.X, a.Y)).ToList()
+                };
+
+                chart.SeriesCollection.Add(chartSeries);
             }
 
-            Chart chart = new Chart()
+            chart.SeriesCollection.Add(new ChartSeries()
             {
-                SeriesCollection = new List<ChartSeries>()
-                    {
-                        new ChartSeries()
-                        {
-                            Name = "Not diagonals",
-                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
-                            ColorDescriptor = new ColorDescriptor(125, 125, 125),
-                            Points = notDiagonalChartPoints
-                        },
-                        new ChartSeries()
-                        {
-                            Name = "Distribution",
-                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
-                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
-                            Points = chartPoints
-                        },
-                        new ChartSeries()
-                        {
-                            Name = "Diagonals",
-                            Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
-                            ColorDescriptor = new ColorDescriptor(0, 125, 0),
-                            Points = chartPointsIdeal
-                        }
-                    }
-            };
+                Name = "Distribution",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                Points = chartPoints
+            });
+
+            chart.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Diagonals",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(0, 125, 0),
+                Points = chartPointsIdeal
+            });
 
             MemoryWriter.Write<Chart>(chart, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 
             Thread.Sleep(2000);
+        }
+
+        IEnumerable<System.Drawing.Color> GetVaryingColors(int seedIndex)
+        {
+            List<System.Drawing.Color> colorsList = new List<System.Drawing.Color>();
+
+            int maxValue = 1 << 24;
+            int index = seedIndex % maxValue;
+
+            for (int k = 0; k < 10; k++)
+            {
+                byte r = 0;
+                byte g = 0;
+                byte b = 0;
+
+                for (int i = 0; i < 24; i++)
+                {
+                    if ((index & (1 << i)) != 0)
+                    {
+                        switch (i % 3)
+                        {
+                            case 0: r |= (byte)(1 << (23 - i) / 3); break;
+                            case 1: g |= (byte)(1 << (23 - i) / 3); break;
+                            case 2: b |= (byte)(1 << (23 - i) / 3); break;
+                        }
+                    }
+                }
+
+                r = Convert.ToByte(r * 0.5);
+                g = Convert.ToByte(g * 0.5);
+                b = Convert.ToByte(b * 0.5);
+
+                colorsList.Add(System.Drawing.Color.FromArgb(0xFF, r, g, b));
+
+                index = (index + 1) % maxValue;
+            }
+
+            return colorsList;
         }
     }
 }
