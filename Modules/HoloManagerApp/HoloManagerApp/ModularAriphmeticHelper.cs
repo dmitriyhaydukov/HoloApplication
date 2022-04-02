@@ -65,7 +65,7 @@ namespace HoloManagerApp
             Dictionary<int, Point2D> pointsDictionary = new Dictionary<int, Point2D>();
             notDiagonalPoints = new List<Point2D>();
 
-            int diagonalRange = 10;
+            int diagonalRange = 4;
 
             int[] diagonalNumbersByb2 = new int[m2];
             for (int i = 0; i < m2; i++) // i = b2
@@ -97,7 +97,7 @@ namespace HoloManagerApp
             {
                 if (diagonalNumbersAugmented[i] > diagonalRange)
                 {
-                    diagonalNumbersAugmented[i] = 0;
+                    diagonalNumbersAugmented[i] = int.MaxValue;
                 }
             }
 
@@ -110,12 +110,12 @@ namespace HoloManagerApp
             for (int i = 0; i < diagonalNumbersAugmented.Length; i++)
             {
                 int value = diagonalNumbersAugmented[i];
-                if (value != 0)
+                if (value != int.MaxValue)
                 {
                     int leftIndex = i > 0 ? i - 1 : 0;
                     while(
                         (leftIndex > 0) && 
-                        (diagonalNumbersAugmented[leftIndex] == 0)
+                        (diagonalNumbersAugmented[leftIndex] == int.MaxValue)
                     )
                     {
                         leftIndex -= 1;
@@ -129,7 +129,7 @@ namespace HoloManagerApp
                     
                     while (
                         (rightIndex < diagonalNumbersAugmented.Length - 1) &&
-                        (diagonalNumbersAugmented[rightIndex] == 0)
+                        (diagonalNumbersAugmented[rightIndex] == int.MaxValue)
                     )
                     {
                         rightIndex += 1;
@@ -167,7 +167,7 @@ namespace HoloManagerApp
                         {
                             int index = b2 + m1 - 1 - b1;
                             int diagonalNum = resDiagonalNumbersAugmented[index];
-                            if (diagonalNum == 7 || diagonalNum == 4 || diagonalNum == 9 || diagonalNum == 2 || diagonalNum == 6)
+                            if (diagonalNum == 1)
                             {
                                 notDiagonalPoints.Add(new Point2D(b1, b2));
                             }

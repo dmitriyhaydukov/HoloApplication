@@ -35,7 +35,7 @@ namespace HoloManagerApp
         private const int M1 = 213;
         private const int M2 = 167;
 
-        private const int MAX_RANGE_VALUE = 800;
+        private const int MAX_RANGE_VALUE = 650;
                 
         public MainForm()
         {
