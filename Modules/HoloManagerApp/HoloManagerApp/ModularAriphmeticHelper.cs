@@ -120,8 +120,9 @@ namespace HoloManagerApp
                     {
                         leftIndex -= 1;
                     }
-                    int resLeftIndex = leftIndex != 0 ? (i + leftIndex) / 2 : leftIndex;
-                    
+                    //int resLeftIndex = leftIndex != 0 ? (i + leftIndex) / 2 : leftIndex;
+                    int resLeftIndex = (i + leftIndex) / 2;
+
                     int rightIndex = 
                         i < diagonalNumbersAugmented.Length - 1 ?
                         i + 1 : 
@@ -134,9 +135,10 @@ namespace HoloManagerApp
                     {
                         rightIndex += 1;
                     }
-                    
-                    int resRightIndex = rightIndex != (diagonalNumbersAugmented.Length - 1) ? (i + rightIndex) / 2 : rightIndex;
-                    
+
+                    //int resRightIndex = rightIndex != (diagonalNumbersAugmented.Length - 1) ? (i + rightIndex) / 2 : rightIndex;
+                    int resRightIndex = (i + rightIndex) / 2;
+
                     for (int j = resLeftIndex; j <= resRightIndex; j++)
                     {
                         resDiagonalNumbersAugmented[j] = value;
@@ -145,8 +147,9 @@ namespace HoloManagerApp
             }
 
             string fileContent =
-                string.Join(" ", diagonalNumbersByb2) + '\n' +
-                string.Join(" ", diagonalNumbersByb1) + '\n' +
+                //string.Join(" ", diagonalNumbersByb2) + '\n' +
+                //string.Join(" ", diagonalNumbersByb1) + '\n' +
+                string.Join(" ", diagonalNumbersAugmented) + '\n' +
                 string.Join(" ", resDiagonalNumbersAugmented);
 
             File.WriteAllText(@"D:\Images\!!\diagonals.txt", fileContent);
@@ -168,16 +171,19 @@ namespace HoloManagerApp
                             int index = b2 + m1 - 1 - b1;
                             int diagonalNum = resDiagonalNumbersAugmented[index];
 
-                            Point2D point = new Point2D(b1, b2);
-                            
-                            List<Point2D> points = null;
-                            if (notDiagonalPointsDictionary.TryGetValue(diagonalNum, out points))
+                            if (diagonalNum != int.MaxValue)
                             {
-                                points.Add(point);
-                            }
-                            else
-                            {
-                                notDiagonalPointsDictionary.Add(diagonalNum, new List<Point2D>() { point });
+                                Point2D point = new Point2D(b1, b2);
+
+                                List<Point2D> points = null;
+                                if (notDiagonalPointsDictionary.TryGetValue(diagonalNum, out points))
+                                {
+                                    points.Add(point);
+                                }
+                                else
+                                {
+                                    notDiagonalPointsDictionary.Add(diagonalNum, new List<Point2D>() { point });
+                                }
                             }
                         }
                     }
