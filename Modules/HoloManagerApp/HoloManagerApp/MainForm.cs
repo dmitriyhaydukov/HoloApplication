@@ -588,9 +588,9 @@ namespace HoloManagerApp
                     }
                 }
 
-                r = Convert.ToByte(r * 0.5);
-                g = Convert.ToByte(g * 0.5);
-                b = Convert.ToByte(b * 0.5);
+                //r = Convert.ToByte(r * 0.5);
+                //g = Convert.ToByte(g * 0.5);
+                //b = Convert.ToByte(b * 0.5);
 
                 colorsList.Add(System.Drawing.Color.FromArgb(0xFF, r, g, b));
 
