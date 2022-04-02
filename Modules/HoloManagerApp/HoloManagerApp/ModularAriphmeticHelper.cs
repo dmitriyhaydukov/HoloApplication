@@ -120,7 +120,7 @@ namespace HoloManagerApp
                     {
                         leftIndex -= 1;
                     }
-                    int resLeftIndex = (i + leftIndex) / 2;
+                    int resLeftIndex = leftIndex != 0 ? (i + leftIndex) / 2 : leftIndex;
                     
                     int rightIndex = 
                         i < diagonalNumbersAugmented.Length - 1 ?
@@ -135,7 +135,7 @@ namespace HoloManagerApp
                         rightIndex += 1;
                     }
                     
-                    int resRightIndex = (i + rightIndex) / 2;
+                    int resRightIndex = rightIndex != (diagonalNumbersAugmented.Length - 1) ? (i + rightIndex) / 2 : rightIndex;
                     
                     for (int j = resLeftIndex; j <= resRightIndex; j++)
                     {
