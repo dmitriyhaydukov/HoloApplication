@@ -65,7 +65,7 @@ namespace HoloManagerApp
             Dictionary<int, Point2D> pointsDictionary = new Dictionary<int, Point2D>();
             notDiagonalPoints = new List<Point2D>();
 
-            int diagonalRange = 150;
+            int diagonalRange = 10;
 
             int[] diagonalNumbersByb2 = new int[m2];
             for (int i = 0; i < m2; i++) // i = b2
@@ -122,12 +122,12 @@ namespace HoloManagerApp
                         }
                         else
                         {
-                            /*
-                            if (b2 > b1 && diagonalNumbersAugmented[b2 - b1] == 0)
+                            //int index = b2 - b1 >= 0 ? b2 - b1 : b2 - b1 + m2;
+                            if (diagonalNumbersAugmented[b2 + m1 - 1 - b1] == 0)
                             {
                                 notDiagonalPoints.Add(new Point2D(b1, b2));
                             }
-                            */
+                            
                         }
                     }
                 }
