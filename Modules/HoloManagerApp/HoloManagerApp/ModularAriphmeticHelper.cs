@@ -101,10 +101,53 @@ namespace HoloManagerApp
                 }
             }
 
+            int[] resDiagonalNumbersAugmented = new int[diagonalNumbersAugmented.Length];
+            for (int k = 0; k < resDiagonalNumbersAugmented.Length; k++)    //copy array
+            {
+                resDiagonalNumbersAugmented[k] = diagonalNumbersAugmented[k];
+            }
+            
+            for (int i = 0; i < diagonalNumbersAugmented.Length; i++)
+            {
+                int value = diagonalNumbersAugmented[i];
+                if (value != 0)
+                {
+                    int leftIndex = i > 0 ? i - 1 : 0;
+                    while(
+                        (leftIndex > 0) && 
+                        (diagonalNumbersAugmented[leftIndex] == 0)
+                    )
+                    {
+                        leftIndex -= 1;
+                    }
+                    int resLeftIndex = (i + leftIndex) / 2;
+                    
+                    int rightIndex = 
+                        i < diagonalNumbersAugmented.Length - 1 ?
+                        i + 1 : 
+                        diagonalNumbersAugmented.Length - 1;
+                    
+                    while (
+                        (rightIndex < diagonalNumbersAugmented.Length - 1) &&
+                        (diagonalNumbersAugmented[rightIndex] == 0)
+                    )
+                    {
+                        rightIndex += 1;
+                    }
+                    
+                    int resRightIndex = (i + rightIndex) / 2;
+                    
+                    for (int j = resLeftIndex; j <= resRightIndex; j++)
+                    {
+                        resDiagonalNumbersAugmented[j] = value;
+                    }
+                }
+            }
+
             string fileContent =
                 string.Join(" ", diagonalNumbersByb2) + '\n' +
                 string.Join(" ", diagonalNumbersByb1) + '\n' +
-                string.Join(" ", diagonalNumbersAugmented);
+                string.Join(" ", resDiagonalNumbersAugmented);
 
             File.WriteAllText(@"D:\Images\!!\diagonals.txt", fileContent);
 
@@ -122,11 +165,18 @@ namespace HoloManagerApp
                         }
                         else
                         {
-                            //int index = b2 - b1 >= 0 ? b2 - b1 : b2 - b1 + m2;
-                            if (diagonalNumbersAugmented[b2 + m1 - 1 - b1] == 0)
+                            int index = b2 + m1 - 1 - b1;
+                            int diagonalNum = resDiagonalNumbersAugmented[index];
+                            if (diagonalNum == 7 || diagonalNum == 4 || diagonalNum == 9 || diagonalNum == 2 || diagonalNum == 6)
                             {
                                 notDiagonalPoints.Add(new Point2D(b1, b2));
                             }
+
+                            //int index = b2 - b1 >= 0 ? b2 - b1 : b2 - b1 + m2;
+                            //if (diagonalNumbersAugmented[b2 + m1 - 1 - b1] == 0)
+                            //{
+                            //    notDiagonalPoints.Add(new Point2D(b1, b2));
+                            //}
                             
                         }
                     }
