@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 
+using HoloCommon.Models.Charting;
+
 using ExtraLibrary.Geometry2D;
 
 namespace HoloManagerApp
@@ -54,7 +56,16 @@ namespace HoloManagerApp
             return res;
         }
 
-        public static List<Point2D> BuildTable(int m1, int m2, int? range, out Dictionary<int, List<Point2D>> notDiagonalPointsDictionary)
+        public static List<Point2D> BuildTable
+        (
+            int m1, 
+            int m2, 
+            int? range,
+            bool readDiagonalsFromFile,
+            List<ChartPoint> points,
+            out Dictionary<int, List<Point2D>> notDiagonalPointsDictionary,
+            out List<Point2D> unwrappedPoints
+        )
         {
             int M1 = m2;
             int M2 = m1;
@@ -64,6 +75,8 @@ namespace HoloManagerApp
 
             Dictionary<int, Point2D> pointsDictionary = new Dictionary<int, Point2D>();
             notDiagonalPointsDictionary = new Dictionary<int, List<Point2D>>();
+
+            unwrappedPoints = new List<Point2D>();
 
             int diagonalRange = 2;
 
@@ -147,17 +160,28 @@ namespace HoloManagerApp
             }
 
             string fileContent =
-                //string.Join(" ", diagonalNumbersByb2) + '\n' +
-                //string.Join(" ", diagonalNumbersByb1) + '\n' +
-                string.Join(" ", diagonalNumbersAugmented) + '\n' +
+                //string.Join(" ", diagonalNumbersAugmented) + '\n' +
                 string.Join(" ", resDiagonalNumbersAugmented);
 
             File.WriteAllText(@"D:\Images\!!\diagonals.txt", fileContent);
 
+            if (readDiagonalsFromFile)
+            {
+                string filePath = @"D:\Images\!!\diagonalsManual1.txt";
+                string diagonalsString = File.ReadAllText(filePath);
+                string[] parts = diagonalsString.Split(' ', '\n');
+
+                resDiagonalNumbersAugmented = new int[parts.Length];
+                for (int j = 0; j < parts.Length; j++)
+                {
+                    resDiagonalNumbersAugmented[j] = int.Parse(parts[j]);
+                }
+            }
+
             for (int b1 = 0; b1 < m1; b1++)
             {
                 for (int b2 = 0; b2 < m2; b2++)
-                {
+                {        
                     int value = (M1 * N1 * b1 + M2 * N2 * b2) % (m1 * m2);
                     if (range != null)
                     {
@@ -175,10 +199,10 @@ namespace HoloManagerApp
                             {
                                 Point2D point = new Point2D(b1, b2);
 
-                                List<Point2D> points = null;
-                                if (notDiagonalPointsDictionary.TryGetValue(diagonalNum, out points))
+                                List<Point2D> dicPoints = null;
+                                if (notDiagonalPointsDictionary.TryGetValue(diagonalNum, out dicPoints))
                                 {
-                                    points.Add(point);
+                                    dicPoints.Add(point);
                                 }
                                 else
                                 {
@@ -193,6 +217,58 @@ namespace HoloManagerApp
             pointsDictionary = pointsDictionary.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
 
             List<Point2D> pointsList = pointsDictionary.Select(x => x.Value).ToList();
+                        
+            //Coefficients
+            Dictionary<int, int> coefficientsDictionary = new Dictionary<int, int>();
+            int[] coefficientsArray = new int[resDiagonalNumbersAugmented.Length];
+            for (int j = 0; j < coefficientsArray.Length; j++)
+            {
+                coefficientsArray[j] = 0;
+            }
+
+            for (int k = 1; k < resDiagonalNumbersAugmented.Length; k++)
+            {
+                int prevDiagNum = resDiagonalNumbersAugmented[k - 1];
+                int diagNum = resDiagonalNumbersAugmented[k];
+                if (diagNum != int.MaxValue && diagNum != prevDiagNum)
+                {
+                    if (coefficientsDictionary.ContainsKey(diagNum))
+                    {
+                        coefficientsDictionary[diagNum] = coefficientsDictionary[diagNum] + 1;
+                    }
+                    else
+                    {
+                        coefficientsDictionary.Add(diagNum, 0);
+                    }
+                }
+                else
+                {
+                    coefficientsArray[k] = coefficientsDictionary.ContainsKey(diagNum) ? coefficientsDictionary[diagNum] : 0;
+                }
+            }
+
+            string coefContent = string.Join(" ", coefficientsArray);
+            File.WriteAllText(@"D:\Images\!!\coefficients.txt", coefContent);
+            
+            for (int j = 0; j < points.Count; j++)
+            {
+                ChartPoint point = points[j];
+
+                int b1 = Convert.ToInt32(Math.Floor(point.X));
+                int b2 = Convert.ToInt32(Math.Floor(point.Y));
+
+                int index = b2 + m1 - 1 - b1;
+                int diagonalNum = resDiagonalNumbersAugmented[index];
+                int coef = coefficientsArray[index];
+
+                if (diagonalNum != int.MaxValue)
+                {
+                    int x = b1 + diagonalNum * m1;
+                    int y = b2 + (diagonalNum + coef) * m2;
+                    Point2D p = new Point2D(x, y);
+                    unwrappedPoints.Add(p);
+                }
+            }
 
             return pointsList;
         }

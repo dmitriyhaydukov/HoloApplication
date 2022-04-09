@@ -362,10 +362,14 @@ namespace HoloManagerApp
                 points5.Add(point);
             }
 
-            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = new  Dictionary<int, List<Point2D>>();
-            List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPointsDictionary);
+            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = null;
+            List<Point2D> unwrappedPoints = null;
 
             List<ChartPoint> points6 = new List<ChartPoint>();
+
+            List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable
+                (M1, M2, MAX_RANGE_VALUE, false, points6, out notDiagonalPointsDictionary, out unwrappedPoints);
+            
             for (int k = 0; k < pointsDiagonal.Count; k++)
             {
                 Point2D p = pointsDiagonal[k];
@@ -411,10 +415,15 @@ namespace HoloManagerApp
 
         private void btnBuildTable_Click(object sender, EventArgs e)
         {
-            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = new Dictionary<int, List<Point2D>>();
-            List<Point2D> points = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPointsDictionary);
+            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = null;
+            List<Point2D> unwrappedPoints = null;
 
             List<ChartPoint> chartPoints = new List<ChartPoint>();
+
+            List<Point2D> points = ModularArithmeticHelper.BuildTable
+                (M1, M2, MAX_RANGE_VALUE, false, chartPoints, out notDiagonalPointsDictionary, out unwrappedPoints);
+
+            //List<ChartPoint> chartPoints = new List<ChartPoint>();
             for (int k = 0; k < points.Count; k++)
             {
                 Point2D p = points[k];
@@ -462,8 +471,8 @@ namespace HoloManagerApp
 
         private void btnBuildRealTable_Click(object sender, EventArgs e)
         {
-            string imagePath1 = @"D:\Images\!!\Image1.png";
-            string imagePath2 = @"D:\Images\!!\Image2.png";
+            string imagePath1 = @"D:\Images\20220312-Cropped\Image1.png";
+            string imagePath2 = @"D:\Images\20220312-Cropped\Image2.png";
 
             int row = 50;
 
@@ -505,8 +514,10 @@ namespace HoloManagerApp
                 chartPoints.Add(p1);
             }
 
-            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = new Dictionary<int, List<Point2D>>();
-            List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable(M1, M2, MAX_RANGE_VALUE, out notDiagonalPointsDictionary);
+            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = null;
+            List<Point2D> unwrappedPoints = null;
+            List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable
+                (M1, M2, MAX_RANGE_VALUE, true, chartPoints, out notDiagonalPointsDictionary, out unwrappedPoints);
 
             List<ChartPoint> chartPointsIdeal = new List<ChartPoint>();
             for (int k = 0; k < pointsIdeal.Count; k++)
@@ -557,6 +568,20 @@ namespace HoloManagerApp
             });
 
             MemoryWriter.Write<Chart>(chart, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
+                       
+            Chart chartUnwrapped = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            chartUnwrapped.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Unwrapped",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                Points =  unwrappedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+
+            MemoryWriter.Write<Chart>(chartUnwrapped, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 
             Thread.Sleep(2000);
