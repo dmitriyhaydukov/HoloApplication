@@ -167,7 +167,7 @@ namespace HoloManagerApp
 
             if (readDiagonalsFromFile)
             {
-                string filePath = @"D:\Images\!!\diagonalsManual1.txt";
+                string filePath = @"D:\Images\!!\diagonalsManual2.txt";
                 string diagonalsString = File.ReadAllText(filePath);
                 string[] parts = diagonalsString.Split(' ', '\n');
 
@@ -223,7 +223,7 @@ namespace HoloManagerApp
             int[] coefficientsArray = new int[resDiagonalNumbersAugmented.Length];
             for (int j = 0; j < coefficientsArray.Length; j++)
             {
-                coefficientsArray[j] = 0;
+                coefficientsArray[j] = 1;
             }
 
             for (int k = 1; k < resDiagonalNumbersAugmented.Length; k++)
@@ -234,16 +234,16 @@ namespace HoloManagerApp
                 {
                     if (coefficientsDictionary.ContainsKey(diagNum))
                     {
-                        coefficientsDictionary[diagNum] = coefficientsDictionary[diagNum] + 1;
+                        coefficientsDictionary[diagNum] = coefficientsDictionary[diagNum] - 1;
                     }
                     else
                     {
-                        coefficientsDictionary.Add(diagNum, 0);
+                        coefficientsDictionary.Add(diagNum, 1);
                     }
                 }
                 else
                 {
-                    coefficientsArray[k] = coefficientsDictionary.ContainsKey(diagNum) ? coefficientsDictionary[diagNum] : 0;
+                    coefficientsArray[k] = coefficientsDictionary.ContainsKey(diagNum) ? coefficientsDictionary[diagNum] : 1;
                 }
             }
 
