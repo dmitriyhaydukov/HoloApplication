@@ -64,7 +64,8 @@ namespace HoloManagerApp
             bool readDiagonalsFromFile,
             List<ChartPoint> points,
             out Dictionary<int, List<Point2D>> notDiagonalPointsDictionary,
-            out List<Point2D> unwrappedPoints
+            out List<Point2D> unwrappedPoints,
+            out List<Point2D> resCorrectedPoints
         )
         {
             int M1 = m2;
@@ -167,7 +168,7 @@ namespace HoloManagerApp
 
             if (readDiagonalsFromFile)
             {
-                string filePath = @"D:\Images\!!\diagonalsManual2.txt";
+                string filePath = @"D:\Images\!!\diagonalsManual1.txt";
                 string diagonalsString = File.ReadAllText(filePath);
                 string[] parts = diagonalsString.Split(' ', '\n');
 
@@ -268,6 +269,20 @@ namespace HoloManagerApp
                     Point2D p = new Point2D(x, y);
                     unwrappedPoints.Add(p);
                 }
+            }
+
+            resCorrectedPoints = new List<Point2D>();
+            for (int j = 0; j < points.Count; j++)
+            {
+                ChartPoint point = points[j];
+                int b1 = Convert.ToInt32(point.X);
+                int b2 = Convert.ToInt32(point.Y);
+
+                int index = b2 + m1 - 1 - b1;
+                int value = resDiagonalNumbersAugmented[index] * m1 + b1;
+                Point2D point2D = new Point2D(j, value);
+
+                resCorrectedPoints.Add(point2D);
             }
 
             return pointsList;
