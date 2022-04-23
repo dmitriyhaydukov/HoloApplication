@@ -365,12 +365,20 @@ namespace HoloManagerApp
             Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = null;
             List<Point2D> unwrappedPoints = null;
             List<Point2D> resCorrectedPoints = null;
-
+            List<Point2D> specialPoints = null;
+            List<Point2D> specialPointsCorrected = null;
             List<ChartPoint> points6 = new List<ChartPoint>();
 
             List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable
-                (M1, M2, MAX_RANGE_VALUE, false, points6, out notDiagonalPointsDictionary, out unwrappedPoints, out resCorrectedPoints);
-            
+                (
+                    M1, M2, MAX_RANGE_VALUE, false, points6, 
+                    out notDiagonalPointsDictionary, 
+                    out unwrappedPoints, 
+                    out resCorrectedPoints, 
+                    out specialPoints,
+                    out specialPointsCorrected
+                );
+
             for (int k = 0; k < pointsDiagonal.Count; k++)
             {
                 Point2D p = pointsDiagonal[k];
@@ -419,11 +427,19 @@ namespace HoloManagerApp
             Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = null;
             List<Point2D> unwrappedPoints = null;
             List<Point2D> resCorrectedPoints = null;
-
+            List<Point2D> specialPoints = null;
+            List<Point2D> specialPointsCorrected = null;
             List<ChartPoint> chartPoints = new List<ChartPoint>();
 
             List<Point2D> points = ModularArithmeticHelper.BuildTable
-                (M1, M2, MAX_RANGE_VALUE, false, chartPoints, out notDiagonalPointsDictionary, out unwrappedPoints, out resCorrectedPoints);
+                (
+                    M1, M2, MAX_RANGE_VALUE, false, chartPoints, 
+                    out notDiagonalPointsDictionary, 
+                    out unwrappedPoints, 
+                    out resCorrectedPoints, 
+                    out specialPoints,
+                    out specialPointsCorrected
+                );
 
             //List<ChartPoint> chartPoints = new List<ChartPoint>();
             for (int k = 0; k < points.Count; k++)
@@ -519,8 +535,17 @@ namespace HoloManagerApp
             Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = null;
             List<Point2D> unwrappedPoints = null;
             List<Point2D> resCorrectedPoints = null;
+            List<Point2D> specialPoints = null;
+            List<Point2D> specialPointsCorrected = null;
             List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable
-                (M1, M2, MAX_RANGE_VALUE, true, chartPoints, out notDiagonalPointsDictionary, out unwrappedPoints, out resCorrectedPoints);
+                (
+                    M1, M2, MAX_RANGE_VALUE, true, chartPoints, 
+                    out notDiagonalPointsDictionary, 
+                    out unwrappedPoints, 
+                    out resCorrectedPoints, 
+                    out specialPoints,
+                    out specialPointsCorrected
+                );
 
             List<ChartPoint> chartPointsIdeal = new List<ChartPoint>();
             for (int k = 0; k < pointsIdeal.Count; k++)
@@ -537,10 +562,7 @@ namespace HoloManagerApp
 
             foreach(KeyValuePair<int, List<Point2D>> kvp in notDiagonalPointsDictionary)
             {
-                //byte blueValue = kvp.Key % 2 == 0 ? Convert.ToByte(50 + kvp.Key * (kvp.Key % 4)) : Convert.ToByte(100 + kvp.Key * 3);
-                //byte redValue = kvp.Key % 2 == 0 ? Convert.ToByte(100 - kvp.Key * 3) : Convert.ToByte(50 - kvp.Key * 3);
-                //byte greenValue = kvp.Key % 2 == 0 ? Convert.ToByte(50 + kvp.Key * 3) : Convert.ToByte(100 + kvp.Key * 3);
-
+                
                 System.Drawing.Color color = colors[kvp.Key];
 
                 ChartSeries chartSeries = new ChartSeries()
@@ -568,6 +590,14 @@ namespace HoloManagerApp
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
                 ColorDescriptor = new ColorDescriptor(0, 125, 0),
                 Points = chartPointsIdeal
+            });
+
+            chart.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Special points",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(255, 215, 0),
+                Points = specialPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
 
             MemoryWriter.Write<Chart>(chart, new ChartSerialization());
@@ -598,6 +628,15 @@ namespace HoloManagerApp
                 Points = resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
 
+            
+            chartCorrected.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Special points",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(255, 215, 0),
+                Points = specialPointsCorrected.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+            
             MemoryWriter.Write<Chart>(chartCorrected, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 

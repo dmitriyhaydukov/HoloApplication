@@ -65,7 +65,9 @@ namespace HoloManagerApp
             List<ChartPoint> points,
             out Dictionary<int, List<Point2D>> notDiagonalPointsDictionary,
             out List<Point2D> unwrappedPoints,
-            out List<Point2D> resCorrectedPoints
+            out List<Point2D> resCorrectedPoints,
+            out List<Point2D> specialPoints,
+            out List<Point2D> specialPointsCorrected
         )
         {
             int M1 = m2;
@@ -272,9 +274,13 @@ namespace HoloManagerApp
             }
 
             resCorrectedPoints = new List<Point2D>();
+            specialPoints = new List<Point2D>();
+            specialPointsCorrected = new List<Point2D>();
+
             for (int j = 0; j < points.Count; j++)
             {
                 ChartPoint point = points[j];
+
                 int b1 = Convert.ToInt32(point.X);
                 int b2 = Convert.ToInt32(point.Y);
 
@@ -283,6 +289,12 @@ namespace HoloManagerApp
                 Point2D point2D = new Point2D(j, value);
 
                 resCorrectedPoints.Add(point2D);
+
+                if (j == 1061 || j == 1000 || j == 500)
+                {
+                    specialPoints.Add(new Point2D(point.X, point.Y));
+                    specialPointsCorrected.Add(new Point2D(j, value));
+                } 
             }
 
             return pointsList;
