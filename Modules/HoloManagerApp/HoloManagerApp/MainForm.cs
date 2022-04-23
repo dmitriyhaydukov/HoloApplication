@@ -623,7 +623,7 @@ namespace HoloManagerApp
             chartCorrected.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Corrected",
-                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
                 ColorDescriptor = new ColorDescriptor(255, 0, 0),
                 Points = resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });

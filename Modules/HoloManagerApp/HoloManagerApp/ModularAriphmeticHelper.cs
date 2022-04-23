@@ -281,8 +281,8 @@ namespace HoloManagerApp
             {
                 ChartPoint point = points[j];
 
-                int b1 = Convert.ToInt32(point.X);
-                int b2 = Convert.ToInt32(point.Y);
+                int b1 = Convert.ToInt32(Math.Round(point.X));
+                int b2 = Convert.ToInt32(Math.Round(point.Y));
 
                 int index = b2 + m1 - 1 - b1;
                 int value = resDiagonalNumbersAugmented[index] * m1 + b1;
