@@ -284,13 +284,16 @@ namespace HoloManagerApp
                 int b1 = Convert.ToInt32(Math.Round(point.X));
                 int b2 = Convert.ToInt32(Math.Round(point.Y));
 
+                //int b1 = Convert.ToInt32(Math.Floor(point.X));
+                //int b2 = Convert.ToInt32(Math.Floor(point.Y));
+
                 int index = b2 + m1 - 1 - b1;
                 int value = resDiagonalNumbersAugmented[index] * m1 + b1;
                 Point2D point2D = new Point2D(j, value);
 
                 resCorrectedPoints.Add(point2D);
 
-                if (j == 1061 || j == 1000 || j == 500)
+                if (j == 1061 || j == 1062 || j == 1063 || j == 1064 || j == 1000 || j == 500)
                 {
                     specialPoints.Add(new Point2D(point.X, point.Y));
                     specialPointsCorrected.Add(new Point2D(j, value));

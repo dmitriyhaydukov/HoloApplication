@@ -37,6 +37,8 @@
             this.btnBuildTable = new System.Windows.Forms.Button();
             this.btnCreateInterferogram2 = new System.Windows.Forms.Button();
             this.btnBuildRealTable = new System.Windows.Forms.Button();
+            this.txtPhaseShift = new System.Windows.Forms.TextBox();
+            this.lblPhaseShift = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -61,7 +63,7 @@
             // 
             // btnTakePicture
             // 
-            this.btnTakePicture.Location = new System.Drawing.Point(12, 169);
+            this.btnTakePicture.Location = new System.Drawing.Point(12, 231);
             this.btnTakePicture.Name = "btnTakePicture";
             this.btnTakePicture.Size = new System.Drawing.Size(114, 36);
             this.btnTakePicture.TabIndex = 2;
@@ -71,7 +73,7 @@
             // 
             // btnTakeSeries
             // 
-            this.btnTakeSeries.Location = new System.Drawing.Point(12, 220);
+            this.btnTakeSeries.Location = new System.Drawing.Point(12, 282);
             this.btnTakeSeries.Name = "btnTakeSeries";
             this.btnTakeSeries.Size = new System.Drawing.Size(114, 39);
             this.btnTakeSeries.TabIndex = 3;
@@ -81,7 +83,7 @@
             // 
             // btnGraphFromImages
             // 
-            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 277);
+            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 339);
             this.btnGraphFromImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnGraphFromImages.Name = "btnGraphFromImages";
             this.btnGraphFromImages.Size = new System.Drawing.Size(114, 41);
@@ -130,11 +132,29 @@
             this.btnBuildRealTable.UseVisualStyleBackColor = true;
             this.btnBuildRealTable.Click += new System.EventHandler(this.btnBuildRealTable_Click);
             // 
+            // txtPhaseShift
+            // 
+            this.txtPhaseShift.Location = new System.Drawing.Point(12, 188);
+            this.txtPhaseShift.Name = "txtPhaseShift";
+            this.txtPhaseShift.Size = new System.Drawing.Size(114, 20);
+            this.txtPhaseShift.TabIndex = 9;
+            // 
+            // lblPhaseShift
+            // 
+            this.lblPhaseShift.AutoSize = true;
+            this.lblPhaseShift.Location = new System.Drawing.Point(12, 172);
+            this.lblPhaseShift.Name = "lblPhaseShift";
+            this.lblPhaseShift.Size = new System.Drawing.Size(58, 13);
+            this.lblPhaseShift.TabIndex = 10;
+            this.lblPhaseShift.Text = "PhaseShift";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 432);
+            this.Controls.Add(this.lblPhaseShift);
+            this.Controls.Add(this.txtPhaseShift);
             this.Controls.Add(this.btnBuildRealTable);
             this.Controls.Add(this.btnCreateInterferogram2);
             this.Controls.Add(this.btnBuildTable);
@@ -147,6 +167,7 @@
             this.Name = "MainForm";
             this.Text = "Holo manager";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -161,6 +182,8 @@
         private System.Windows.Forms.Button btnBuildTable;
         private System.Windows.Forms.Button btnCreateInterferogram2;
         private System.Windows.Forms.Button btnBuildRealTable;
+        private System.Windows.Forms.TextBox txtPhaseShift;
+        private System.Windows.Forms.Label lblPhaseShift;
     }
 }
 

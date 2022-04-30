@@ -53,7 +53,7 @@ namespace HoloManagerApp
             int maxRange = M1 * timesM1;
             //int maxRange = MAX_RANGE_VALUE;
 
-            double phaseShift = 0;
+            double phaseShift = int.Parse(txtPhaseShift.Text);
             string arguments = 
                 string.Format(
                     "{0} {1} {2}",
@@ -475,7 +475,7 @@ namespace HoloManagerApp
             int maxRange = M2 * timesM2;
             //int maxRange = MAX_RANGE_VALUE;
 
-            double phaseShift = 0;
+            double phaseShift = int.Parse(txtPhaseShift.Text);
             string arguments =
                 string.Format(
                     "{0} {1} {2}",
