@@ -46,6 +46,7 @@ namespace Interferometry.InterferogramCreation {
                 {
                     this.finalStartInterval = new Interval<double>(0, interferogramInfo.ModuleValue.Value);
                     this.finalifnishInterval = new Interval<double>(interferogramInfo.FinalMinIntensity.Value, interferogramInfo.ModuleValue.Value);
+                    this.finalifnishInterval = new Interval<double>(interferogramInfo.FinalMinIntensity.Value, interferogramInfo.MaxIntensity);
                     this.finalTransform = new RealIntervalTransform(finalStartInterval, finalifnishInterval);
                 }               
             }

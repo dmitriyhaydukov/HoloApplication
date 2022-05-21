@@ -49,9 +49,9 @@ namespace HoloManagerApp
 
         private void btnCreateInterferogram_Click(object sender, EventArgs e)
         {
-            int timesM1 = MAX_RANGE_VALUE / M1;
-            int maxRange = M1 * timesM1;
-            //int maxRange = MAX_RANGE_VALUE;
+            //int timesM1 = MAX_RANGE_VALUE / M1;
+            //int maxRange = M1 * timesM1;
+            int maxRange = MAX_RANGE_VALUE;
 
             double phaseShift = int.Parse(txtPhaseShift.Text);
             string arguments = 
@@ -471,9 +471,9 @@ namespace HoloManagerApp
 
         private void btnCreateInterferogram2_Click(object sender, EventArgs e)
         {
-            int timesM2 = MAX_RANGE_VALUE / M2;
-            int maxRange = M2 * timesM2;
-            //int maxRange = MAX_RANGE_VALUE;
+            //int timesM2 = MAX_RANGE_VALUE / M2;
+            //int maxRange = M2 * timesM2;
+            int maxRange = MAX_RANGE_VALUE;
 
             double phaseShift = int.Parse(txtPhaseShift.Text);
             string arguments =
@@ -489,8 +489,11 @@ namespace HoloManagerApp
 
         private void btnBuildRealTable_Click(object sender, EventArgs e)
         {
-            string imagePath1 = @"D:\Images\20220312-Cropped\Image1.png";
-            string imagePath2 = @"D:\Images\20220312-Cropped\Image2.png";
+            //string imagePath1 = @"D:\Images\20220312-Cropped\Image1.png";
+            //string imagePath2 = @"D:\Images\20220312-Cropped\Image2.png";
+
+            string imagePath1 = @"D:\Images\20220521\5-Cropped\Image01.png";
+            string imagePath2 = @"D:\Images\20220521\5-Cropped\Image02.png";
 
             int row = 50;
 

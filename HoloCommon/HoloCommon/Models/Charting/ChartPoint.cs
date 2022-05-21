@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HoloCommon.Models.General;
 
 namespace HoloCommon.Models.Charting
 {
@@ -12,9 +8,12 @@ namespace HoloCommon.Models.Charting
         {
             this.X = x;
             this.Y = y;
+            //this.Color = color;
         }
 
         public double X { get; set; }
         public double Y { get; set; }
+
+        //public ColorDescriptor Color { get; set; }
     }
 }
