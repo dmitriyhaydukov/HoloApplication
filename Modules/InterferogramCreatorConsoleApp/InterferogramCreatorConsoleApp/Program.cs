@@ -50,7 +50,7 @@ namespace InterferogramCreatorConsoleApp
 
             int fringeCount = 3;
             double minIntensity = 20;
-            double finalMinIntensity = 20;
+            double finalMinIntensity = 60;
 
             InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity, maxRange, moduleValue, finalMinIntensity);
             LinearFringeInterferogramCreator interferogramCreator = new LinearFringeInterferogramCreator(interferogramInfo, fringeCount);

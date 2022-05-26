@@ -37,7 +37,8 @@ namespace Interferometry.InterferogramCreation {
             this.noisePercent = percentNoise;
 
             this.minIntensity = minIntensity;
-            this.maxIntensity = 255;
+            //this.maxIntensity = 255;
+            this.maxIntensity = maxRange.Value;
             this.meanIntensity = (this.maxIntensity - this.minIntensity) / 2.0;
             this.intensityModulation = 1;
             this.maxNoise = this.maxIntensity / 100 * this.noisePercent;

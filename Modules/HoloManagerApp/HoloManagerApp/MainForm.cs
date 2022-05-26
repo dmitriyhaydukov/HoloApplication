@@ -35,7 +35,7 @@ namespace HoloManagerApp
         private const int M1 = 213;
         private const int M2 = 167;
 
-        private const int MAX_RANGE_VALUE = 650;
+        private const int MAX_RANGE_VALUE = 800;
                 
         public MainForm()
         {
@@ -492,8 +492,11 @@ namespace HoloManagerApp
             //string imagePath1 = @"D:\Images\20220312-Cropped\Image1.png";
             //string imagePath2 = @"D:\Images\20220312-Cropped\Image2.png";
 
-            string imagePath1 = @"D:\Images\20220521\5-Cropped\Image01.png";
-            string imagePath2 = @"D:\Images\20220521\5-Cropped\Image02.png";
+            //string imagePath1 = @"D:\Images\20220521\5-Cropped\Image01.png";
+            //string imagePath2 = @"D:\Images\20220521\5-Cropped\Image02.png";
+
+            string imagePath1 = @"D:\Images\20220526-Cropped\Image1.png";
+            string imagePath2 = @"D:\Images\20220526-Cropped\Image2.png";
 
             int row = 50;
 

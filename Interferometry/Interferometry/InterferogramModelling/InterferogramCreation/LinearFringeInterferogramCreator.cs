@@ -37,18 +37,24 @@ namespace Interferometry.InterferogramCreation {
 
             if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue)
             {
-                this.startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
-                this.finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
+                //this.startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
+                //this.finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
                 //this.finishInterval = new Interval<double>(0, interferogramInfo.MaxRange.Value);
+
+                this.startInterval = new Interval<double>(0, interferogramInfo.ModuleValue.Value);
+                this.finishInterval = new Interval<double>(interferogramInfo.FinalMinIntensity.Value, 200);
+
                 this.transform = new RealIntervalTransform(startInterval, finishInterval);
 
+                /*
                 if (interferogramInfo.FinalMinIntensity.HasValue)
                 {
                     this.finalStartInterval = new Interval<double>(0, interferogramInfo.ModuleValue.Value);
                     this.finalifnishInterval = new Interval<double>(interferogramInfo.FinalMinIntensity.Value, interferogramInfo.ModuleValue.Value);
                     this.finalifnishInterval = new Interval<double>(interferogramInfo.FinalMinIntensity.Value, interferogramInfo.MaxIntensity);
                     this.finalTransform = new RealIntervalTransform(finalStartInterval, finalifnishInterval);
-                }               
+                }
+                */
             }
         }
         //----------------------------------------------------------------------------------------------
@@ -124,12 +130,16 @@ namespace Interferometry.InterferogramCreation {
                 this.interferogramInfo.IntensityModulation *
                 Math.Cos( phase ) +
                 noise;
-            intensity = this.GetCorrectedIntensity( intensity );
+            //intensity = this.GetCorrectedIntensity( intensity );
 
+            //intensity = transform.TransformToFinishIntervalValue(intensity);
+            intensity = intensity % interferogramInfo.ModuleValue.Value;
+            
+            
             if (this.transform != null)
             {
                 intensity = transform.TransformToFinishIntervalValue(intensity);
-                intensity = intensity % interferogramInfo.ModuleValue.Value;
+                //intensity = intensity % interferogramInfo.ModuleValue.Value;
 
                 if (this.finalTransform != null)
                 {
