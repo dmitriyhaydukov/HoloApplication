@@ -543,9 +543,11 @@ namespace HoloManagerApp
             List<Point2D> resCorrectedPoints = null;
             List<Point2D> specialPoints = null;
             List<Point2D> specialPointsCorrected = null;
+            bool readDiagonalsFromFile = true;
+
             List<Point2D> pointsIdeal = ModularArithmeticHelper.BuildTable
                 (
-                    M1, M2, MAX_RANGE_VALUE, true, chartPoints, 
+                    M1, M2, MAX_RANGE_VALUE, readDiagonalsFromFile, chartPoints, 
                     out notDiagonalPointsDictionary, 
                     out unwrappedPoints, 
                     out resCorrectedPoints, 
