@@ -170,7 +170,7 @@ namespace HoloManagerApp
 
             if (readDiagonalsFromFile)
             {
-                string filePath = @"D:\Images\!!\diagonalsManual4.txt";
+                string filePath = @"D:\Images\!!\diagonalsManual5.txt";
                 string diagonalsString = File.ReadAllText(filePath);
                 string[] parts = diagonalsString.Split(' ', '\n');
 
@@ -277,6 +277,10 @@ namespace HoloManagerApp
             specialPoints = new List<Point2D>();
             specialPointsCorrected = new List<Point2D>();
 
+            bool specialPointAdded = false;
+            int specialPointsCount = 0;
+            int maxSpecialCounts = 3;
+
             for (int j = 0; j < points.Count; j++)
             {
                 ChartPoint point = points[j];
@@ -292,16 +296,18 @@ namespace HoloManagerApp
                 Point2D point2D = new Point2D(j, value);
 
                 resCorrectedPoints.Add(point2D);
-
-                if (value > 1000000)
-                {
-                    int a = 0;
-                }
-
-                if (j == 1061 || j == 1062 || j == 1063 || j == 1064 || j == 1000 || j == 500)
+                
+                //if (j == 1061 || j == 1062 || j == 1063 || j == 1064 || j == 1000 || j == 500)
+                if (value > 700 && !specialPointAdded)
                 {
                     specialPoints.Add(new Point2D(point.X, point.Y));
                     specialPointsCorrected.Add(new Point2D(j, value));
+
+                    specialPointsCount++;
+                    if (specialPointsCount >= maxSpecialCounts)
+                    {
+                        specialPointAdded = true;
+                    }
                 } 
             }
 

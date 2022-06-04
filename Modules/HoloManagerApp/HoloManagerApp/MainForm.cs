@@ -631,7 +631,7 @@ namespace HoloManagerApp
             chartCorrected.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Corrected",
-                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
                 ColorDescriptor = new ColorDescriptor(255, 0, 0),
                 Points = resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
@@ -676,10 +676,6 @@ namespace HoloManagerApp
                         }
                     }
                 }
-
-                //r = Convert.ToByte(r * 0.5);
-                //g = Convert.ToByte(g * 0.5);
-                //b = Convert.ToByte(b * 0.5);
 
                 colorsList.Add(System.Drawing.Color.FromArgb(0xFF, r, g, b));
 
