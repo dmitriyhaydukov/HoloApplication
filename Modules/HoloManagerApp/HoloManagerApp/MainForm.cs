@@ -509,6 +509,41 @@ namespace HoloManagerApp
             double[] rowValues1 = wrapper1.GetGrayScaleMatrix().GetRow(row);
             double[] rowValues2 = wrapper2.GetGrayScaleMatrix().GetRow(row);
 
+            List<ChartPoint> chartOriginalPoints1 = new List<ChartPoint>();
+            for (int k = 0; k < rowValues1.Length; k++)
+            {
+                ChartPoint p = new ChartPoint(k, rowValues1[k]);
+                chartOriginalPoints1.Add(p);
+            }
+
+            List<ChartPoint> chartOriginalPoints2 = new List<ChartPoint>();
+            for (int k = 0; k < rowValues2.Length; k++)
+            {
+                ChartPoint p = new ChartPoint(k, rowValues2[k]);
+                chartOriginalPoints2.Add(p);
+            }
+
+            Chart chartOriginal = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            chartOriginal.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Original1",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                Points = chartOriginalPoints1
+            });
+            chartOriginal.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Original2",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = chartOriginalPoints2
+            });
+
+            MemoryWriter.Write<Chart>(chartOriginal, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
+
             double min1 = rowValues1.Min();
             double min2 = rowValues2.Min();
             
@@ -530,6 +565,42 @@ namespace HoloManagerApp
 
             double[] values1 = rowValues1.Select(x => intervalTransformM1.TransformToFinishIntervalValue(x)).ToArray();
             double[] values2 = rowValues2.Select(x => intervalTransformM2.TransformToFinishIntervalValue(x)).ToArray();
+
+
+            List<ChartPoint> chartTransformPoints1 = new List<ChartPoint>();
+            for (int k = 0; k < values1.Length; k++)
+            {
+                ChartPoint p = new ChartPoint(k, values1[k]);
+                chartTransformPoints1.Add(p);
+            }
+
+            List<ChartPoint> chartTransformPoints2 = new List<ChartPoint>();
+            for (int k = 0; k < values2.Length; k++)
+            {
+                ChartPoint p = new ChartPoint(k, values2[k]);
+                chartTransformPoints2.Add(p);
+            }
+
+            Chart chartTransform = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            chartTransform.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Transform1",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                Points = chartTransformPoints1
+            });
+            chartTransform.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Transform2",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = chartTransformPoints2
+            });
+
+            MemoryWriter.Write<Chart>(chartTransform, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+
+            Thread.Sleep(2000);
 
             List<ChartPoint> chartPoints = new List<ChartPoint>();
             for (int k = 0; k < values1.Length; k++)

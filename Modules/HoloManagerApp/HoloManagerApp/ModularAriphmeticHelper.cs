@@ -279,7 +279,7 @@ namespace HoloManagerApp
 
             bool specialPointAdded = false;
             int specialPointsCount = 0;
-            int maxSpecialCounts = 3;
+            int maxSpecialCounts = 10;
 
             for (int j = 0; j < points.Count; j++)
             {
@@ -298,7 +298,7 @@ namespace HoloManagerApp
                 resCorrectedPoints.Add(point2D);
                 
                 //if (j == 1061 || j == 1062 || j == 1063 || j == 1064 || j == 1000 || j == 500)
-                if (value > 700 && !specialPointAdded)
+                if ((value > 700) && !specialPointAdded)
                 {
                     specialPoints.Add(new Point2D(point.X, point.Y));
                     specialPointsCorrected.Add(new Point2D(j, value));
