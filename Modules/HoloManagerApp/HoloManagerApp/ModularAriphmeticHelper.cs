@@ -170,7 +170,7 @@ namespace HoloManagerApp
 
             if (readDiagonalsFromFile)
             {
-                string filePath = @"D:\Images\!!\diagonalsManual5.txt";
+                string filePath = @"D:\Images\!!\diagonalsManual6.txt";
                 string diagonalsString = File.ReadAllText(filePath);
                 string[] parts = diagonalsString.Split(' ', '\n');
 
