@@ -254,6 +254,13 @@ namespace ExtraLibrary.Arraying.ArrayOperation {
             return values.ToArray();
         }
         //--------------------------------------------------------------------------------------------
+        public static double[] SortArrayAscending(double[] array)
+        {
+            double[] resArray = new double[array.Length];
+            Array.Copy(array, resArray, array.Length);
+            Array.Sort(resArray);
+            return resArray;
+        }
         //--------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------

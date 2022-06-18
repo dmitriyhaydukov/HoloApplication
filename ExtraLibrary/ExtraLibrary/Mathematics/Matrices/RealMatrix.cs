@@ -127,6 +127,23 @@ namespace ExtraLibrary.Mathematics.Matrices {
             return rowData;
         }
         //-----------------------------------------------------------------------------------------
+        public double[] GetRowValues(int row, int startColumnIndex, int endColumnIndex)
+        {
+            if (this.rowCount <= row)
+            {
+                throw new MatrixException();
+            }
+
+            int size = endColumnIndex - startColumnIndex + 1;
+            double[] data = new double[size];
+            for (int column = startColumnIndex, j = 0; column <= endColumnIndex; column++, j++)
+            {
+                data[j] = this.dataArray[row, column];
+            }
+
+            return data;
+        }
+        //-----------------------------------------------------------------------------------------
         //Столбец матрицы в виде массива
         public double[] GetColumn( int column ) {
             if ( this.columnCount <= column ) {
