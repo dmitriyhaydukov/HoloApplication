@@ -510,6 +510,31 @@ namespace HoloManagerApp
                         
             double[] rowValues1 = wrapper1.GetGrayScaleMatrix().GetRow(row);
             double[] rowValues2 = wrapper2.GetGrayScaleMatrix().GetRow(row);
+            
+            /*
+            //Filter row values
+            RealMatrix matrix1 = new RealMatrix(1, rowValues1.Length);
+            RealMatrix matrix2 = new RealMatrix(1, rowValues2.Length);
+
+            for (int i = 0; i < rowValues1.Length; i++)
+            {
+                matrix1[0, i] = rowValues1[i]; 
+            }
+
+            for (int i = 0; i < rowValues2.Length; i++)
+            {
+                matrix2[0, i] = rowValues2[i];
+            }
+
+            int window = 11;
+            double threshold = 30;
+            SmartEdgeByRowsGrayScaleFilter smartFilter = new SmartEdgeByRowsGrayScaleFilter();
+            matrix1 = smartFilter.ExecuteFiltration(matrix1, window, threshold);
+            matrix2 = smartFilter.ExecuteFiltration(matrix2, window, threshold);
+
+            rowValues1 = matrix1.GetRow(0);
+            rowValues2 = matrix2.GetRow(0);
+            */
 
             List<ChartPoint> chartOriginalPoints1 = new List<ChartPoint>();
             for (int k = 0; k < rowValues1.Length; k++)
