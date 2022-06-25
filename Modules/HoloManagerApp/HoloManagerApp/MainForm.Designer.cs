@@ -39,6 +39,7 @@
             this.btnBuildRealTable = new System.Windows.Forms.Button();
             this.txtPhaseShift = new System.Windows.Forms.TextBox();
             this.lblPhaseShift = new System.Windows.Forms.Label();
+            this.btnCreateTriangleImage = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -63,7 +64,7 @@
             // 
             // btnTakePicture
             // 
-            this.btnTakePicture.Location = new System.Drawing.Point(12, 231);
+            this.btnTakePicture.Location = new System.Drawing.Point(12, 265);
             this.btnTakePicture.Name = "btnTakePicture";
             this.btnTakePicture.Size = new System.Drawing.Size(114, 36);
             this.btnTakePicture.TabIndex = 2;
@@ -73,7 +74,7 @@
             // 
             // btnTakeSeries
             // 
-            this.btnTakeSeries.Location = new System.Drawing.Point(12, 282);
+            this.btnTakeSeries.Location = new System.Drawing.Point(12, 316);
             this.btnTakeSeries.Name = "btnTakeSeries";
             this.btnTakeSeries.Size = new System.Drawing.Size(114, 39);
             this.btnTakeSeries.TabIndex = 3;
@@ -83,7 +84,7 @@
             // 
             // btnGraphFromImages
             // 
-            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 339);
+            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 373);
             this.btnGraphFromImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnGraphFromImages.Name = "btnGraphFromImages";
             this.btnGraphFromImages.Size = new System.Drawing.Size(114, 41);
@@ -134,7 +135,7 @@
             // 
             // txtPhaseShift
             // 
-            this.txtPhaseShift.Location = new System.Drawing.Point(12, 188);
+            this.txtPhaseShift.Location = new System.Drawing.Point(12, 222);
             this.txtPhaseShift.Name = "txtPhaseShift";
             this.txtPhaseShift.Size = new System.Drawing.Size(114, 20);
             this.txtPhaseShift.TabIndex = 9;
@@ -142,17 +143,28 @@
             // lblPhaseShift
             // 
             this.lblPhaseShift.AutoSize = true;
-            this.lblPhaseShift.Location = new System.Drawing.Point(12, 172);
+            this.lblPhaseShift.Location = new System.Drawing.Point(12, 206);
             this.lblPhaseShift.Name = "lblPhaseShift";
             this.lblPhaseShift.Size = new System.Drawing.Size(58, 13);
             this.lblPhaseShift.TabIndex = 10;
             this.lblPhaseShift.Text = "PhaseShift";
+            // 
+            // btnCreateTriangleImage
+            // 
+            this.btnCreateTriangleImage.Location = new System.Drawing.Point(12, 158);
+            this.btnCreateTriangleImage.Name = "btnCreateTriangleImage";
+            this.btnCreateTriangleImage.Size = new System.Drawing.Size(114, 34);
+            this.btnCreateTriangleImage.TabIndex = 11;
+            this.btnCreateTriangleImage.Text = "Create triangle";
+            this.btnCreateTriangleImage.UseVisualStyleBackColor = true;
+            this.btnCreateTriangleImage.Click += new System.EventHandler(this.btnCreateTriangleImage_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 432);
+            this.Controls.Add(this.btnCreateTriangleImage);
             this.Controls.Add(this.lblPhaseShift);
             this.Controls.Add(this.txtPhaseShift);
             this.Controls.Add(this.btnBuildRealTable);
@@ -184,6 +196,7 @@
         private System.Windows.Forms.Button btnBuildRealTable;
         private System.Windows.Forms.TextBox txtPhaseShift;
         private System.Windows.Forms.Label lblPhaseShift;
+        private System.Windows.Forms.Button btnCreateTriangleImage;
     }
 }
 

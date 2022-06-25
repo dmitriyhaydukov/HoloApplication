@@ -861,5 +861,21 @@ namespace HoloManagerApp
 
             return colorsList;
         }
+
+        private void btnCreateTriangleImage_Click(object sender, EventArgs e)
+        {
+            int maxRange = MAX_RANGE_VALUE;
+
+            double phaseShift = 0;
+            string arguments =
+                string.Format(
+                    "{0} {1} {2}",
+                    phaseShift.ToString(CultureInfo.InvariantCulture),
+                    maxRange.ToString(CultureInfo.InvariantCulture),
+                    M1.ToString(CultureInfo.InvariantCulture)
+                );
+
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\TriangleImageCreatorConsoleApp\TriangleImageCreatorConsoleApp\bin\Debug\TriangleImageCreatorConsoleApp.exe", arguments, false);
+        }
     }
 }

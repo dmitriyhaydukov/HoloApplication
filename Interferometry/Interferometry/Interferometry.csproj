@@ -96,6 +96,7 @@
     <Compile Include="InterferogramModelling\InterferogramCreation\CircleFringeInterferogramCreator.cs" />
     <Compile Include="InterferogramModelling\InterferogramCreation\InterferogramCreator.cs" />
     <Compile Include="InterferogramModelling\InterferogramCreation\InterferogramInfo.cs" />
+    <Compile Include="InterferogramModelling\InterferogramCreation\TriangleInterferogramCreator.cs" />
     <Compile Include="InterferogramModelling\InterferogramCreation\LinearFringeInterferogramCreator.cs" />
     <Compile Include="InterferogramModelling\InterferogramGenerator.cs" />
     <Compile Include="InterferogramDecoding\AdvancedInterferogramDecoder.cs" />
