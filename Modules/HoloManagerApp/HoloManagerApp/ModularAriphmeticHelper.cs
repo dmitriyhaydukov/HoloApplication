@@ -289,6 +289,9 @@ namespace HoloManagerApp
 
             int? prevValue = null;
 
+            int? startGapIndex = null;
+            int? endGapIndex = null;
+
             for (int j = 0; j < points.Count; j++)
             {
                 ChartPoint point = points[j];
@@ -298,19 +301,31 @@ namespace HoloManagerApp
                                 
                 int index = b2 + m1 - 1 - b1;
                 int value = resDiagonalNumbersAugmented[index] * m1 + b1;
-
+                                
                 if (prevValue.HasValue && Math.Abs(prevValue.Value - value) > 70)
                 {
                     value = prevValue.Value;
+                    startGapIndex = j;
                 }
-                
+                else if (startGapIndex != null)
+                {
+                    endGapIndex = j;
+
+                    for (int k = startGapIndex.Value; k <= endGapIndex.Value; k++)
+                    {
+                        ChartPoint p = points[k];
+
+                        specialPoints2.Add(new Point2D(p.X, p.Y));
+                        specialPointsCorrected2.Add(new Point2D(k, value));
+                    }
+
+                    startGapIndex = null;
+                }
+
                 Point2D point2D = new Point2D(j, value);
-
                 resCorrectedPoints.Add(point2D);
-
                 prevValue = value;
 
-                //if (j == 1061 || j == 1062 || j == 1063 || j == 1064 || j == 1000 || j == 500)
                 if ((value > 700) && !specialPointAdded)
                 {
                     specialPoints.Add(new Point2D(point.X, point.Y));
