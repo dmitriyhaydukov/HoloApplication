@@ -255,6 +255,7 @@ namespace HoloManagerApp
             string coefContent = string.Join(" ", coefficientsArray);
             File.WriteAllText(@"D:\Images\!!\coefficients.txt", coefContent);
             
+
             for (int j = 0; j < points.Count; j++)
             {
                 ChartPoint point = points[j];
@@ -286,22 +287,29 @@ namespace HoloManagerApp
             int specialPointsCount = 0;
             int maxSpecialCounts = 10;
 
+            int? prevValue = null;
+
             for (int j = 0; j < points.Count; j++)
             {
                 ChartPoint point = points[j];
 
                 int b1 = Convert.ToInt32(Math.Round(point.X));
                 int b2 = Convert.ToInt32(Math.Round(point.Y));
-
-                //int b1 = Convert.ToInt32(Math.Floor(point.X));
-                //int b2 = Convert.ToInt32(Math.Floor(point.Y));
-
+                                
                 int index = b2 + m1 - 1 - b1;
                 int value = resDiagonalNumbersAugmented[index] * m1 + b1;
+
+                if (prevValue.HasValue && Math.Abs(prevValue.Value - value) > 70)
+                {
+                    value = prevValue.Value;
+                }
+                
                 Point2D point2D = new Point2D(j, value);
 
                 resCorrectedPoints.Add(point2D);
-                
+
+                prevValue = value;
+
                 //if (j == 1061 || j == 1062 || j == 1063 || j == 1064 || j == 1000 || j == 500)
                 if ((value > 700) && !specialPointAdded)
                 {
