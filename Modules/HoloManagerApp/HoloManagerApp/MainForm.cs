@@ -369,6 +369,10 @@ namespace HoloManagerApp
             List<Point2D> resCorrectedPoints = null;
             List<Point2D> specialPoints = null;
             List<Point2D> specialPointsCorrected = null;
+
+            List<Point2D> specialPoints2 = null;
+            List<Point2D> specialPointsCorrected2 = null;
+
             List<ChartPoint> points6 = new List<ChartPoint>();
 
             List<Point2D> pointsDiagonal = ModularArithmeticHelper.BuildTable
@@ -378,7 +382,9 @@ namespace HoloManagerApp
                     out unwrappedPoints, 
                     out resCorrectedPoints, 
                     out specialPoints,
-                    out specialPointsCorrected
+                    out specialPointsCorrected,
+                    out specialPoints2,
+                    out specialPointsCorrected2
                 );
 
             for (int k = 0; k < pointsDiagonal.Count; k++)
@@ -431,6 +437,10 @@ namespace HoloManagerApp
             List<Point2D> resCorrectedPoints = null;
             List<Point2D> specialPoints = null;
             List<Point2D> specialPointsCorrected = null;
+
+            List<Point2D> specialPoints2 = null;
+            List<Point2D> specialPointsCorrected2 = null;
+
             List<ChartPoint> chartPoints = new List<ChartPoint>();
 
             List<Point2D> points = ModularArithmeticHelper.BuildTable
@@ -440,7 +450,9 @@ namespace HoloManagerApp
                     out unwrappedPoints, 
                     out resCorrectedPoints, 
                     out specialPoints,
-                    out specialPointsCorrected
+                    out specialPointsCorrected,
+                    out specialPoints2,
+                    out specialPointsCorrected2
                 );
 
             //List<ChartPoint> chartPoints = new List<ChartPoint>();
@@ -641,6 +653,10 @@ namespace HoloManagerApp
             List<Point2D> resCorrectedPoints = null;
             List<Point2D> specialPoints = null;
             List<Point2D> specialPointsCorrected = null;
+
+            List<Point2D> specialPoints2 = null;
+            List<Point2D> specialPointsCorrected2 = null;
+
             bool readDiagonalsFromFile = true;
 
             List<Point2D> filteredPoints = null;
@@ -652,7 +668,9 @@ namespace HoloManagerApp
                     out unwrappedPoints, 
                     out resCorrectedPoints, 
                     out specialPoints,
-                    out specialPointsCorrected
+                    out specialPointsCorrected,
+                    out specialPoints2,
+                    out specialPointsCorrected2
                 );
             
             int height = 300;
@@ -732,6 +750,14 @@ namespace HoloManagerApp
                 Points = specialPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
 
+            chart.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Special points 2",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = specialPoints2.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+
             MemoryWriter.Write<Chart>(chart, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 
@@ -768,7 +794,15 @@ namespace HoloManagerApp
                 ColorDescriptor = new ColorDescriptor(255, 215, 0),
                 Points = specialPointsCorrected.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
-            
+
+            chartCorrected.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Special points 2",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = specialPointsCorrected2.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+
             MemoryWriter.Write<Chart>(chartCorrected, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 

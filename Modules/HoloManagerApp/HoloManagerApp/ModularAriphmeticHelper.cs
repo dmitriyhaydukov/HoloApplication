@@ -67,7 +67,9 @@ namespace HoloManagerApp
             out List<Point2D> unwrappedPoints,
             out List<Point2D> resCorrectedPoints,
             out List<Point2D> specialPoints,
-            out List<Point2D> specialPointsCorrected
+            out List<Point2D> specialPointsCorrected,
+            out List<Point2D> specialPoints2,
+            out List<Point2D> specialPointsCorrected2
         )
         {
             int M1 = m2;
@@ -277,6 +279,9 @@ namespace HoloManagerApp
             specialPoints = new List<Point2D>();
             specialPointsCorrected = new List<Point2D>();
 
+            specialPoints2 = new List<Point2D>();
+            specialPointsCorrected2 = new List<Point2D>();
+
             bool specialPointAdded = false;
             int specialPointsCount = 0;
             int maxSpecialCounts = 10;
@@ -308,7 +313,13 @@ namespace HoloManagerApp
                     {
                         specialPointAdded = true;
                     }
-                } 
+                }
+
+                if ((j > 1060 && j < 1100) || (j > 1860 && j < 1880))
+                {
+                    specialPoints2.Add(new Point2D(point.X, point.Y));
+                    specialPointsCorrected2.Add(new Point2D(j, value));
+                }
             }
 
             return pointsList;
