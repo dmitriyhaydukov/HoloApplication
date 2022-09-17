@@ -283,14 +283,14 @@ namespace HoloManagerApp
             specialPoints2 = new List<Point2D>();
             specialPointsCorrected2 = new List<Point2D>();
 
-            bool specialPointAdded = false;
-            int specialPointsCount = 0;
-            int maxSpecialCounts = 10;
+            //bool specialPointAdded = false;
+            //int specialPointsCount = 0;
+            //int maxSpecialCounts = 10;
 
-            int? prevValue = null;
+            //int? prevValue = null;
 
-            int? startGapIndex = null;
-            int? endGapIndex = null;
+            //int? startGapIndex = null;
+            //int? endGapIndex = null;
 
             for (int j = 0; j < points.Count; j++)
             {
@@ -301,7 +301,8 @@ namespace HoloManagerApp
                                 
                 int index = b2 + m1 - 1 - b1;
                 int value = resDiagonalNumbersAugmented[index] * m1 + b1;
-                                
+                
+                /*
                 if (prevValue.HasValue && Math.Abs(prevValue.Value - value) > 70)
                 {
                     value = prevValue.Value;
@@ -321,11 +322,13 @@ namespace HoloManagerApp
 
                     startGapIndex = null;
                 }
+                */
 
                 Point2D point2D = new Point2D(j, value);
                 resCorrectedPoints.Add(point2D);
-                prevValue = value;
+                //prevValue = value;
 
+                /*
                 if ((value > 700) && !specialPointAdded)
                 {
                     specialPoints.Add(new Point2D(point.X, point.Y));
@@ -337,6 +340,7 @@ namespace HoloManagerApp
                         specialPointAdded = true;
                     }
                 }
+                */
 
                 if ((j > 1060 && j < 1100) || (j > 1860 && j < 1880))
                 {
