@@ -279,7 +279,7 @@ namespace HoloManagerApp
                         {
                             Name = "Graph",
                             Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                            ColorDescriptor = new ColorDescriptor(0, 125, 0),
                             Points = points
                         }
                     }
@@ -293,14 +293,24 @@ namespace HoloManagerApp
             Interval<double> startInterval = new Interval<double>(-1, 1);
             Interval<double> finishInterval = new Interval<double>(0, MAX_RANGE_VALUE);
             RealIntervalTransform transform = new RealIntervalTransform(startInterval, finishInterval);
+
+            double intersectionLineThreshold = 100;
+            double prevValue = 0;
+
+            int maxLinesCount1 = 4;
+            int maxLinesCount2 = 4;
+
+            List<List<ChartPoint>> intersectionLinePointsList1 = new List<List<ChartPoint>>();
+            List<List<ChartPoint>> intersectionLinePointsList2 = new List<List<ChartPoint>>();
+
             List<ChartPoint> points2 = new List<ChartPoint>();
             for (int k = 0; k < count; k++)
             {
                 double newValue = transform.TransformToFinishIntervalValue(valuesList[k]);
                 ChartPoint p = new ChartPoint(k, newValue);
                 points2.Add(p);
-            }
-            
+            } 
+
             List<ChartPoint> points3 = new List<ChartPoint>();
             for(int k = 0; k < points2.Count; k++)
             {
@@ -308,6 +318,18 @@ namespace HoloManagerApp
                 double v = p.Y % M1;
                 ChartPoint newPoint = new ChartPoint(p.X, v);
                 points3.Add(newPoint);
+
+                if (Math.Abs(prevValue - v) > intersectionLineThreshold && intersectionLinePointsList1.Count < maxLinesCount1)
+                {
+                    List<ChartPoint> list = new List<ChartPoint>();
+                    for (int j = 0; j < points2.Count; j++)
+                    {
+                        list.Add(new ChartPoint(j, p.Y));
+                    }
+                    intersectionLinePointsList1.Add(list);
+                }
+
+                prevValue = v;
             }
 
             List<ChartPoint> points4 = new List<ChartPoint>();
@@ -317,6 +339,18 @@ namespace HoloManagerApp
                 double v = p.Y % M2;
                 ChartPoint newPoint = new ChartPoint(p.X, v);
                 points4.Add(newPoint);
+
+                if (Math.Abs(prevValue - v) > intersectionLineThreshold && intersectionLinePointsList2.Count < maxLinesCount2)
+                {
+                    List<ChartPoint> list = new List<ChartPoint>();
+                    for (int j = 0; j < points2.Count; j++)
+                    {
+                        list.Add(new ChartPoint(j, p.Y));
+                    }
+                    intersectionLinePointsList2.Add(list);
+                }
+
+                prevValue = v;
             }
 
             Chart chart2 = new Chart()
@@ -327,25 +361,49 @@ namespace HoloManagerApp
                         {
                             Name = "Graph",
                             Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                            ColorDescriptor = new ColorDescriptor(0, 0, 0),
+                            ColorDescriptor = new ColorDescriptor(0, 0, 255),
                             Points = points2
                         },
                         new ChartSeries()
                         {
                             Name = "M1",
                             Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                            ColorDescriptor = new ColorDescriptor(0, 255, 0),
+                            ColorDescriptor = new ColorDescriptor(0, 125, 0),
                             Points = points3
                         },
                         new ChartSeries()
                         {
                             Name = "M2",
                             Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                            ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                            ColorDescriptor = new ColorDescriptor(125, 0, 0),
                             Points = points4
                         }
                     }
             };
+
+            for (int i = 0; i < intersectionLinePointsList1.Count; i++)
+            {
+                List<ChartPoint> list = intersectionLinePointsList1[i];
+                chart2.SeriesCollection.Add(new ChartSeries()
+                {
+                    Name = "Intersection 1",
+                    Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                    ColorDescriptor = new ColorDescriptor(0, 255, 0),
+                    Points = list
+                });
+            }
+
+            for (int i = 0; i < intersectionLinePointsList2.Count; i++)
+            {
+                List<ChartPoint> list = intersectionLinePointsList2[i];
+                chart2.SeriesCollection.Add(new ChartSeries()
+                {
+                    Name = "Intersection 2",
+                    Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                    ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                    Points = list
+                });
+            }
 
             MemoryWriter.Write<Chart>(chart2, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
@@ -512,6 +570,9 @@ namespace HoloManagerApp
             string imagePath1 = @"D:\Images\20220526-Cropped-Filtered4\Image1.png";
             string imagePath2 = @"D:\Images\20220526-Cropped-Filtered4\Image2.png";
 
+            //string imagePath1 = @"D:\Images\20220924-Cropped\1-90.png";
+            //string imagePath2 = @"D:\Images\20220924-Cropped\2-90.png";
+
             int row = 50;
 
             WriteableBitmap bitmap1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath1);
@@ -567,14 +628,14 @@ namespace HoloManagerApp
             {
                 Name = "Original1",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                ColorDescriptor = new ColorDescriptor(0, 125, 0),
                 Points = chartOriginalPoints1
             });
             chartOriginal.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Original2",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
                 Points = chartOriginalPoints2
             });
 
@@ -625,14 +686,14 @@ namespace HoloManagerApp
             {
                 Name = "Transform1",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                ColorDescriptor = new ColorDescriptor(0, 125, 0),
                 Points = chartTransformPoints1
             });
             chartTransform.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Transform2",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
                 Points = chartTransformPoints2
             });
 
@@ -738,10 +799,11 @@ namespace HoloManagerApp
             {
                 Name = "Diagonals",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
-                ColorDescriptor = new ColorDescriptor(0, 125, 0),
+                ColorDescriptor = new ColorDescriptor(0, 255, 0),
                 Points = chartPointsIdeal
             });
 
+            /*
             chart.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Special points",
@@ -757,6 +819,7 @@ namespace HoloManagerApp
                 ColorDescriptor = new ColorDescriptor(0, 0, 255),
                 Points = specialPoints2.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
+            */
 
             MemoryWriter.Write<Chart>(chart, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
@@ -768,7 +831,7 @@ namespace HoloManagerApp
             {
                 Name = "Unwrapped",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
-                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
                 Points =  unwrappedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
 
@@ -782,11 +845,11 @@ namespace HoloManagerApp
             {
                 Name = "Corrected",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
                 Points = resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
 
-            
+            /*
             chartCorrected.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Special points",
@@ -802,6 +865,7 @@ namespace HoloManagerApp
                 ColorDescriptor = new ColorDescriptor(0, 0, 255),
                 Points = specialPointsCorrected2.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
+            */
 
             MemoryWriter.Write<Chart>(chartCorrected, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
@@ -813,7 +877,7 @@ namespace HoloManagerApp
             {
                 Name = "Filtered",
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                ColorDescriptor = new ColorDescriptor(0, 0, 0),
                 Points = filteredPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
 
