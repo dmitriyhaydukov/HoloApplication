@@ -42,7 +42,8 @@ namespace ImageViewer
 
         public MainWindow()
         {
-            InitializeComponent();    
+            InitializeComponent();
+            //zoomControl.ModifierMode = WPFExtensions.Controls.ZoomViewModifierMode.None;
         }
 
         public MainViewModel ViewModel

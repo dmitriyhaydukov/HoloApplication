@@ -106,7 +106,7 @@ namespace ChartApp
             System.Drawing.Color color = GetColor(series.ColorDescriptor);
             scatterPlot.Color = color;
             scatterPlot.Label = series.Name;
-            //scatterPlot.MarkerShape = MarkerShape.none;
+            scatterPlot.MarkerShape = MarkerShape.none;
 
             return scatterPlot;           
         }

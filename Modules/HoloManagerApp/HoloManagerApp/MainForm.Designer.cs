@@ -40,6 +40,7 @@
             this.txtPhaseShift = new System.Windows.Forms.TextBox();
             this.lblPhaseShift = new System.Windows.Forms.Label();
             this.btnCreateTriangleImage = new System.Windows.Forms.Button();
+            this.btnTakePicturesWithPhaseShifts = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -159,11 +160,22 @@
             this.btnCreateTriangleImage.UseVisualStyleBackColor = true;
             this.btnCreateTriangleImage.Click += new System.EventHandler(this.btnCreateTriangleImage_Click);
             // 
+            // btnTakePicturesWithPhaseShifts
+            // 
+            this.btnTakePicturesWithPhaseShifts.Location = new System.Drawing.Point(146, 373);
+            this.btnTakePicturesWithPhaseShifts.Name = "btnTakePicturesWithPhaseShifts";
+            this.btnTakePicturesWithPhaseShifts.Size = new System.Drawing.Size(103, 41);
+            this.btnTakePicturesWithPhaseShifts.TabIndex = 12;
+            this.btnTakePicturesWithPhaseShifts.Text = "Take pictures with phase shifts";
+            this.btnTakePicturesWithPhaseShifts.UseVisualStyleBackColor = true;
+            this.btnTakePicturesWithPhaseShifts.Click += new System.EventHandler(this.btnTakePicturesWithPhaseShifts_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 432);
+            this.Controls.Add(this.btnTakePicturesWithPhaseShifts);
             this.Controls.Add(this.btnCreateTriangleImage);
             this.Controls.Add(this.lblPhaseShift);
             this.Controls.Add(this.txtPhaseShift);
@@ -197,6 +209,7 @@
         private System.Windows.Forms.TextBox txtPhaseShift;
         private System.Windows.Forms.Label lblPhaseShift;
         private System.Windows.Forms.Button btnCreateTriangleImage;
+        private System.Windows.Forms.Button btnTakePicturesWithPhaseShifts;
     }
 }
 

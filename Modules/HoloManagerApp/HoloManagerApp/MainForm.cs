@@ -975,5 +975,73 @@ namespace HoloManagerApp
 
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\TriangleImageCreatorConsoleApp\TriangleImageCreatorConsoleApp\bin\Debug\TriangleImageCreatorConsoleApp.exe", arguments, false);
         }
+
+        private void btnTakePicturesWithPhaseShifts_Click(object sender, EventArgs e)
+        {
+            double[] phaseShifts = new double[] { 0, 45, 90, 135 };
+
+            int phaseShiftIndex = 0;
+            double phaseShift = phaseShifts[0];
+
+            Action takePictureAction = () =>
+            {
+                Thread.Sleep(PICTURE_TAKEN_DELAY);
+                SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.TAKE_PICTURE);
+            };
+
+            Action pictureTakenAction = () =>
+            {
+                if (phaseShiftIndex < phaseShifts.Length)
+                {
+                    CreateInterferogram(phaseShift);
+                    phaseShiftIndex++;
+                    phaseShift = phaseShifts[phaseShiftIndex];
+                }
+            };
+
+            Thread thread1 = SynchronizationManager.RunActionOnSignal(pictureTakenAction, HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
+            Thread thread2 = SynchronizationManager.RunActionOnSignal(takePictureAction, HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+
+            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
+        }
+
+        private void CreateInterferogramForSeries(double phaseShift)
+        {
+            int maxRange = MAX_RANGE_VALUE;
+            string arguments =
+            string.Format(
+                "{0} {1} {2}",
+                phaseShift.ToString(CultureInfo.InvariantCulture),
+                maxRange.ToString(CultureInfo.InvariantCulture),
+                M1.ToString(CultureInfo.InvariantCulture)
+            );
+
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
+        }
+
+        /*
+        double phaseShift = 0;
+        double phaseShiftStep = GetPhaseShiftStep();
+
+        Action takePictureAction = () =>
+        {
+            Thread.Sleep(PICTURE_TAKEN_DELAY);
+            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.TAKE_PICTURE);
+        };
+
+        Action pictureTakenAction = () =>
+        {
+            if (phaseShift < 2 * Math.PI)
+            {
+                CreateInterferogram(phaseShift);
+                phaseShift += phaseShiftStep;
+            }
+        };
+
+        Thread thread1 = SynchronizationManager.RunActionOnSignal(pictureTakenAction, HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
+        Thread thread2 = SynchronizationManager.RunActionOnSignal(takePictureAction, HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+
+        SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+        */
     }
 }
