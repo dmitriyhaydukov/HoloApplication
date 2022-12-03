@@ -978,10 +978,11 @@ namespace HoloManagerApp
 
         private void btnTakePicturesWithPhaseShifts_Click(object sender, EventArgs e)
         {
+            bool isM1 = true;
             double[] phaseShifts = new double[] { 0, 45, 90, 135 };
 
             int phaseShiftIndex = 0;
-            double phaseShift = phaseShifts[0];
+            double phaseShift = phaseShifts[phaseShiftIndex];
 
             Action takePictureAction = () =>
             {
@@ -993,9 +994,28 @@ namespace HoloManagerApp
             {
                 if (phaseShiftIndex < phaseShifts.Length)
                 {
-                    CreateInterferogram(phaseShift);
-                    phaseShiftIndex++;
                     phaseShift = phaseShifts[phaseShiftIndex];
+                    if (isM1)
+                    {
+                        CreateInterferogramForSeriesM1(phaseShift);
+                    }
+                    else
+                    {
+                        CreateInterferogramForSeriesM2(phaseShift);
+                    }
+                    phaseShiftIndex++;
+                }
+                else
+                {
+                    if (!isM1)
+                    {
+                        return;
+                    }
+
+                    isM1 = false;
+                    phaseShiftIndex = 0;
+
+                    SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
                 }
             };
 
@@ -1005,7 +1025,7 @@ namespace HoloManagerApp
             SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
         }
 
-        private void CreateInterferogramForSeries(double phaseShift)
+        private void CreateInterferogramForSeriesM1(double phaseShift)
         {
             int maxRange = MAX_RANGE_VALUE;
             string arguments =
@@ -1014,6 +1034,20 @@ namespace HoloManagerApp
                 phaseShift.ToString(CultureInfo.InvariantCulture),
                 maxRange.ToString(CultureInfo.InvariantCulture),
                 M1.ToString(CultureInfo.InvariantCulture)
+            );
+
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
+        }
+
+        private void CreateInterferogramForSeriesM2(double phaseShift)
+        {
+            int maxRange = MAX_RANGE_VALUE;
+            string arguments =
+            string.Format(
+                "{0} {1} {2}",
+                phaseShift.ToString(CultureInfo.InvariantCulture),
+                maxRange.ToString(CultureInfo.InvariantCulture),
+                M2.ToString(CultureInfo.InvariantCulture)
             );
 
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);

@@ -19,7 +19,6 @@
   
   <module
     path="D:\Projects\HoloApplication\Modules\Camera\Camera\bin\Debug\Camera.exe"
-    arguments="IMAGE_CREATED"
     waitForExit="false"
   />
   
