@@ -41,6 +41,7 @@
             this.lblPhaseShift = new System.Windows.Forms.Label();
             this.btnCreateTriangleImage = new System.Windows.Forms.Button();
             this.btnTakePicturesWithPhaseShifts = new System.Windows.Forms.Button();
+            this.btnDecode = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -170,11 +171,22 @@
             this.btnTakePicturesWithPhaseShifts.UseVisualStyleBackColor = true;
             this.btnTakePicturesWithPhaseShifts.Click += new System.EventHandler(this.btnTakePicturesWithPhaseShifts_Click);
             // 
+            // btnDecode
+            // 
+            this.btnDecode.Location = new System.Drawing.Point(146, 158);
+            this.btnDecode.Name = "btnDecode";
+            this.btnDecode.Size = new System.Drawing.Size(103, 34);
+            this.btnDecode.TabIndex = 13;
+            this.btnDecode.Text = "Decode";
+            this.btnDecode.UseVisualStyleBackColor = true;
+            this.btnDecode.Click += new System.EventHandler(this.btnDecode_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 432);
+            this.Controls.Add(this.btnDecode);
             this.Controls.Add(this.btnTakePicturesWithPhaseShifts);
             this.Controls.Add(this.btnCreateTriangleImage);
             this.Controls.Add(this.lblPhaseShift);
@@ -210,6 +222,7 @@
         private System.Windows.Forms.Label lblPhaseShift;
         private System.Windows.Forms.Button btnCreateTriangleImage;
         private System.Windows.Forms.Button btnTakePicturesWithPhaseShifts;
+        private System.Windows.Forms.Button btnDecode;
     }
 }
 

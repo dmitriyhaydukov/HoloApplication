@@ -567,11 +567,11 @@ namespace HoloManagerApp
             //string imagePath1 = @"D:\Images\20220521\5-Cropped\Image01.png";
             //string imagePath2 = @"D:\Images\20220521\5-Cropped\Image02.png";
 
-            string imagePath1 = @"D:\Images\20220526-Cropped-Filtered4\Image1.png";
-            string imagePath2 = @"D:\Images\20220526-Cropped-Filtered4\Image2.png";
+            //string imagePath1 = @"D:\Images\20220526-Cropped-Filtered4\Image1.png";
+            //string imagePath2 = @"D:\Images\20220526-Cropped-Filtered4\Image2.png";
 
-            //string imagePath1 = @"D:\Images\20220924-Cropped\1-90.png";
-            //string imagePath2 = @"D:\Images\20220924-Cropped\2-90.png";
+            string imagePath1 = @"D:\Images\20221202\Cropped\3.png";
+            string imagePath2 = @"D:\Images\20221202\Cropped\7.png";
 
             int row = 50;
 
@@ -773,7 +773,6 @@ namespace HoloManagerApp
 
             foreach(KeyValuePair<int, List<Point2D>> kvp in notDiagonalPointsDictionary)
             {
-                
                 System.Drawing.Color color = colors[kvp.Key];
 
                 ChartSeries chartSeries = new ChartSeries()
@@ -1014,7 +1013,6 @@ namespace HoloManagerApp
 
                     isM1 = false;
                     phaseShiftIndex = 0;
-
                     SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
                 }
             };
@@ -1053,29 +1051,286 @@ namespace HoloManagerApp
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
         }
 
-        /*
-        double phaseShift = 0;
-        double phaseShiftStep = GetPhaseShiftStep();
+        private void btnDecode_Click(object sender, EventArgs e)
+        {            
+            string shift1_imagePath1 = @"D:\Images\20221202\Cropped\1.png";
+            string shift1_imagePath2 = @"D:\Images\20221202\Cropped\5.png";
 
-        Action takePictureAction = () =>
-        {
-            Thread.Sleep(PICTURE_TAKEN_DELAY);
-            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Camera.TAKE_PICTURE);
-        };
+            string shift2_imagePath1 = @"D:\Images\20221202\Cropped\2.png";
+            string shift2_imagePath2 = @"D:\Images\20221202\Cropped\6.png";
 
-        Action pictureTakenAction = () =>
-        {
-            if (phaseShift < 2 * Math.PI)
+            string shift3_imagePath1 = @"D:\Images\20221202\Cropped\3.png";
+            string shift3_imagePath2 = @"D:\Images\20221202\Cropped\7.png";
+
+            string shift4_imagePath1 = @"D:\Images\20221202\Cropped\4.png";
+            string shift4_imagePath2 = @"D:\Images\20221202\Cropped\8.png";
+
+            int row = 50;
+
+            WriteableBitmap bitmap_shift1_image1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift1_imagePath1);
+            WriteableBitmap bitmap_shift1_image2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift1_imagePath2);
+
+            WriteableBitmap bitmap_shift2_image1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift2_imagePath1);
+            WriteableBitmap bitmap_shift2_image2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift2_imagePath2);
+
+            WriteableBitmap bitmap_shift3_image1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift3_imagePath1);
+            WriteableBitmap bitmap_shift3_image2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift3_imagePath2);
+
+            WriteableBitmap bitmap_shift4_image1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift4_imagePath1);
+            WriteableBitmap bitmap_shift4_image2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift4_imagePath2);
+
+            //bitmap wrappers
+            WriteableBitmapWrapper wrapper_shift1_image1 = WriteableBitmapWrapper.Create(bitmap_shift1_image1);
+            WriteableBitmapWrapper wrapper_shift1_image2 = WriteableBitmapWrapper.Create(bitmap_shift1_image2);
+
+            WriteableBitmapWrapper wrapper_shift2_image1 = WriteableBitmapWrapper.Create(bitmap_shift2_image1);
+            WriteableBitmapWrapper wrapper_shift2_image2 = WriteableBitmapWrapper.Create(bitmap_shift2_image2);
+
+            WriteableBitmapWrapper wrapper_shift3_image1 = WriteableBitmapWrapper.Create(bitmap_shift3_image1);
+            WriteableBitmapWrapper wrapper_shift3_image2 = WriteableBitmapWrapper.Create(bitmap_shift3_image2);
+
+            WriteableBitmapWrapper wrapper_shift4_image1 = WriteableBitmapWrapper.Create(bitmap_shift4_image1);
+            WriteableBitmapWrapper wrapper_shift4_image2 = WriteableBitmapWrapper.Create(bitmap_shift4_image2);
+
+            //row values
+            double[] shift1_rowValues1 = wrapper_shift1_image1.GetGrayScaleMatrix().GetRow(row);
+            double[] shift1_rowValues2 = wrapper_shift1_image2.GetGrayScaleMatrix().GetRow(row);
+
+            double[] shift2_rowValues1 = wrapper_shift2_image1.GetGrayScaleMatrix().GetRow(row);
+            double[] shift2_rowValues2 = wrapper_shift2_image2.GetGrayScaleMatrix().GetRow(row);
+
+            double[] shift3_rowValues1 = wrapper_shift3_image1.GetGrayScaleMatrix().GetRow(row);
+            double[] shift3_rowValues2 = wrapper_shift3_image2.GetGrayScaleMatrix().GetRow(row);
+
+            double[] shift4_rowValues1 = wrapper_shift4_image1.GetGrayScaleMatrix().GetRow(row);
+            double[] shift4_rowValues2 = wrapper_shift4_image2.GetGrayScaleMatrix().GetRow(row);
+
+            double shift1_min1 = shift1_rowValues1.Min();
+            double shift1_min2 = shift1_rowValues2.Min();
+
+            double shift2_min1 = shift2_rowValues1.Min();
+            double shift2_min2 = shift2_rowValues2.Min();
+
+            double shift3_min1 = shift3_rowValues1.Min();
+            double shift3_min2 = shift3_rowValues2.Min();
+
+            double shift4_min1 = shift4_rowValues1.Min();
+            double shift4_min2 = shift4_rowValues2.Min();
+
+
+            double shift1_max1 = shift1_rowValues1.Max();
+            double shift1_max2 = shift1_rowValues2.Max();
+
+            double shift2_max1 = shift2_rowValues1.Max();
+            double shift2_max2 = shift2_rowValues2.Max();
+
+            double shift3_max1 = shift3_rowValues1.Max();
+            double shift3_max2 = shift3_rowValues2.Max();
+
+            double shift4_max1 = shift4_rowValues1.Max();
+            double shift4_max2 = shift4_rowValues2.Max();
+            
+
+            double shift1_min = Math.Min(shift1_min1, shift1_min2);
+            double shift1_max = Math.Max(shift1_max1, shift1_max2);
+
+            double shift2_min = Math.Min(shift2_min1, shift2_min2);
+            double shift2_max = Math.Max(shift2_max1, shift2_max2);
+
+            double shift3_min = Math.Min(shift3_min1, shift3_min2);
+            double shift3_max = Math.Max(shift3_max1, shift3_max2);
+
+            double shift4_min = Math.Min(shift4_min1, shift4_min2);
+            double shift4_max = Math.Max(shift4_max1, shift4_max2);
+            
+            Interval<double> shift1_startInterval1 = new Interval<double>(shift1_min1, shift1_max1);
+            Interval<double> shift1_startInterval2 = new Interval<double>(shift1_min2, shift1_max2);
+
+            Interval<double> shift2_startInterval1 = new Interval<double>(shift2_min1, shift2_max1);
+            Interval<double> shift2_startInterval2 = new Interval<double>(shift2_min2, shift2_max2);
+
+            Interval<double> shift3_startInterval1 = new Interval<double>(shift3_min1, shift3_max1);
+            Interval<double> shift3_startInterval2 = new Interval<double>(shift3_min2, shift3_max2);
+
+            Interval<double> shift4_startInterval1 = new Interval<double>(shift4_min1, shift4_max1);
+            Interval<double> shift4_startInterval2 = new Interval<double>(shift4_min2, shift4_max2);
+
+
+            Interval<double> intervalM1 = new Interval<double>(0, M1);
+            Interval<double> intervalM2 = new Interval<double>(0, M2);
+
+            RealIntervalTransform shift1_intervalTransformM1 = new RealIntervalTransform(shift1_startInterval1, intervalM1);
+            RealIntervalTransform shift1_intervalTransformM2 = new RealIntervalTransform(shift1_startInterval2, intervalM2);
+
+            RealIntervalTransform shift2_intervalTransformM1 = new RealIntervalTransform(shift2_startInterval1, intervalM1);
+            RealIntervalTransform shift2_intervalTransformM2 = new RealIntervalTransform(shift2_startInterval2, intervalM2);
+
+            RealIntervalTransform shift3_intervalTransformM1 = new RealIntervalTransform(shift3_startInterval1, intervalM1);
+            RealIntervalTransform shift3_intervalTransformM2 = new RealIntervalTransform(shift3_startInterval2, intervalM2);
+
+            RealIntervalTransform shift4_intervalTransformM1 = new RealIntervalTransform(shift4_startInterval1, intervalM1);
+            RealIntervalTransform shift4_intervalTransformM2 = new RealIntervalTransform(shift4_startInterval2, intervalM2);
+            
+            double[] shift1_values1 = shift1_rowValues1.Select(x => shift1_intervalTransformM1.TransformToFinishIntervalValue(x)).ToArray();
+            double[] shift1_values2 = shift1_rowValues2.Select(x => shift1_intervalTransformM2.TransformToFinishIntervalValue(x)).ToArray();
+
+            double[] shift2_values1 = shift2_rowValues1.Select(x => shift2_intervalTransformM1.TransformToFinishIntervalValue(x)).ToArray();
+            double[] shift2_values2 = shift2_rowValues2.Select(x => shift2_intervalTransformM2.TransformToFinishIntervalValue(x)).ToArray();
+
+            double[] shift3_values1 = shift3_rowValues1.Select(x => shift3_intervalTransformM1.TransformToFinishIntervalValue(x)).ToArray();
+            double[] shift3_values2 = shift3_rowValues2.Select(x => shift3_intervalTransformM2.TransformToFinishIntervalValue(x)).ToArray();
+
+            double[] shift4_values1 = shift4_rowValues1.Select(x => shift4_intervalTransformM1.TransformToFinishIntervalValue(x)).ToArray();
+            double[] shift4_values2 = shift4_rowValues2.Select(x => shift4_intervalTransformM2.TransformToFinishIntervalValue(x)).ToArray();
+
+            List<ChartPoint> shift1_chartPoints = new List<ChartPoint>();
+            for (int k = 0; k < shift1_values1.Length; k++)
             {
-                CreateInterferogram(phaseShift);
-                phaseShift += phaseShiftStep;
+                ChartPoint p = new ChartPoint(shift1_values1[k], shift1_values2[k]);
+                shift1_chartPoints.Add(p);
             }
-        };
 
-        Thread thread1 = SynchronizationManager.RunActionOnSignal(pictureTakenAction, HoloCommon.Synchronization.Events.Image.IMAGE_SAVED);
-        Thread thread2 = SynchronizationManager.RunActionOnSignal(takePictureAction, HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
+            List<ChartPoint> shift2_chartPoints = new List<ChartPoint>();
+            for (int k = 0; k < shift2_values1.Length; k++)
+            {
+                ChartPoint p = new ChartPoint(shift2_values1[k], shift2_values2[k]);
+                shift2_chartPoints.Add(p);
+            }
 
-        SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_UPDATED);
-        */
+            List<ChartPoint> shift3_chartPoints = new List<ChartPoint>();
+            for (int k = 0; k < shift3_values1.Length; k++)
+            {
+                ChartPoint p = new ChartPoint(shift3_values1[k], shift3_values2[k]);
+                shift3_chartPoints.Add(p);
+            }
+
+            List<ChartPoint> shift4_chartPoints = new List<ChartPoint>();
+            for (int k = 0; k < shift4_values1.Length; k++)
+            {
+                ChartPoint p = new ChartPoint(shift4_values1[k], shift4_values2[k]);
+                shift4_chartPoints.Add(p);
+            }
+
+            Dictionary<int, List<Point2D>> notDiagonalPointsDictionary = null;
+            List<Point2D> unwrappedPoints = null;
+
+            List<Point2D> shift1_resCorrectedPoints = null;
+            List<Point2D> shift2_resCorrectedPoints = null;
+            List<Point2D> shift3_resCorrectedPoints = null;
+            List<Point2D> shift4_resCorrectedPoints = null;
+
+            List<Point2D> specialPoints = null;
+            List<Point2D> specialPointsCorrected = null;
+
+            List<Point2D> specialPoints2 = null;
+            List<Point2D> specialPointsCorrected2 = null;
+
+            bool readDiagonalsFromFile = true;
+
+            List<Point2D> filteredPoints = null;
+
+            List<Point2D> shift1_pointsIdeal = ModularArithmeticHelper.BuildTable
+                (
+                    M1, M2, MAX_RANGE_VALUE, readDiagonalsFromFile, shift1_chartPoints,
+                    out notDiagonalPointsDictionary,
+                    out unwrappedPoints,
+                    out shift1_resCorrectedPoints,
+                    out specialPoints,
+                    out specialPointsCorrected,
+                    out specialPoints2,
+                    out specialPointsCorrected2
+                );
+
+            List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
+                (
+                    M1, M2, MAX_RANGE_VALUE, readDiagonalsFromFile, shift2_chartPoints,
+                    out notDiagonalPointsDictionary,
+                    out unwrappedPoints,
+                    out shift2_resCorrectedPoints,
+                    out specialPoints,
+                    out specialPointsCorrected,
+                    out specialPoints2,
+                    out specialPointsCorrected2
+                );
+
+            List<Point2D> shift3_pointsIdeal = ModularArithmeticHelper.BuildTable
+                (
+                    M1, M2, MAX_RANGE_VALUE, readDiagonalsFromFile, shift3_chartPoints,
+                    out notDiagonalPointsDictionary,
+                    out unwrappedPoints,
+                    out shift3_resCorrectedPoints,
+                    out specialPoints,
+                    out specialPointsCorrected,
+                    out specialPoints2,
+                    out specialPointsCorrected2
+                );
+
+            List<Point2D> shift4_pointsIdeal = ModularArithmeticHelper.BuildTable
+                (
+                    M1, M2, MAX_RANGE_VALUE, readDiagonalsFromFile, shift4_chartPoints,
+                    out notDiagonalPointsDictionary,
+                    out unwrappedPoints,
+                    out shift4_resCorrectedPoints,
+                    out specialPoints,
+                    out specialPointsCorrected,
+                    out specialPoints2,
+                    out specialPointsCorrected2
+                );
+
+            const int SLEEP = 5000;
+
+            Chart shift1_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            shift1_chartCorrected.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Corrected 1",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = shift1_resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+            MemoryWriter.Write<Chart>(shift1_chartCorrected, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+            Thread.Sleep(SLEEP);
+
+            Chart shift2_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            shift2_chartCorrected.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Corrected 2",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = shift2_resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+            MemoryWriter.Write<Chart>(shift2_chartCorrected, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+            Thread.Sleep(SLEEP);
+
+            Chart shift3_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            shift3_chartCorrected.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Corrected 3",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = shift3_resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+            MemoryWriter.Write<Chart>(shift3_chartCorrected, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+            Thread.Sleep(SLEEP);
+
+            Chart shift4_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            shift4_chartCorrected.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Corrected 4",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 0, 255),
+                Points = shift4_resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+            });
+            MemoryWriter.Write<Chart>(shift4_chartCorrected, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+            Thread.Sleep(SLEEP);
+
+
+
+
+            
+        }
     }
 }
