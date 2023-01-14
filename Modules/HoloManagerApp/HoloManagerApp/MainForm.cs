@@ -28,6 +28,8 @@ using ExtraLibrary.Geometry2D;
 using ExtraLibrary.Arraying;
 using ExtraLibrary.ImageProcessing;
 
+using Interferometry.InterferogramDecoding;
+
 namespace HoloManagerApp
 {
     public partial class MainForm : Form
@@ -1327,10 +1329,50 @@ namespace HoloManagerApp
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
             Thread.Sleep(SLEEP);
 
+            double[] shifts = new double[]
+            {
+                Math.PI * 45.0 / 180.0,
+                Math.PI * 90.0 / 180.0,
+                Math.PI * 135.0 / 180.0,
+                Math.PI
+            };
+
+            GenericInterferogramDecoder decoder = new GenericInterferogramDecoder();
+
+            double[] phaseArray = new double[shift1_resCorrectedPoints.Count];
+
+            for (int k = 0; k < shift1_resCorrectedPoints.Count; k++)
+            {
+                double intensity1 = shift1_resCorrectedPoints[k].Y;
+                double intensity2 = shift2_resCorrectedPoints[k].Y;
+                double intensity3 = shift3_resCorrectedPoints[k].Y;
+                double intensity4 = shift4_resCorrectedPoints[k].Y;
+
+                double[] intensities = new double[]
+                {
+                    intensity1,
+                    intensity2,
+                    intensity3,
+                    intensity4
+                };
+
+                double phase = decoder.Decode(intensities, shifts);
+                phaseArray[k] = phase;
+            }
 
 
+            Chart phaseChart = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            phaseChart.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Phase",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                Points = phaseArray.Select((x, j) => new ChartPoint(j, x)).ToList()
+            });
+            MemoryWriter.Write<Chart>(phaseChart, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+            Thread.Sleep(SLEEP);
 
-            
         }
     }
 }
