@@ -40,7 +40,9 @@ namespace HoloManagerApp
         private const int M2 = 167;
 
         private const int MAX_RANGE_VALUE = 800;
-                
+
+        private const double GAP_DIFFERENCE_VALUE = 60;
+
         public MainForm()
         {
             InitializeComponent();
@@ -1069,6 +1071,7 @@ namespace HoloManagerApp
 
             int row = 50;
 
+
             WriteableBitmap bitmap_shift1_image1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift1_imagePath1);
             WriteableBitmap bitmap_shift1_image2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift1_imagePath2);
 
@@ -1243,6 +1246,75 @@ namespace HoloManagerApp
                     out specialPointsCorrected2
                 );
 
+            RealMatrix shift1Matrix = new RealMatrix(1, shift1_resCorrectedPoints.Count);
+            for (int j = 0; j < shift1_resCorrectedPoints.Count; j++)
+            {
+                shift1Matrix[0, j] = shift1_resCorrectedPoints[j].Y;
+            }
+
+            //Median filter
+            /*
+            MedianByRowsGrayScaleFilter medianByRowsGrayScaleFilter = new MedianByRowsGrayScaleFilter();
+            RealMatrix filteredMatrix = medianByRowsGrayScaleFilter.ExecuteFiltration(shift1Matrix, 30);
+            List<Point2D> pointsList = new List<Point2D>();
+            for (int j = 0; j < shift1_resCorrectedPoints.Count; j++)
+            {
+                Point2D p = new Point2D(j, filteredMatrix[0, j]);
+                pointsList.Add(p);
+            }
+            shift1_resCorrectedPoints = pointsList;
+            */
+
+            //Original sinus
+            //int width = 4096;
+            int width = shift1_rowValues1.Length;
+            int height = 50;
+            double percentNoise = 0;
+
+            int fringeCount = 3;
+            double minIntensity = 20;
+            double finalMinIntensity = 60;
+
+            Interferometry.InterferogramCreation.InterferogramInfo interferogramInfo =
+                new Interferometry.InterferogramCreation.InterferogramInfo(width, height, percentNoise, minIntensity, MAX_RANGE_VALUE, MAX_RANGE_VALUE, finalMinIntensity);
+
+            Interferometry.InterferogramCreation.LinearFringeInterferogramCreator interferogramCreator =
+                new Interferometry.InterferogramCreation.LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
+
+            RealMatrix originalMatrix = interferogramCreator.CreateInterferogram(0);
+            int start = 0;
+            int end = start + shift1_rowValues1.Length;
+            //originalMatrix = originalMatrix.GetSubMatrix(10, start, 15, end);
+
+            Interval<double> interval1 = new Interval<double>(minIntensity, 255);
+            Interval<double> interval2 = new Interval<double>(minIntensity, MAX_RANGE_VALUE);
+            RealIntervalTransform t1 = new RealIntervalTransform(interval1, interval2);        
+
+            double[] originalRowValues = originalMatrix.GetRowValues(0, 0, originalMatrix.ColumnCount - 1);
+
+            for (int k = 0; k < originalRowValues.Length; k++)
+            {
+                originalRowValues[k] = t1.TransformToFinishIntervalValue(originalRowValues[k]);
+            }
+
+            List<Point2D> pointsList = new List<Point2D>();
+            double? prevValue = null;
+            for (int j = 0; j < shift1_resCorrectedPoints.Count; j++)
+            {
+                double value = shift1_resCorrectedPoints[j].Y;
+                if (prevValue.HasValue && Math.Abs((double)(value - prevValue)) > GAP_DIFFERENCE_VALUE)
+                {
+                    pointsList.Add(new Point2D(j, originalRowValues[j]));
+                }
+                else
+                {
+                    pointsList.Add(shift1_resCorrectedPoints[j]);
+                    prevValue = value;
+                }
+            }
+
+            shift1_resCorrectedPoints = pointsList;
+
             List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
                 (
                     M1, M2, MAX_RANGE_VALUE, readDiagonalsFromFile, shift2_chartPoints,
@@ -1281,6 +1353,18 @@ namespace HoloManagerApp
 
             const int SLEEP = 5000;
 
+            Chart originalChart = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            originalChart.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Original",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 255, 0),
+                Points = originalRowValues.Select((x, i) => new ChartPoint(i, x)).ToList()
+            });
+            MemoryWriter.Write<Chart>(originalChart, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+            Thread.Sleep(SLEEP);
+
             Chart shift1_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
             shift1_chartCorrected.SeriesCollection.Add(new ChartSeries()
             {
@@ -1289,10 +1373,19 @@ namespace HoloManagerApp
                 ColorDescriptor = new ColorDescriptor(0, 0, 255),
                 Points = shift1_resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
+            shift1_chartCorrected.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Original",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(0, 255, 0),
+                Points = originalRowValues.Select((x, i) => new ChartPoint(i, x)).ToList()
+            });
+            
             MemoryWriter.Write<Chart>(shift1_chartCorrected, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
             Thread.Sleep(SLEEP);
-
+            
+            /*
             Chart shift2_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
             shift2_chartCorrected.SeriesCollection.Add(new ChartSeries()
             {
@@ -1328,7 +1421,8 @@ namespace HoloManagerApp
             MemoryWriter.Write<Chart>(shift4_chartCorrected, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
             Thread.Sleep(SLEEP);
-
+            
+                                 
             double[] shifts = new double[]
             {
                 Math.PI * 45.0 / 180.0,
@@ -1360,7 +1454,6 @@ namespace HoloManagerApp
                 phaseArray[k] = phase;
             }
 
-
             Chart phaseChart = new Chart() { SeriesCollection = new List<ChartSeries>() };
             phaseChart.SeriesCollection.Add(new ChartSeries()
             {
@@ -1372,7 +1465,7 @@ namespace HoloManagerApp
             MemoryWriter.Write<Chart>(phaseChart, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
             Thread.Sleep(SLEEP);
-
+            */
         }
     }
 }
