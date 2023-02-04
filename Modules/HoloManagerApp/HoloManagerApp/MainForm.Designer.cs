@@ -42,6 +42,7 @@
             this.btnCreateTriangleImage = new System.Windows.Forms.Button();
             this.btnTakePicturesWithPhaseShifts = new System.Windows.Forms.Button();
             this.btnDecode = new System.Windows.Forms.Button();
+            this.btnSinusOriginal = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -66,7 +67,7 @@
             // 
             // btnTakePicture
             // 
-            this.btnTakePicture.Location = new System.Drawing.Point(12, 265);
+            this.btnTakePicture.Location = new System.Drawing.Point(265, 12);
             this.btnTakePicture.Name = "btnTakePicture";
             this.btnTakePicture.Size = new System.Drawing.Size(114, 36);
             this.btnTakePicture.TabIndex = 2;
@@ -76,7 +77,7 @@
             // 
             // btnTakeSeries
             // 
-            this.btnTakeSeries.Location = new System.Drawing.Point(12, 316);
+            this.btnTakeSeries.Location = new System.Drawing.Point(265, 64);
             this.btnTakeSeries.Name = "btnTakeSeries";
             this.btnTakeSeries.Size = new System.Drawing.Size(114, 39);
             this.btnTakeSeries.TabIndex = 3;
@@ -86,7 +87,7 @@
             // 
             // btnGraphFromImages
             // 
-            this.btnGraphFromImages.Location = new System.Drawing.Point(12, 373);
+            this.btnGraphFromImages.Location = new System.Drawing.Point(265, 113);
             this.btnGraphFromImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnGraphFromImages.Name = "btnGraphFromImages";
             this.btnGraphFromImages.Size = new System.Drawing.Size(114, 41);
@@ -137,7 +138,7 @@
             // 
             // txtPhaseShift
             // 
-            this.txtPhaseShift.Location = new System.Drawing.Point(12, 222);
+            this.txtPhaseShift.Location = new System.Drawing.Point(12, 273);
             this.txtPhaseShift.Name = "txtPhaseShift";
             this.txtPhaseShift.Size = new System.Drawing.Size(114, 20);
             this.txtPhaseShift.TabIndex = 9;
@@ -145,7 +146,7 @@
             // lblPhaseShift
             // 
             this.lblPhaseShift.AutoSize = true;
-            this.lblPhaseShift.Location = new System.Drawing.Point(12, 206);
+            this.lblPhaseShift.Location = new System.Drawing.Point(12, 257);
             this.lblPhaseShift.Name = "lblPhaseShift";
             this.lblPhaseShift.Size = new System.Drawing.Size(58, 13);
             this.lblPhaseShift.TabIndex = 10;
@@ -153,9 +154,9 @@
             // 
             // btnCreateTriangleImage
             // 
-            this.btnCreateTriangleImage.Location = new System.Drawing.Point(12, 158);
+            this.btnCreateTriangleImage.Location = new System.Drawing.Point(12, 299);
             this.btnCreateTriangleImage.Name = "btnCreateTriangleImage";
-            this.btnCreateTriangleImage.Size = new System.Drawing.Size(114, 34);
+            this.btnCreateTriangleImage.Size = new System.Drawing.Size(114, 42);
             this.btnCreateTriangleImage.TabIndex = 11;
             this.btnCreateTriangleImage.Text = "Create triangle";
             this.btnCreateTriangleImage.UseVisualStyleBackColor = true;
@@ -163,9 +164,9 @@
             // 
             // btnTakePicturesWithPhaseShifts
             // 
-            this.btnTakePicturesWithPhaseShifts.Location = new System.Drawing.Point(146, 373);
+            this.btnTakePicturesWithPhaseShifts.Location = new System.Drawing.Point(265, 168);
             this.btnTakePicturesWithPhaseShifts.Name = "btnTakePicturesWithPhaseShifts";
-            this.btnTakePicturesWithPhaseShifts.Size = new System.Drawing.Size(103, 41);
+            this.btnTakePicturesWithPhaseShifts.Size = new System.Drawing.Size(114, 41);
             this.btnTakePicturesWithPhaseShifts.TabIndex = 12;
             this.btnTakePicturesWithPhaseShifts.Text = "Take pictures with phase shifts";
             this.btnTakePicturesWithPhaseShifts.UseVisualStyleBackColor = true;
@@ -173,19 +174,30 @@
             // 
             // btnDecode
             // 
-            this.btnDecode.Location = new System.Drawing.Point(146, 158);
+            this.btnDecode.Location = new System.Drawing.Point(146, 168);
             this.btnDecode.Name = "btnDecode";
-            this.btnDecode.Size = new System.Drawing.Size(103, 34);
+            this.btnDecode.Size = new System.Drawing.Size(103, 42);
             this.btnDecode.TabIndex = 13;
             this.btnDecode.Text = "Decode";
             this.btnDecode.UseVisualStyleBackColor = true;
             this.btnDecode.Click += new System.EventHandler(this.btnDecode_Click);
             // 
+            // btnSinusOriginal
+            // 
+            this.btnSinusOriginal.Location = new System.Drawing.Point(12, 168);
+            this.btnSinusOriginal.Name = "btnSinusOriginal";
+            this.btnSinusOriginal.Size = new System.Drawing.Size(114, 42);
+            this.btnSinusOriginal.TabIndex = 14;
+            this.btnSinusOriginal.Text = "Sinus Original";
+            this.btnSinusOriginal.UseVisualStyleBackColor = true;
+            this.btnSinusOriginal.Click += new System.EventHandler(this.btnSinusOriginal_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 432);
+            this.ClientSize = new System.Drawing.Size(392, 432);
+            this.Controls.Add(this.btnSinusOriginal);
             this.Controls.Add(this.btnDecode);
             this.Controls.Add(this.btnTakePicturesWithPhaseShifts);
             this.Controls.Add(this.btnCreateTriangleImage);
@@ -223,6 +235,7 @@
         private System.Windows.Forms.Button btnCreateTriangleImage;
         private System.Windows.Forms.Button btnTakePicturesWithPhaseShifts;
         private System.Windows.Forms.Button btnDecode;
+        private System.Windows.Forms.Button btnSinusOriginal;
     }
 }
 

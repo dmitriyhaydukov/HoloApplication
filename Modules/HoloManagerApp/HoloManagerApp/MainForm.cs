@@ -62,10 +62,11 @@ namespace HoloManagerApp
             double phaseShift = int.Parse(txtPhaseShift.Text);
             string arguments = 
                 string.Format(
-                    "{0} {1} {2}",
+                    "{0} {1} {2} {3}",
                     phaseShift.ToString(CultureInfo.InvariantCulture),
                     maxRange.ToString(CultureInfo.InvariantCulture),
-                    M1.ToString(CultureInfo.InvariantCulture)
+                    M1.ToString(CultureInfo.InvariantCulture),
+                    1.ToString()
                 );
 
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
@@ -557,7 +558,8 @@ namespace HoloManagerApp
                     "{0} {1} {2}",
                     phaseShift.ToString(CultureInfo.InvariantCulture),
                     maxRange.ToString(CultureInfo.InvariantCulture),
-                    M2.ToString(CultureInfo.InvariantCulture)
+                    M2.ToString(CultureInfo.InvariantCulture),
+                    1.ToString()
                 );
 
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
@@ -1264,7 +1266,8 @@ namespace HoloManagerApp
             }
             shift1_resCorrectedPoints = pointsList;
             */
-
+            
+            /*
             //Original sinus
             //int width = 4096;
             int width = shift1_rowValues1.Length;
@@ -1276,7 +1279,8 @@ namespace HoloManagerApp
             double finalMinIntensity = 60;
 
             Interferometry.InterferogramCreation.InterferogramInfo interferogramInfo =
-                new Interferometry.InterferogramCreation.InterferogramInfo(width, height, percentNoise, minIntensity, MAX_RANGE_VALUE, MAX_RANGE_VALUE, finalMinIntensity);
+                new Interferometry.InterferogramCreation.InterferogramInfo
+                (width, height, percentNoise, minIntensity, MAX_RANGE_VALUE, MAX_RANGE_VALUE, finalMinIntensity, false);
 
             Interferometry.InterferogramCreation.LinearFringeInterferogramCreator interferogramCreator =
                 new Interferometry.InterferogramCreation.LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
@@ -1312,8 +1316,8 @@ namespace HoloManagerApp
                     prevValue = value;
                 }
             }
-
             shift1_resCorrectedPoints = pointsList;
+            */
 
             List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
                 (
@@ -1353,6 +1357,7 @@ namespace HoloManagerApp
 
             const int SLEEP = 5000;
 
+            /*
             Chart originalChart = new Chart() { SeriesCollection = new List<ChartSeries>() };
             originalChart.SeriesCollection.Add(new ChartSeries()
             {
@@ -1364,6 +1369,7 @@ namespace HoloManagerApp
             MemoryWriter.Write<Chart>(originalChart, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
             Thread.Sleep(SLEEP);
+            */
 
             Chart shift1_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
             shift1_chartCorrected.SeriesCollection.Add(new ChartSeries()
@@ -1373,6 +1379,7 @@ namespace HoloManagerApp
                 ColorDescriptor = new ColorDescriptor(0, 0, 255),
                 Points = shift1_resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
             });
+            /*
             shift1_chartCorrected.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Original",
@@ -1380,7 +1387,8 @@ namespace HoloManagerApp
                 ColorDescriptor = new ColorDescriptor(0, 255, 0),
                 Points = originalRowValues.Select((x, i) => new ChartPoint(i, x)).ToList()
             });
-            
+            */
+
             MemoryWriter.Write<Chart>(shift1_chartCorrected, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
             Thread.Sleep(SLEEP);
@@ -1466,6 +1474,23 @@ namespace HoloManagerApp
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
             Thread.Sleep(SLEEP);
             */
+        }
+
+        private void btnSinusOriginal_Click(object sender, EventArgs e)
+        {
+            int maxRange = MAX_RANGE_VALUE;
+
+            double phaseShift = int.Parse(txtPhaseShift.Text);
+            string arguments =
+                string.Format(
+                    "{0} {1} {2} {3}",
+                    phaseShift.ToString(CultureInfo.InvariantCulture),
+                    maxRange.ToString(CultureInfo.InvariantCulture),
+                    M1.ToString(CultureInfo.InvariantCulture),
+                    0.ToString()
+                );
+
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
         }
     }
 }

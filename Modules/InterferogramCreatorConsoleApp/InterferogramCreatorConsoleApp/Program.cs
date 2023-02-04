@@ -21,48 +21,62 @@ namespace InterferogramCreatorConsoleApp
     {
         static void Main(string[] args)
         {
-            if (args.Length != 3)
+            try
             {
-                return;
+                if (args.Length != 3)
+                {
+                    return;
+                }
+
+                double phaseShift = double.Parse(args[0], CultureInfo.InvariantCulture);
+
+                double? maxRange = null;
+                int? moduleValue = null;
+                bool byModuleValue = false;
+
+                double parsedMaxRange;
+                int parsedModuleValue;
+                int byModuleParsedValue;
+
+                if (double.TryParse(args[1], out parsedMaxRange))
+                {
+                    maxRange = parsedMaxRange;
+                }
+
+                if (int.TryParse(args[2], out parsedModuleValue))
+                {
+                    moduleValue = parsedModuleValue;
+                }
+
+                if (int.TryParse(args[3], out byModuleParsedValue))
+                {
+                    byModuleValue = byModuleParsedValue == 1;
+                }
+
+                int width = 4096;
+                int height = 1024;
+                double percentNoise = 0;
+
+                int fringeCount = 3;
+                double minIntensity = 20;
+                double finalMinIntensity = 60;
+
+                InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity, maxRange, moduleValue, finalMinIntensity, byModuleValue);
+                LinearFringeInterferogramCreator interferogramCreator = new LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
+
+                RealMatrix interferogramMatrix = interferogramCreator.CreateInterferogram(phaseShift);
+
+                WriteableBitmap writeableBitmap =
+                    WriteableBitmapCreator.CreateGrayScaleWriteableBitmapFromMatrix(interferogramMatrix, OS.IntegerSystemDpiX, OS.IntegerSystemDpiY);
+
+                MemoryWriter.Write<WriteableBitmap>(writeableBitmap, new WriteableBitmapSerialization());
+                SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
             }
-
-            double phaseShift = double.Parse(args[0], CultureInfo.InvariantCulture);
-
-            double? maxRange = null;
-            int? moduleValue = null;
-            
-            double parsedMaxRange;
-            int parsedModuleValue;
-            
-            if (double.TryParse(args[1], out parsedMaxRange))
+            catch(Exception ex)
             {
-                maxRange = parsedMaxRange;
+                Console.WriteLine(ex);
+                Console.ReadLine();
             }
-
-            if (int.TryParse(args[2], out parsedModuleValue))
-            {
-                moduleValue = parsedModuleValue;
-            }
-
-            int width = 4096;
-            int height = 1024;
-            double percentNoise = 0;
-
-            int fringeCount = 3;
-            double minIntensity = 20;
-            double finalMinIntensity = 60;
-
-            InterferogramInfo interferogramInfo = new InterferogramInfo(width, height, percentNoise, minIntensity, maxRange, moduleValue, finalMinIntensity);
-            LinearFringeInterferogramCreator interferogramCreator = new LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
-                        
-            RealMatrix interferogramMatrix = interferogramCreator.CreateInterferogram(phaseShift);
-
-            WriteableBitmap writeableBitmap =
-                WriteableBitmapCreator.CreateGrayScaleWriteableBitmapFromMatrix(interferogramMatrix, OS.IntegerSystemDpiX, OS.IntegerSystemDpiY);
-
-            MemoryWriter.Write<WriteableBitmap>(writeableBitmap, new WriteableBitmapSerialization());
-                        
-            SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
         }
     }
 }

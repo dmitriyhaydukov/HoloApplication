@@ -22,6 +22,8 @@ namespace Interferometry.InterferogramCreation {
         
         double? finalMinIntensity;
 
+        bool byModule;
+
         //--------------------------------------------------------------------------------
         public InterferogramInfo(
             int width,
@@ -30,7 +32,8 @@ namespace Interferometry.InterferogramCreation {
             double minIntensity,
             double? maxRange,
             int? moduleValue,
-            double? finalMinIntensity
+            double? finalMinIntensity,
+            bool byModule
         ) {
             this.width = width;
             this.height = height;
@@ -47,6 +50,8 @@ namespace Interferometry.InterferogramCreation {
             this.moduleValue = moduleValue;
 
             this.finalMinIntensity = finalMinIntensity;
+
+            this.byModule = byModule;
         }
         //--------------------------------------------------------------------------------
         //Ширина
@@ -122,6 +127,14 @@ namespace Interferometry.InterferogramCreation {
             get
             {
                 return this.finalMinIntensity;
+            }
+        }
+
+        public bool ByModule
+        {
+            get
+            {
+                return this.byModule;
             }
         }
     }

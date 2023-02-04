@@ -60,7 +60,7 @@ namespace Interferometry.Helpers {
         public static RealMatrix[] GetLinearInterferograms(
             int width, int height, int noisePercent, int fringeCount, double minIntensity, params double[] phaseShifts
         ) {
-            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, noisePercent, minIntensity, null, null, null );
+            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, noisePercent, minIntensity, null, null, null, false );
             InterferogramCreator interferogramCreator = 
                 new LinearFringeInterferogramCreator( interferogramInfo, fringeCount );
             InterferogramGenerator interferogramGenerator = new InterferogramGenerator( interferogramCreator );
@@ -72,7 +72,7 @@ namespace Interferometry.Helpers {
         public static RealMatrix[] GetCircleInterferograms(
             int width, int height, int noisePercent, double minIntensity, params double[] phaseShifts
         ) {
-            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, minIntensity, noisePercent, null, null, null );
+            InterferogramInfo interferogramInfo = new InterferogramInfo( width, height, minIntensity, noisePercent, null, null, null, false );
             InterferogramCreator interferogramCreator = new CircleFringeInterferogramCreator( interferogramInfo );
             InterferogramGenerator interferogramGenerator = new InterferogramGenerator( interferogramCreator );
             RealMatrix[] interferograms = interferogramGenerator.GenerateInterferograms( phaseShifts );

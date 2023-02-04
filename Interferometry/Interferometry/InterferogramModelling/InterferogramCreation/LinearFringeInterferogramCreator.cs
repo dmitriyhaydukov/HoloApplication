@@ -130,23 +130,24 @@ namespace Interferometry.InterferogramCreation {
                 this.interferogramInfo.IntensityModulation *
                 Math.Cos( phase ) +
                 noise;
-            //intensity = this.GetCorrectedIntensity( intensity );
 
-            //intensity = transform.TransformToFinishIntervalValue(intensity);
-            intensity = intensity % interferogramInfo.ModuleValue.Value;
-            
-            
-            if (this.transform != null)
+            if (this.interferogramInfo.ByModule)
             {
-                intensity = transform.TransformToFinishIntervalValue(intensity);
-                //intensity = intensity % interferogramInfo.ModuleValue.Value;
-
-                if (this.finalTransform != null)
+                intensity = intensity % interferogramInfo.ModuleValue.Value;
+                if (this.transform != null)
                 {
-                    intensity = this.finalTransform.TransformToFinishIntervalValue(intensity);
+                    intensity = transform.TransformToFinishIntervalValue(intensity);
+                    if (this.finalTransform != null)
+                    {
+                        intensity = this.finalTransform.TransformToFinishIntervalValue(intensity);
+                    }
                 }
             }
-
+            else
+            {
+                intensity = this.GetCorrectedIntensity(intensity);
+            }
+                       
             return intensity;
         }
         //----------------------------------------------------------------------------------------------
