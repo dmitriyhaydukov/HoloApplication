@@ -1270,13 +1270,14 @@ namespace HoloManagerApp
             /*
             //Original sinus
             //int width = 4096;
-            int width = shift1_rowValues1.Length;
+            //int width = shift1_rowValues1.Length;
+            int width = 5400;
             int height = 50;
             double percentNoise = 0;
 
             int fringeCount = 3;
             double minIntensity = 20;
-            double finalMinIntensity = 60;
+            double finalMinIntensity = 20;
 
             Interferometry.InterferogramCreation.InterferogramInfo interferogramInfo =
                 new Interferometry.InterferogramCreation.InterferogramInfo
@@ -1285,7 +1286,7 @@ namespace HoloManagerApp
             Interferometry.InterferogramCreation.LinearFringeInterferogramCreator interferogramCreator =
                 new Interferometry.InterferogramCreation.LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
 
-            RealMatrix originalMatrix = interferogramCreator.CreateInterferogram(0);
+            RealMatrix originalMatrix = interferogramCreator.CreateInterferogram(0.34*Math.PI);
             int start = 0;
             int end = start + shift1_rowValues1.Length;
             //originalMatrix = originalMatrix.GetSubMatrix(10, start, 15, end);
@@ -1294,7 +1295,7 @@ namespace HoloManagerApp
             Interval<double> interval2 = new Interval<double>(minIntensity, MAX_RANGE_VALUE);
             RealIntervalTransform t1 = new RealIntervalTransform(interval1, interval2);        
 
-            double[] originalRowValues = originalMatrix.GetRowValues(0, 0, originalMatrix.ColumnCount - 1);
+            double[] originalRowValues = originalMatrix.GetRowValues(0, 0, shift1_rowValues1.Length - 1);
 
             for (int k = 0; k < originalRowValues.Length; k++)
             {
