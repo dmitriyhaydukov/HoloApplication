@@ -35,7 +35,7 @@ namespace Interferometry.InterferogramCreation {
             base( InterferogramInfo ) {
             this.fringeCount = fringeCount;
 
-            if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue)
+            if (interferogramInfo.MaxRange.HasValue && interferogramInfo.ModuleValue.HasValue && interferogramInfo.ByModule)
             {
                 //this.startInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxIntensity);
                 //this.finishInterval = new Interval<double>(interferogramInfo.MinIntensity, interferogramInfo.MaxRange.Value);
@@ -55,6 +55,13 @@ namespace Interferometry.InterferogramCreation {
                     this.finalTransform = new RealIntervalTransform(finalStartInterval, finalifnishInterval);
                 }
                 */
+            }
+            else
+            {
+                this.startInterval = new Interval<double>(0, interferogramInfo.MaxIntensity);
+                this.finishInterval = new Interval<double>(interferogramInfo.FinalMinIntensity.Value, 255);
+
+                this.transform = new RealIntervalTransform(startInterval, finishInterval);
             }
         }
         //----------------------------------------------------------------------------------------------
@@ -145,7 +152,7 @@ namespace Interferometry.InterferogramCreation {
             }
             else
             {
-                intensity = this.GetCorrectedIntensity(intensity);
+                intensity = transform.TransformToFinishIntervalValue(intensity);
             }
                        
             return intensity;

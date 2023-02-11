@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Globalization;
+using System.IO;
 
 using HoloCommon.Serialization.Imaging;
 using HoloCommon.MemoryManagement;
@@ -23,7 +24,7 @@ namespace InterferogramCreatorConsoleApp
         {
             try
             {
-                if (args.Length != 3)
+                if (args.Length != 4)
                 {
                     return;
                 }
@@ -71,9 +72,16 @@ namespace InterferogramCreatorConsoleApp
 
                 MemoryWriter.Write<WriteableBitmap>(writeableBitmap, new WriteableBitmapSerialization());
                 SynchronizationManager.SetSignal(HoloCommon.Synchronization.Events.Image.IMAGE_CREATED);
+
+                //string message = "Image created";
+                //File.WriteAllText("log.txt", message);
+
             }
             catch(Exception ex)
             {
+                string message = ex.Message;
+                File.WriteAllText("log.txt", message);
+
                 Console.WriteLine(ex);
                 Console.ReadLine();
             }

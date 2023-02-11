@@ -555,7 +555,7 @@ namespace HoloManagerApp
             double phaseShift = int.Parse(txtPhaseShift.Text);
             string arguments =
                 string.Format(
-                    "{0} {1} {2}",
+                    "{0} {1} {2} {3}",
                     phaseShift.ToString(CultureInfo.InvariantCulture),
                     maxRange.ToString(CultureInfo.InvariantCulture),
                     M2.ToString(CultureInfo.InvariantCulture),
