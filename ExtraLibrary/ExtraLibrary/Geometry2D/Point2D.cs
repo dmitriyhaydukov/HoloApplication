@@ -7,7 +7,7 @@ using ExtraLibrary.Mathematics.Vectors;
 namespace ExtraLibrary.Geometry2D {
     //Точка на плоскости
     [Serializable]
-    public struct Point2D {
+    public class Point2D {
         double x;
         double y;
         //------------------------------------------------------------------------------------------------

@@ -8,12 +8,9 @@ namespace HoloCommon.Models.Charting
         {
             this.X = x;
             this.Y = y;
-            //this.Color = color;
         }
 
         public double X { get; set; }
         public double Y { get; set; }
-
-        //public ColorDescriptor Color { get; set; }
     }
 }

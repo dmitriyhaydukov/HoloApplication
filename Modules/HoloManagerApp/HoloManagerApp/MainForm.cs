@@ -1253,72 +1253,54 @@ namespace HoloManagerApp
             {
                 shift1Matrix[0, j] = shift1_resCorrectedPoints[j].Y;
             }
-
-            //Median filter
-            /*
-            MedianByRowsGrayScaleFilter medianByRowsGrayScaleFilter = new MedianByRowsGrayScaleFilter();
-            RealMatrix filteredMatrix = medianByRowsGrayScaleFilter.ExecuteFiltration(shift1Matrix, 30);
-            List<Point2D> pointsList = new List<Point2D>();
-            for (int j = 0; j < shift1_resCorrectedPoints.Count; j++)
-            {
-                Point2D p = new Point2D(j, filteredMatrix[0, j]);
-                pointsList.Add(p);
-            }
-            shift1_resCorrectedPoints = pointsList;
-            */
             
-            /*
-            //Original sinus
-            //int width = 4096;
-            //int width = shift1_rowValues1.Length;
-            int width = 5400;
-            int height = 50;
-            double percentNoise = 0;
-
-            int fringeCount = 3;
-            double minIntensity = 20;
-            double finalMinIntensity = 20;
-
-            Interferometry.InterferogramCreation.InterferogramInfo interferogramInfo =
-                new Interferometry.InterferogramCreation.InterferogramInfo
-                (width, height, percentNoise, minIntensity, MAX_RANGE_VALUE, MAX_RANGE_VALUE, finalMinIntensity, false);
-
-            Interferometry.InterferogramCreation.LinearFringeInterferogramCreator interferogramCreator =
-                new Interferometry.InterferogramCreation.LinearFringeInterferogramCreator(interferogramInfo, fringeCount);
-
-            RealMatrix originalMatrix = interferogramCreator.CreateInterferogram(0.34*Math.PI);
-            int start = 0;
-            int end = start + shift1_rowValues1.Length;
-            //originalMatrix = originalMatrix.GetSubMatrix(10, start, 15, end);
-
-            Interval<double> interval1 = new Interval<double>(minIntensity, 255);
-            Interval<double> interval2 = new Interval<double>(minIntensity, MAX_RANGE_VALUE);
-            RealIntervalTransform t1 = new RealIntervalTransform(interval1, interval2);        
-
-            double[] originalRowValues = originalMatrix.GetRowValues(0, 0, shift1_rowValues1.Length - 1);
-
-            for (int k = 0; k < originalRowValues.Length; k++)
-            {
-                originalRowValues[k] = t1.TransformToFinishIntervalValue(originalRowValues[k]);
-            }
-
-            List<Point2D> pointsList = new List<Point2D>();
+            List<int> indecesWithNoValue = new List<int>();
             double? prevValue = null;
             for (int j = 0; j < shift1_resCorrectedPoints.Count; j++)
             {
                 double value = shift1_resCorrectedPoints[j].Y;
                 if (prevValue.HasValue && Math.Abs((double)(value - prevValue)) > GAP_DIFFERENCE_VALUE)
                 {
-                    pointsList.Add(new Point2D(j, originalRowValues[j]));
+                    indecesWithNoValue.Add(j);   
                 }
                 else
                 {
-                    pointsList.Add(shift1_resCorrectedPoints[j]);
                     prevValue = value;
                 }
             }
-            shift1_resCorrectedPoints = pointsList;
-            */
+            
+            foreach(int ind in indecesWithNoValue)
+            {
+                shift1_resCorrectedPoints[ind] = null;
+            }
+
+            List<Tuple<int, int>> gaps = new List<Tuple<int, int>>();
+                        
+            int startIndex = 0;
+            int endIndex = 0;
+
+            for (int j = 0; j < shift1_resCorrectedPoints.Count; j++)
+            {
+                Point2D point = shift1_resCorrectedPoints[j];
+                if (point == null && j > endIndex)
+                {
+                    startIndex = j;
+                    int k = startIndex;
+                    while (point == null)
+                    {
+                        k++;
+                        point = shift1_resCorrectedPoints[k];
+                    }
+                    endIndex = k;
+                    gaps.Add(new Tuple<int, int>(startIndex, endIndex));
+                }
+            }
+
+
+
+
+
+
 
             List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
                 (
@@ -1357,28 +1339,14 @@ namespace HoloManagerApp
                 );
 
             const int SLEEP = 5000;
-
-            /*
-            Chart originalChart = new Chart() { SeriesCollection = new List<ChartSeries>() };
-            originalChart.SeriesCollection.Add(new ChartSeries()
-            {
-                Name = "Original",
-                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
-                ColorDescriptor = new ColorDescriptor(0, 255, 0),
-                Points = originalRowValues.Select((x, i) => new ChartPoint(i, x)).ToList()
-            });
-            MemoryWriter.Write<Chart>(originalChart, new ChartSerialization());
-            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
-            Thread.Sleep(SLEEP);
-            */
-
+                        
             Chart shift1_chartCorrected = new Chart() { SeriesCollection = new List<ChartSeries>() };
             shift1_chartCorrected.SeriesCollection.Add(new ChartSeries()
             {
                 Name = "Corrected 1",
-                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
                 ColorDescriptor = new ColorDescriptor(0, 0, 255),
-                Points = shift1_resCorrectedPoints.Select(x => new ChartPoint(x.X, x.Y)).ToList()
+                Points = shift1_resCorrectedPoints.Select(x => x != null ? new ChartPoint(x.X, x.Y) : null).ToList()
             });
             /*
             shift1_chartCorrected.SeriesCollection.Add(new ChartSeries()

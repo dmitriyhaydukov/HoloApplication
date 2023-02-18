@@ -64,8 +64,6 @@ namespace ChartApp
             this.mainPlot.Plot.YAxis.TickLabelNotation(invertSign: chart.InvertAxisY);
 
             ChartSeries first = chart.SeriesCollection.First();
-
-            double[] dataX = first.Points.Select(p => p.X).ToArray();
                         
             int count = chart.SeriesCollection.Count();
             for (int k = 0; k < count; k++)
@@ -76,6 +74,7 @@ namespace ChartApp
                 {
                     case ChartSeriesType.Linear:
                         {
+                            double[] dataX = first.Points.Select(p => p.X).ToArray();
                             plottable = this.AddLinearPlot(series, dataX);
                             break;
                         }
@@ -136,7 +135,10 @@ namespace ChartApp
             for (int j = 0; j < count; j++)
             {
                 ChartPoint point = series.Points[j];
-                bubblePlot.Add(point.X, point.Y, radius, color, 0, color);
+                if (point != null)
+                {
+                    bubblePlot.Add(point.X, point.Y, radius, color, 0, color);
+                }
             }
 
             return bubblePlot;            
