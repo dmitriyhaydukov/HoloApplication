@@ -1274,6 +1274,7 @@ namespace HoloManagerApp
                 shift1_resCorrectedPoints[ind] = null;
             }
 
+            /*
             List<Tuple<int, int>> gaps = new List<Tuple<int, int>>();
                         
             int startIndex = 0;
@@ -1296,11 +1297,31 @@ namespace HoloManagerApp
                 }
             }
 
+            for (int i = 0; i < gaps.Count; i++)
+            {
+                Tuple<int, int> tuple = gaps[i];
+                Point2D firstPoint = shift1_resCorrectedPoints[tuple.Item1 - 1];
+                if (firstPoint == null)
+                {
+                    firstPoint = shift1_resCorrectedPoints[tuple.Item1 - 2];
+                }
 
+                Point2D secondPoint = shift1_resCorrectedPoints[tuple.Item2 + 1];
+                if (secondPoint == null)
+                {
+                    secondPoint = shift1_resCorrectedPoints[tuple.Item2 + 2];
+                }
 
+                double k = (firstPoint.Y = secondPoint.Y) / (firstPoint.X - secondPoint.X);
+                double b = firstPoint.Y - k * firstPoint.X;
 
-
-
+                for (int x = tuple.Item1; x <= tuple.Item2; x++)
+                {
+                    double y = k * x + b;
+                    shift1_resCorrectedPoints[x] = new Point2D(x, y);
+                }
+            }
+            */
 
             List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
                 (
