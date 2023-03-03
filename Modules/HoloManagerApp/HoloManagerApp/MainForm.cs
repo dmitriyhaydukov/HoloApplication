@@ -1274,7 +1274,7 @@ namespace HoloManagerApp
                 shift1_resCorrectedPoints[ind] = null;
             }
 
-            /*
+            
             List<Tuple<int, int>> gaps = new List<Tuple<int, int>>();
                         
             int startIndex = 0;
@@ -1287,7 +1287,7 @@ namespace HoloManagerApp
                 {
                     startIndex = j;
                     int k = startIndex;
-                    while (point == null)
+                    while (point == null && k < shift1_resCorrectedPoints.Count)
                     {
                         k++;
                         point = shift1_resCorrectedPoints[k];
@@ -1301,18 +1301,20 @@ namespace HoloManagerApp
             {
                 Tuple<int, int> tuple = gaps[i];
                 Point2D firstPoint = shift1_resCorrectedPoints[tuple.Item1 - 1];
+                /*
                 if (firstPoint == null)
                 {
-                    firstPoint = shift1_resCorrectedPoints[tuple.Item1 - 2];
+                    firstPoint = shift1_resCorrectedPoints[tuple.Item1 - 1];
                 }
+                */
 
-                Point2D secondPoint = shift1_resCorrectedPoints[tuple.Item2 + 1];
+                Point2D secondPoint = shift1_resCorrectedPoints[tuple.Item2];
                 if (secondPoint == null)
                 {
-                    secondPoint = shift1_resCorrectedPoints[tuple.Item2 + 2];
+                    secondPoint = shift1_resCorrectedPoints[tuple.Item2 + 1];
                 }
 
-                double k = (firstPoint.Y = secondPoint.Y) / (firstPoint.X - secondPoint.X);
+                double k = (firstPoint.Y - secondPoint.Y) / (firstPoint.X - secondPoint.X);
                 double b = firstPoint.Y - k * firstPoint.X;
 
                 for (int x = tuple.Item1; x <= tuple.Item2; x++)
@@ -1321,7 +1323,7 @@ namespace HoloManagerApp
                     shift1_resCorrectedPoints[x] = new Point2D(x, y);
                 }
             }
-            */
+            
 
             List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
                 (
