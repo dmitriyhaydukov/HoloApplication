@@ -576,8 +576,8 @@ namespace HoloManagerApp
             //string imagePath1 = @"D:\Images\20220526-Cropped-Filtered4\Image1.png";
             //string imagePath2 = @"D:\Images\20220526-Cropped-Filtered4\Image2.png";
 
-            string imagePath1 = @"D:\Images\20221202\Cropped\3.png";
-            string imagePath2 = @"D:\Images\20221202\Cropped\7.png";
+            string imagePath1 = @"D:\Images\20221202\Cropped\1.png";
+            string imagePath2 = @"D:\Images\20221202\Cropped\5.png";
 
             int row = 50;
 
@@ -1323,7 +1323,21 @@ namespace HoloManagerApp
                     shift1_resCorrectedPoints[x] = new Point2D(x, y);
                 }
             }
-            
+
+            //Start - Smoothing filtration
+            RealMatrix matrixForFiltering = new RealMatrix(1, shift1_resCorrectedPoints.Count);
+            for (int i = 0; i < shift1_resCorrectedPoints.Count; i++)
+            {
+                matrixForFiltering[0, i] = shift1_resCorrectedPoints[i].Y;    
+            }
+            SimpleGrayScaleFilter simpleGrayScaleFilter = new SimpleGrayScaleFilter();
+            int stepX = 7;
+            RealMatrix filteredMatrix = simpleGrayScaleFilter.ExecuteFiltration(matrixForFiltering, stepX, 0);
+            for (int i = 0; i < filteredMatrix.ColumnCount; i++)
+            {
+                shift1_resCorrectedPoints[i] = new Point2D(i, filteredMatrix[0, i]);
+            }
+            //End - Smoothing filtration
 
             List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
                 (
