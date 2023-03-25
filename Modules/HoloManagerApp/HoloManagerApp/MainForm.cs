@@ -1382,7 +1382,7 @@ namespace HoloManagerApp
                 {
                     startIndex = j;
                     int k = startIndex;
-                    while (point == null && k < shift1_resCorrectedPoints.Count)
+                    while (point == null && k < shift1_resCorrectedPoints.Count - 1)
                     {
                         k++;
                         point = shift1_resCorrectedPoints[k];
@@ -1400,26 +1400,32 @@ namespace HoloManagerApp
                 Point2D secondPoint = shift1_resCorrectedPoints[tuple.Item2];
                 if (secondPoint == null)
                 {
-                    secondPoint = shift1_resCorrectedPoints[tuple.Item2 + 1];
+                    int index = tuple.Item2 + 1;
+                    if (index < shift1_resCorrectedPoints.Count)
+                    {
+                        secondPoint = shift1_resCorrectedPoints[tuple.Item2 + 1];
+                    }
                 }
 
-                double k = (firstPoint.Y - secondPoint.Y) / (firstPoint.X - secondPoint.X);
-                double b = firstPoint.Y - k * firstPoint.X;
-
-                for (int x = tuple.Item1; x <= tuple.Item2; x++)
+                if (firstPoint != null && secondPoint != null)
                 {
-                    double y = k * x + b;
-                    shift1_resCorrectedPoints[x] = new Point2D(x, y);
+                    double k = (firstPoint.Y - secondPoint.Y) / (firstPoint.X - secondPoint.X);
+                    double b = firstPoint.Y - k * firstPoint.X;
+
+                    for (int x = tuple.Item1; x <= tuple.Item2; x++)
+                    {
+                        double y = k * x + b;
+                        shift1_resCorrectedPoints[x] = new Point2D(x, y);
+                    }
                 }
             }
-            
 
             //Start - Smoothing filtration
             
             RealMatrix matrixForFiltering = new RealMatrix(1, shift1_resCorrectedPoints.Count);
             for (int i = 0; i < shift1_resCorrectedPoints.Count; i++)
             {
-                matrixForFiltering[0, i] = shift1_resCorrectedPoints[i].Y;    
+                matrixForFiltering[0, i] = shift1_resCorrectedPoints[i] != null ? shift1_resCorrectedPoints[i].Y : 0;    
             }
             SimpleGrayScaleFilter simpleGrayScaleFilter = new SimpleGrayScaleFilter();
             int stepX = 7;
