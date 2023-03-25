@@ -12,6 +12,10 @@ using ExtraLibrary.Randomness;
 namespace Interferometry.InterferogramCreation {
     //Формирователь картин линейных интерференционных полос
     public class LinearFringeInterferogramCreator : InterferogramCreator {
+        
+        private static double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };  // Клин для исправления нелинейности
+        private static double[] interpolatedClin = null;
+
         //----------------------------------------------------------------------------------------------
         int fringeCount;    //Количество интерференционных полос
         //----------------------------------------------------------------------------------------------
@@ -26,6 +30,11 @@ namespace Interferometry.InterferogramCreation {
         Interval<double> finalifnishInterval;
         RealIntervalTransform finalTransform = null;
 
+        //----------------------------------------------------------------------------------------------
+        static LinearFringeInterferogramCreator()
+        {
+            interpolatedClin = InterpolateClin(clin);
+        }
         //----------------------------------------------------------------------------------------------
         //Конструктор
         public LinearFringeInterferogramCreator(
@@ -154,9 +163,60 @@ namespace Interferometry.InterferogramCreation {
             {
                 intensity = transform.TransformToFinishIntervalValue(intensity);
             }
-                       
+
+            intensity = CorrectValueByClin(intensity, interpolatedClin, 255);
+
             return intensity;
         }
+        //----------------------------------------------------------------------------------------------
+        public static double CorrectValueByClin(double idealValue, double[] clinArray, int idealCount)
+        {
+            if (clinArray == null) { return idealValue; }
+            double clinArrayCount = 240;
+
+            int value = Convert.ToInt32(idealValue * clinArrayCount / idealCount);  // от 0 до 240(255)
+            double resValue = clinArray[value];
+            return resValue;
+        }
+        //----------------------------------------------------------------------------------------------
+        private static double[] InterpolateClin(double[] clin)
+        {
+            if (clin == null) { return null; }
+
+            double[] resClin = clin;
+
+            //2^4 = 16 (16 * 16 = 256)
+            int iterationCount = 4;
+            for (int i = 1; i <= iterationCount; i++)
+            {
+                resClin = InterpolateArrayByX2(resClin);
+            }
+            
+            return resClin;
+        }
+        //----------------------------------------------------------------------------------------------
+        private static double[] InterpolateArrayByX2(double[] originArray)
+        {
+            int resLength = originArray.Length * 2;
+            double[] resArray = new double[resLength];
+
+            for (int i = 0; i < resLength - 1; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    resArray[i] = originArray[i / 2];
+                }
+                if (i % 2 != 0)
+                {
+                    double firstValue = originArray[i / 2];
+                    double secondValue = originArray[i / 2 + 1];
+                    resArray[i] = (firstValue + secondValue) / 2;
+                }
+            }
+
+            return resArray;
+        }
+        //----------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------
     }

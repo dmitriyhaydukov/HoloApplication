@@ -576,8 +576,11 @@ namespace HoloManagerApp
             //string imagePath1 = @"D:\Images\20220526-Cropped-Filtered4\Image1.png";
             //string imagePath2 = @"D:\Images\20220526-Cropped-Filtered4\Image2.png";
 
-            string imagePath1 = @"D:\Images\20221202\Cropped\1.png";
-            string imagePath2 = @"D:\Images\20221202\Cropped\5.png";
+            //string imagePath1 = @"D:\Images\20221202\Cropped\1.png";
+            //string imagePath2 = @"D:\Images\20221202\Cropped\5.png";
+
+            string imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
+            string imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
 
             int row = 50;
 
@@ -703,6 +706,65 @@ namespace HoloManagerApp
                 Points = chartTransformPoints2
             });
 
+            List<Point2D> markedPoints1 = new List<Point2D>()
+            {
+                new Point2D(1769, 204),
+                new Point2D(1770, 203),
+                new Point2D(1771, 206),
+                new Point2D(1772, 207),
+                new Point2D(1773, 207),
+                new Point2D(1774, 205),
+                new Point2D(1775, 207),
+                new Point2D(1776, 207),
+                new Point2D(1777, 207),
+                new Point2D(1778, 206),
+                new Point2D(1779, 206),
+                new Point2D(1780, 206),
+                new Point2D(1781, 205),
+                new Point2D(1782, 205),
+                new Point2D(1783, 204),
+                new Point2D(1784, 201),
+                new Point2D(1785, 200)
+            };
+
+            chartTransform.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Marked points 1",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(0, 245, 245),
+                Points = markedPoints1.Select(p => new ChartPoint(p.X, p.Y)).ToList()
+            });
+
+
+            List<Point2D> markedPoints2 = new List<Point2D>()
+            {
+                new Point2D(1769, 152),
+                new Point2D(1770, 150),
+                new Point2D(1771, 149),
+                new Point2D(1772, 148),
+                new Point2D(1773, 149),
+                new Point2D(1774, 149),
+                new Point2D(1775, 147),
+                new Point2D(1776, 146),
+                new Point2D(1777, 145),
+                new Point2D(1778, 144),
+                new Point2D(1779, 145),
+                new Point2D(1780, 146),
+                new Point2D(1781, 143),
+                new Point2D(1782, 139),
+                new Point2D(1783, 139),
+                new Point2D(1784, 142),
+                new Point2D(1785, 139)
+            };
+
+            chartTransform.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Marked points 2",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(0, 245, 245),
+                Points = markedPoints2.Select(p => new ChartPoint(p.X, p.Y)).ToList()
+            });
+                                   
             MemoryWriter.Write<Chart>(chartTransform, new ChartSerialization());
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
 
@@ -806,6 +868,35 @@ namespace HoloManagerApp
                 Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
                 ColorDescriptor = new ColorDescriptor(0, 255, 0),
                 Points = chartPointsIdeal
+            });
+
+            List<Point2D> markedPoints = new List<Point2D>()
+            {
+                new Point2D(204, 152),
+                new Point2D(203, 150),
+                new Point2D(206, 149),
+                new Point2D(207, 148),
+                new Point2D(207, 149),
+                new Point2D(205, 149),
+                new Point2D(207, 147),
+                new Point2D(207, 146),
+                new Point2D(207, 145),
+                new Point2D(206, 144),
+                new Point2D(206, 145),
+                new Point2D(206, 146),
+                new Point2D(205, 143),
+                new Point2D(205, 139),
+                new Point2D(204, 139),
+                new Point2D(201, 142),
+                new Point2D(200, 139)
+            };
+
+            chart.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Marked points",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Bubble,
+                ColorDescriptor = new ColorDescriptor(0, 245, 245),
+                Points = markedPoints.Select(p => new ChartPoint(p.X, p.Y)).ToList()
             });
 
             /*
@@ -1058,9 +1149,12 @@ namespace HoloManagerApp
         }
 
         private void btnDecode_Click(object sender, EventArgs e)
-        {            
-            string shift1_imagePath1 = @"D:\Images\20221202\Cropped\1.png";
-            string shift1_imagePath2 = @"D:\Images\20221202\Cropped\5.png";
+        {
+            string shift1_imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
+            string shift1_imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
+
+            //string shift1_imagePath1 = @"D:\Images\20221202\Cropped\1.png";
+            //string shift1_imagePath2 = @"D:\Images\20221202\Cropped\5.png";
 
             string shift2_imagePath1 = @"D:\Images\20221202\Cropped\2.png";
             string shift2_imagePath2 = @"D:\Images\20221202\Cropped\6.png";
@@ -1254,6 +1348,8 @@ namespace HoloManagerApp
                 shift1Matrix[0, j] = shift1_resCorrectedPoints[j].Y;
             }
             
+            //Eliminate gaps
+            
             List<int> indecesWithNoValue = new List<int>();
             double? prevValue = null;
             for (int j = 0; j < shift1_resCorrectedPoints.Count; j++)
@@ -1273,7 +1369,6 @@ namespace HoloManagerApp
             {
                 shift1_resCorrectedPoints[ind] = null;
             }
-
             
             List<Tuple<int, int>> gaps = new List<Tuple<int, int>>();
                         
@@ -1301,13 +1396,7 @@ namespace HoloManagerApp
             {
                 Tuple<int, int> tuple = gaps[i];
                 Point2D firstPoint = shift1_resCorrectedPoints[tuple.Item1 - 1];
-                /*
-                if (firstPoint == null)
-                {
-                    firstPoint = shift1_resCorrectedPoints[tuple.Item1 - 1];
-                }
-                */
-
+                
                 Point2D secondPoint = shift1_resCorrectedPoints[tuple.Item2];
                 if (secondPoint == null)
                 {
@@ -1323,8 +1412,10 @@ namespace HoloManagerApp
                     shift1_resCorrectedPoints[x] = new Point2D(x, y);
                 }
             }
+            
 
             //Start - Smoothing filtration
+            
             RealMatrix matrixForFiltering = new RealMatrix(1, shift1_resCorrectedPoints.Count);
             for (int i = 0; i < shift1_resCorrectedPoints.Count; i++)
             {
@@ -1337,6 +1428,7 @@ namespace HoloManagerApp
             {
                 shift1_resCorrectedPoints[i] = new Point2D(i, filteredMatrix[0, i]);
             }
+            
             //End - Smoothing filtration
 
             List<Point2D> shift2_pointsIdeal = ModularArithmeticHelper.BuildTable
@@ -1498,5 +1590,63 @@ namespace HoloManagerApp
 
             ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\InterferogramCreatorConsoleApp\InterferogramCreatorConsoleApp\bin\Debug\InterferogramCreatorConsoleApp.exe", arguments, false);
         }
+
+        private void btnClinCurve_Click(object sender, EventArgs e)
+        {
+            double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };  // Клин для исправления нелинейности
+            double[] interpolatedClin = InterpolateClin(clin);
+
+            Chart chartClin = new Chart() { SeriesCollection = new List<ChartSeries>() };
+            chartClin.SeriesCollection.Add(new ChartSeries()
+            {
+                Name = "Chart clin",
+                Type = HoloCommon.Enumeration.Charting.ChartSeriesType.Linear,
+                ColorDescriptor = new ColorDescriptor(255, 0, 0),
+                Points = interpolatedClin.Select(
+                    (x, i) => new ChartPoint(i, x)
+                ).ToList()
+            });
+            MemoryWriter.Write<Chart>(chartClin, new ChartSerialization());
+            ProcessManager.RunProcess(@"D:\Projects\HoloApplication\Modules\ChartApp\ChartApp\bin\Release\ChartApp.exe", null, false, false);
+        }
+
+        private double[] InterpolateClin(double[] clin)
+        {
+            if (clin == null) { return null; }
+
+            double[] resClin = clin;
+
+            //2^4 = 16 (16 * 16 = 256)
+            int iterationCount = 4;
+            for (int i = 1; i <= iterationCount; i++)
+            {
+                resClin = InterpolateArrayByX2(resClin);
+            }
+
+            return resClin;
+        }
+        //----------------------------------------------------------------------------------------------
+        private double[] InterpolateArrayByX2(double[] originArray)
+        {
+            int resLength = originArray.Length * 2;
+            double[] resArray = new double[resLength];
+
+            for (int i = 0; i < resLength - 1; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    resArray[i] = originArray[i / 2];
+                }
+                if (i % 2 != 0)
+                {
+                    double firstValue = originArray[i / 2];
+                    double secondValue = originArray[i / 2 + 1];
+                    resArray[i] = (firstValue + secondValue) / 2;
+                }
+            }
+
+            return resArray;
+        }
+        //----------------------------------------------------------------------------------------------
     }
 }

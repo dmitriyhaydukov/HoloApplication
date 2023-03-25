@@ -43,6 +43,7 @@
             this.btnTakePicturesWithPhaseShifts = new System.Windows.Forms.Button();
             this.btnDecode = new System.Windows.Forms.Button();
             this.btnSinusOriginal = new System.Windows.Forms.Button();
+            this.btnClinCurve = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCorrectedGraph
@@ -138,7 +139,7 @@
             // 
             // txtPhaseShift
             // 
-            this.txtPhaseShift.Location = new System.Drawing.Point(12, 273);
+            this.txtPhaseShift.Location = new System.Drawing.Point(12, 237);
             this.txtPhaseShift.Name = "txtPhaseShift";
             this.txtPhaseShift.Size = new System.Drawing.Size(114, 20);
             this.txtPhaseShift.TabIndex = 9;
@@ -146,7 +147,7 @@
             // lblPhaseShift
             // 
             this.lblPhaseShift.AutoSize = true;
-            this.lblPhaseShift.Location = new System.Drawing.Point(12, 257);
+            this.lblPhaseShift.Location = new System.Drawing.Point(12, 221);
             this.lblPhaseShift.Name = "lblPhaseShift";
             this.lblPhaseShift.Size = new System.Drawing.Size(58, 13);
             this.lblPhaseShift.TabIndex = 10;
@@ -154,7 +155,7 @@
             // 
             // btnCreateTriangleImage
             // 
-            this.btnCreateTriangleImage.Location = new System.Drawing.Point(12, 299);
+            this.btnCreateTriangleImage.Location = new System.Drawing.Point(12, 263);
             this.btnCreateTriangleImage.Name = "btnCreateTriangleImage";
             this.btnCreateTriangleImage.Size = new System.Drawing.Size(114, 42);
             this.btnCreateTriangleImage.TabIndex = 11;
@@ -192,11 +193,22 @@
             this.btnSinusOriginal.UseVisualStyleBackColor = true;
             this.btnSinusOriginal.Click += new System.EventHandler(this.btnSinusOriginal_Click);
             // 
+            // btnClinCurve
+            // 
+            this.btnClinCurve.Location = new System.Drawing.Point(12, 311);
+            this.btnClinCurve.Name = "btnClinCurve";
+            this.btnClinCurve.Size = new System.Drawing.Size(114, 46);
+            this.btnClinCurve.TabIndex = 15;
+            this.btnClinCurve.Text = "Clin curve";
+            this.btnClinCurve.UseVisualStyleBackColor = true;
+            this.btnClinCurve.Click += new System.EventHandler(this.btnClinCurve_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 432);
+            this.ClientSize = new System.Drawing.Size(392, 378);
+            this.Controls.Add(this.btnClinCurve);
             this.Controls.Add(this.btnSinusOriginal);
             this.Controls.Add(this.btnDecode);
             this.Controls.Add(this.btnTakePicturesWithPhaseShifts);
@@ -236,6 +248,7 @@
         private System.Windows.Forms.Button btnTakePicturesWithPhaseShifts;
         private System.Windows.Forms.Button btnDecode;
         private System.Windows.Forms.Button btnSinusOriginal;
+        private System.Windows.Forms.Button btnClinCurve;
     }
 }
 
