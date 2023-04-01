@@ -1599,7 +1599,8 @@ namespace HoloManagerApp
 
         private void btnClinCurve_Click(object sender, EventArgs e)
         {
-            double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };  // Клин для исправления нелинейности
+            //double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };  // Клин для исправления нелинейности
+            double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };
             double[] interpolatedClin = InterpolateClin(clin);
 
             Chart chartClin = new Chart() { SeriesCollection = new List<ChartSeries>() };

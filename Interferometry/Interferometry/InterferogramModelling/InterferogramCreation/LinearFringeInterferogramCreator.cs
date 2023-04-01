@@ -12,8 +12,12 @@ using ExtraLibrary.Randomness;
 namespace Interferometry.InterferogramCreation {
     //Формирователь картин линейных интерференционных полос
     public class LinearFringeInterferogramCreator : InterferogramCreator {
-        
+
         private static double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };  // Клин для исправления нелинейности
+
+        //private static double[] clin = { 70, 75, 80, 84, 88, 92, 96, 99, 104, 108, 118, 132, 149, 168, 192, 255 };  // Клин для исправления нелинейности
+        //private static double[] clin = { 59, 65, 80, 88, 95, 100, 108, 112, 118, 125, 132, 149, 168, 185, 192, 255 };
+
         private static double[] interpolatedClin = null;
 
         //----------------------------------------------------------------------------------------------
