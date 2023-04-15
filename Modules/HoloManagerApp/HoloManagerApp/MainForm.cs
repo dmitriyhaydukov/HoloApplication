@@ -41,7 +41,7 @@ namespace HoloManagerApp
 
         private const int MAX_RANGE_VALUE = 800;
 
-        private const double GAP_DIFFERENCE_VALUE = 60;
+        private const double GAP_DIFFERENCE_VALUE = 80;
 
         public MainForm()
         {
@@ -582,7 +582,13 @@ namespace HoloManagerApp
             string imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
             string imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
 
-            int row = 50;
+            //string imagePath1 = @"D:\Images\20230401\2\Cropped\1.png";
+            //string imagePath2 = @"D:\Images\20230401\2\Cropped\2.png";
+
+            //string imagePath1 = @"D:\Images\20230401\3\1.png";
+            //string imagePath2 = @"D:\Images\20230401\3\2.png";
+
+            int row = 100;
 
             WriteableBitmap bitmap1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath1);
             WriteableBitmap bitmap2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(imagePath2);
@@ -1150,6 +1156,13 @@ namespace HoloManagerApp
 
         private void btnDecode_Click(object sender, EventArgs e)
         {
+            //Ideal sinus images
+            //string shift1_imagePath1 = @"D:\Images\20230401\3\1.png";
+            //string shift1_imagePath2 = @"D:\Images\20230401\3\2.png";
+
+            //string shift1_imagePath1 = @"D:\Images\20230401\2\Cropped\1.png";
+            //string shift1_imagePath2 = @"D:\Images\20230401\2\Cropped\2.png";
+
             string shift1_imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
             string shift1_imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
 
@@ -1165,7 +1178,7 @@ namespace HoloManagerApp
             string shift4_imagePath1 = @"D:\Images\20221202\Cropped\4.png";
             string shift4_imagePath2 = @"D:\Images\20221202\Cropped\8.png";
 
-            int row = 50;
+            int row = 100;
 
 
             WriteableBitmap bitmap_shift1_image1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift1_imagePath1);
@@ -1600,7 +1613,7 @@ namespace HoloManagerApp
         private void btnClinCurve_Click(object sender, EventArgs e)
         {
             //double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };  // Клин для исправления нелинейности
-            double[] clin = { 35, 50, 58, 65, 72, 78, 85, 94, 100, 108, 118, 132, 149, 168, 192, 255 };
+            double[] clin = { 35, 60, 65, 72, 79, 84, 90, 94, 100, 108, 118, 132, 149, 168, 192, 255 };
             double[] interpolatedClin = InterpolateClin(clin);
 
             Chart chartClin = new Chart() { SeriesCollection = new List<ChartSeries>() };
