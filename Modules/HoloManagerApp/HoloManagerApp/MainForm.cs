@@ -579,8 +579,12 @@ namespace HoloManagerApp
             //string imagePath1 = @"D:\Images\20221202\Cropped\1.png";
             //string imagePath2 = @"D:\Images\20221202\Cropped\5.png";
 
-            string imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
-            string imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
+            //string imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
+            //string imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
+
+            //20230318-Cropped
+            string imagePath1 = @"D:\Images\20230318-Cropped\Image1.png";
+            string imagePath2 = @"D:\Images\20230318-Cropped\Image2.png";
 
             //string imagePath1 = @"D:\Images\20230401\2\Cropped\1.png";
             //string imagePath2 = @"D:\Images\20230401\2\Cropped\2.png";
@@ -1163,8 +1167,15 @@ namespace HoloManagerApp
             //string shift1_imagePath1 = @"D:\Images\20230401\2\Cropped\1.png";
             //string shift1_imagePath2 = @"D:\Images\20230401\2\Cropped\2.png";
 
-            string shift1_imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
-            string shift1_imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
+            //string shift1_imagePath1 = @"D:\Images\20230325-Cropped\Image1.png";
+            //string shift1_imagePath2 = @"D:\Images\20230325-Cropped\Image2.png";
+
+            //20230318 - Cropped
+            string shift1_imagePath1 = @"D:\Images\20230318-Cropped\Image1.png";
+            string shift1_imagePath2 = @"D:\Images\20230318-Cropped\Image2.png";
+            
+            //string shift1_imagePath1 = @"D:\Images\20221202\Cropped\1.png";
+            //string shift1_imagePath2 = @"D:\Images\20221202\Cropped\2.png";
 
             //string shift1_imagePath1 = @"D:\Images\20221202\Cropped\1.png";
             //string shift1_imagePath2 = @"D:\Images\20221202\Cropped\5.png";
@@ -1179,7 +1190,6 @@ namespace HoloManagerApp
             string shift4_imagePath2 = @"D:\Images\20221202\Cropped\8.png";
 
             int row = 100;
-
 
             WriteableBitmap bitmap_shift1_image1 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift1_imagePath1);
             WriteableBitmap bitmap_shift1_image2 = WriteableBitmapCreator.CreateWriteableBitmapFromFile(shift1_imagePath2);

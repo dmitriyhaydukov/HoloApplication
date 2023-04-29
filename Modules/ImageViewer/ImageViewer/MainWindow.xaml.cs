@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 using ExtraLibrary.ImageProcessing;
 using ExtraLibrary.OS;
@@ -66,6 +67,10 @@ namespace ImageViewer
                 WriteableBitmap mainBitmap = this.mainViewModel.MainImageSource as WriteableBitmap;
                 
                 double[] yValues = GetRowGrayScaleValues(mainBitmap, row);
+                if (logCheckBox.IsChecked == true)
+                {
+                    yValues = yValues.Select(x => Math.Log(x)).ToArray();
+                }
 
                 Chart chart = new Chart()
                 {
